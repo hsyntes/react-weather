@@ -176,28 +176,6 @@ class App {
   #windSpeedUnit;
   #time;
 
-  #colors = {
-    dark: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-dark"
-    ),
-
-    light: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-light"
-    ),
-
-    black: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-black"
-    ),
-
-    white: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-white"
-    ),
-
-    muted: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-muted"
-    ),
-  };
-
   constructor() {
     this._getPermission();
   }
