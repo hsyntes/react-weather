@@ -46,7 +46,7 @@ class Weather {
       case 45:
       case 48:
         return {
-          weather: "Fog and depositingrime fog",
+          weather: "Fog and depositing rime fog",
           code: "Foggy",
           icon: "fog.png",
         };
@@ -160,11 +160,10 @@ class DailyWeather extends Weather {
   }
 
   // Getting the weekdays
-  _getDay() {
-    return new Intl.DateTimeFormat(navigator.language, {
+  _getDay = () =>
+    new Intl.DateTimeFormat(navigator.language, {
       weekday: "long",
     }).format(new Date(this.date));
-  }
 }
 
 // App Class
@@ -176,6 +175,28 @@ class App {
   #temperatureUnit;
   #windSpeedUnit;
   #time;
+
+  #colors = {
+    dark: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-dark"
+    ),
+
+    light: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-light"
+    ),
+
+    black: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-black"
+    ),
+
+    white: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-white"
+    ),
+
+    muted: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-muted"
+    ),
+  };
 
   constructor() {
     this._getPermission();
@@ -272,7 +293,7 @@ class App {
       </button>
       <div
         class="offcanvas offcanvas-start ${
-          this.#time === "night" ? "bg-dark" : "bg-white"
+          this.#time === "night" ? "bg-black" : "bg-white"
         } shadow border"
         id="offcanvas-nav-menu"
       >
@@ -300,7 +321,7 @@ class App {
                 href="https://github.com/hsyntes"
                 class="d-flex align-items-center ${
                   this.#time === "night"
-                    ? "bg-black text-white"
+                    ? "bg-dark text-white"
                     : "bg-light text-muted"
                 } rounded p-3"
                 target="_blank"
@@ -372,7 +393,7 @@ class App {
     } text-center" style="margin-top: -50px;">
       <img src="../img/${
         this.#currentWeather._getWeatherForecast().icon
-      }" class="img-fluid" width="240" alt="weather_forecast_icon" />
+      }" class="img-fluid" width="136" alt="weather_forecast_icon" />
       <div>
         <span class="h1">
           ${this.#currentWeather.temperature}
@@ -449,6 +470,47 @@ class App {
     });
   }
 
+  _setModal() {
+    const modalSearchCountry = `
+  <div class="modal fade rounded shadow" id="modal-search-country">
+    <div
+      class="modal-dialog modal-dialog-centered modal-fullscreen-md-down"
+    >
+      <div class="modal-content ${
+        this.#time === "night" ? "bg-black" : "bg-white"
+      }">
+        <div class="modal-header ${
+          this.#time === "night" ? "text-white" : "text-muted"
+        } border-0">
+          <h6 class="mb-0">Search country</h6>
+          <button
+            type="button"
+            class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-times fa-xl"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input
+            type="text"
+            name="text"
+            id="input-search-country"
+            class="form-control ${
+              this.#time === "night" ? "bg-dark" : "bg-light"
+            } py-3"
+            placeholder="Search any country"
+          />
+        </div>
+        <div class="modal-footer border-0"></div>
+      </div>
+    </div>
+  </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", modalSearchCountry);
+  }
+
   // Reading the API and getting data from it
   _getWeatherData(position) {
     fetch(
@@ -470,6 +532,7 @@ class App {
       .finally(() => {
         this._renderCurrentWeather();
         this._renderDailyWeather();
+        this._setModal();
       });
   }
 

@@ -1,7 +1,7 @@
 $dark: #212121;
 $black: #191a19;
 
-$light: #9ee4ff;
+$light: rgb(207, 228, 236);
 $white: #f6f6f6;
 
 $primary: #112d4e;
@@ -44,14 +44,17 @@ a {
   }
 }
 
+.btn {
+  &:focus {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
 .btn.text-muted {
   &:hover {
     color: $dark !important;
     transition: $transition-base !important;
-  }
-
-  &:focus {
-    border: none !important;
   }
 }
 
@@ -74,6 +77,32 @@ a {
 ::-webkit-scrollbar-thumb {
   background: gray;
   border-radius: 3rem;
+}
+
+input {
+  &::placeholder {
+    color: $muted;
+  }
+}
+
+input.bg-dark {
+  border: 1px solid rgba($color: $light, $alpha: 0.5);
+  color: $light;
+  &:focus {
+    box-shadow: 0 0 3px rgba($color: $light, $alpha: 0.5);
+    caret-color: $light;
+    color: $light;
+  }
+}
+
+input.bg-light {
+  border: 1px solid rgba($color: $dark, $alpha: 0.5);
+  color: $dark;
+  &:focus {
+    box-shadow: 0 0 3px rgba($color: $dark, $alpha: 0.5);
+    caret-color: $dark;
+    color: $dark;
+  }
 }
 
 body {
