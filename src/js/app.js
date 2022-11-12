@@ -23,7 +23,7 @@ class Weather {
         return {
           weather: "Mainly clear, partly cloudy and overcast",
           code: "Clear",
-          icon: time === "night" ? "night.png" : "sun.png",
+          icon: this.time === "night" ? "night.png" : "sun.png",
         };
 
       case 2:
@@ -209,6 +209,8 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+
+    // this.#time = "day";
   }
 
   // Creating the current weather forecast
@@ -258,12 +260,10 @@ class App {
     document.body.className = this.#time === "night" ? "bg-black" : "bg-light";
 
     const currentWeatherHTML = `
-    <nav class="navbar ${
-      this.#time === "night" ? "bg-dark" : "bg-white"
-    } navbar-light p-3">
+    <nav class="navbar ${this.#time === "night" ? "bg-dark" : "bg-white"} p-3">
       <button
         type="button"
-        class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
+        class="btn ${this.#time === "night" ? "text-white" : "text-black"}"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvas-nav-menu"
       >
@@ -275,8 +275,10 @@ class App {
         } shadow border"
         id="offcanvas-nav-menu"
       >
-        <div class="offcanvas-header">
-          <h4 class="${this.#time === "night" ? "text-white" : "text-muted"}">
+        <div class="offcanvas-header align-items-center">
+          <h4 class="${
+            this.#time === "night" ? "text-white" : "text-black"
+          } mb-0">
             <span>
               <img src="../img/icon.ico" width="32" />
             </span>
@@ -285,7 +287,7 @@ class App {
           <button
             type="button"
             class="btn ${
-              this.#time === "night" ? "text-white" : "text-muted"
+              this.#time === "night" ? "text-white" : "text-black"
             } ms-auto"
             data-bs-dismiss="offcanvas"
           >
@@ -300,11 +302,11 @@ class App {
                 class="d-flex align-items-center ${
                   this.#time === "night"
                     ? "bg-dark text-white"
-                    : "bg-light text-muted"
+                    : "bg-light text-black"
                 } rounded p-3"
                 target="_blank"
               >
-                <div style="width: 48px; heigt: 48px;">
+                <div id="avatar-developer">
                   <img
                     src="https://avatars.githubusercontent.com/u/69708483?v=4"
                     class="img-fluid rounded-circle"
@@ -315,7 +317,7 @@ class App {
                   <span>
                     <span class="fw-bold">Huseyin Ates</span>
                     <span style="font-size: 12px">
-                      (JavaScript Developer)
+                      (JS Developer)
                     </span>
                   </span>
                   <br />
@@ -336,7 +338,7 @@ class App {
       </div>
       <button
         type="button"
-        class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
+        class="btn ${this.#time === "night" ? "text-white" : "text-black"}"
         data-bs-toggle="modal"
         data-bs-target="#modal-search-country"
       >
@@ -345,7 +347,7 @@ class App {
     </nav>
     <header class="${
       this.#time === "night" ? "bg-dark text-white" : "bg-white text-muted"
-    } text-center shadow px-3 pb-5" style="border-radius: 0 0 50% 50%;">
+    } text-center shadow px-3 pb-5">
       <span class="h1">
         <span>
           <i class="fa-solid fa-location-dot"></i>
@@ -362,13 +364,13 @@ class App {
           minute: "2-digit",
         }).format(new Date())}
       </span>
-      <p class="mt-3">
+      <p class="${this.#time === "night" ? "text-white" : "text-black"} mt-3">
         ${this.#currentWeather._getWeatherForecast().weather}
       </p>
     </header>
     <main class="${
       this.#time === "night" ? "text-white" : "text-muted"
-    } text-center" style="margin-top: -50px;">
+    } text-center">
       <img src="../img/${
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid" width="136" alt="weather_forecast_icon" />
@@ -408,7 +410,7 @@ class App {
         <div class="col-6">
           <div class="card ${
             this.#time === "night" ? "bg-dark" : "bg-white"
-          } rounded shadow border-0 py-2">
+          } rounded shadow border-0 py-3">
             <div class="card-header border-0 pb-0">
               <img src="../img/${
                 dailyWeather._getWeatherForecast().icon
@@ -436,7 +438,9 @@ class App {
                 </span>
               </div>
             </div>
-            <div class="card-footer border-0 pt-0">
+            <div class="card-footer ${
+              this.#time === "night" ? "text-light" : "text-black"
+            } border-0 pt-0">
               <span>${dailyWeather._getDay()}</span>
             </div>
           </div>

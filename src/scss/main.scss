@@ -69,55 +69,91 @@ a {
   background: none !important;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-  height: 2px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: gray;
-  border-radius: 3rem;
-}
-
-input {
-  &::placeholder {
-    color: $muted;
-  }
-}
-
 input.bg-dark {
-  border: 1px solid rgba($color: $light, $alpha: 0.5);
-  color: $light;
+  border: 1px solid rgba($color: $white, $alpha: 0.5);
+  color: $white;
+
   &:focus {
-    box-shadow: 0 0 3px rgba($color: $light, $alpha: 0.5);
-    caret-color: $light;
-    color: $light;
+    box-shadow: 0 0 3px rgba($color: $white, $alpha: 0.5);
+    caret-color: $white;
+    color: $white;
+  }
+
+  &::placeholder {
+    color: $white;
   }
 }
 
 input.bg-light {
-  border: 1px solid rgba($color: $dark, $alpha: 0.5);
-  color: $dark;
+  border: 1px solid rgba($color: $black, $alpha: 0.5);
+  color: $black;
+
   &:focus {
-    box-shadow: 0 0 3px rgba($color: $dark, $alpha: 0.5);
-    caret-color: $dark;
-    color: $dark;
+    box-shadow: 0 0 3px rgba($color: $black, $alpha: 0.5);
+    caret-color: $black;
+    color: $black;
   }
+
+  &::placeholder {
+    color: $black;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 2px;
 }
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 100vh;
-  overflow-x: hidden;
+}
+
+body.bg-black {
+  ::-webkit-scrollbar-thumb {
+    background: $white;
+    border-radius: 3rem;
+  }
+}
+
+body.bg-light {
+  ::-webkit-scrollbar-thumb {
+    background: $black;
+    border-radius: 3rem;
+  }
 }
 
 .app {
   height: 100%;
 
+  nav {
+    .offcanvas {
+      .list-group {
+        .list-group-item {
+          #avatar-developer {
+            width: 48px;
+            height: 48px;
+          }
+        }
+      }
+    }
+  }
+
+  header {
+    border-radius: 0 0 30% 30%;
+  }
+
   main {
+    margin-top: -50px;
     img {
       filter: drop-shadow(0 0 50px rgba($dark, $alpha: 0.75));
+    }
+  }
+
+  footer {
+    #daily-weather {
+      overflow-x: scroll;
     }
   }
 }
