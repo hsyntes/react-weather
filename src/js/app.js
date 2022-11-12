@@ -177,12 +177,6 @@ class App {
   #windSpeedUnit;
   #time;
 
-  #colors = {
-    dark: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-dark"
-    ),
-  };
-
   constructor() {
     this._getPermission();
   }
@@ -364,6 +358,7 @@ class App {
       <br />
       <span class="h2" id="time">
         ${new Intl.DateTimeFormat(navigator.language, {
+          weekday: "short",
           hour: "2-digit",
           minute: "2-digit",
         }).format(new Date())}
@@ -377,7 +372,7 @@ class App {
     } text-center" style="margin-top: -50px;">
       <img src="../img/${
         this.#currentWeather._getWeatherForecast().icon
-      }" class="img-fluid" width="208" alt="weather_forecast_icon" />
+      }" class="img-fluid" width="240" alt="weather_forecast_icon" />
       <div>
         <span class="h1">
           ${this.#currentWeather.temperature}
