@@ -227,7 +227,7 @@ class App {
     );
   }
 
-  // Creating daily weather forecasts for 7 days
+  // Creating daily weather forecasts for 1 week
   _createDailyWeather(data) {
     const { weathercode, temperature_2m_max, temperature_2m_min, time } =
       data.daily;
@@ -395,6 +395,7 @@ class App {
       .insertAdjacentHTML("afterbegin", currentWeatherHTML);
   }
 
+  // Showing daily weather forecast on the display
   _renderDailyWeather() {
     document.querySelector(
       "#daily-weather"
@@ -448,6 +449,7 @@ class App {
     });
   }
 
+  // Setting search country modal
   _setModal() {
     const modalSearchCountry = `
   <div class="modal fade rounded shadow" id="modal-search-country">
