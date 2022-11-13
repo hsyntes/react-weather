@@ -44,13 +44,6 @@ a {
   }
 }
 
-.btn {
-  &:focus {
-    border: none !important;
-    box-shadow: none !important;
-  }
-}
-
 .btn.text-muted {
   &:hover {
     color: $dark !important;

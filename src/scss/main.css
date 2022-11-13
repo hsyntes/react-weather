@@ -13,11 +13,6 @@ a {
   background: none;
 }
 
-.btn:focus {
-  border: none !important;
-  box-shadow: none !important;
-}
-
 .btn.text-muted:hover {
   color: #212121 !important;
   transition: all 0.3s ease-out !important;
