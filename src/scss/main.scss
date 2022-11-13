@@ -51,12 +51,6 @@ a {
   }
 }
 
-.card-header {
-  img {
-    filter: drop-shadow(0 0 25px rgba($dark, $alpha: 0.5));
-  }
-}
-
 .card-header,
 .card-footer {
   background: none !important;
@@ -139,7 +133,7 @@ body.bg-light {
 
   main {
     margin-top: -50px;
-    img {
+    img.img-light {
       filter: drop-shadow(0 0 50px rgba($dark, $alpha: 0.75));
     }
   }
@@ -147,6 +141,11 @@ body.bg-light {
   footer {
     #daily-weather {
       overflow-x: scroll;
+      .card-header {
+        img.img-day {
+          filter: drop-shadow(0 0 25px rgba($dark, $alpha: 0.5));
+        }
+      }
     }
   }
 }

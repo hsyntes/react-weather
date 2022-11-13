@@ -18,10 +18,6 @@ a {
   transition: all 0.3s ease-out !important;
 }
 
-.card-header img {
-  filter: drop-shadow(0 0 25px rgba(33, 33, 33, 0.5));
-}
-
 .card-header,
 .card-footer {
   background: none !important;
@@ -98,11 +94,14 @@ body.bg-light ::-webkit-scrollbar-thumb {
 .app main {
   margin-top: -50px;
 }
-.app main img {
+.app main img.img-light {
   filter: drop-shadow(0 0 50px rgba(33, 33, 33, 0.75));
 }
 .app footer #daily-weather {
   overflow-x: scroll;
+}
+.app footer #daily-weather .card-header img.img-day {
+  filter: drop-shadow(0 0 25px rgba(33, 33, 33, 0.5));
 }
 
 /*!

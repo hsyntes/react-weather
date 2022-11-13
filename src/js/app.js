@@ -269,8 +269,8 @@ class App {
       </button>
       <div
         class="offcanvas offcanvas-start ${
-          this.#time === "night" ? "bg-black" : "bg-white"
-        } shadow"
+          this.#time === "night" ? "bg-black" : "bg-white shadow"
+        }"
         id="offcanvas-nav-menu"
       >
         <div class="offcanvas-header align-items-center">
@@ -344,8 +344,10 @@ class App {
       </button>
     </nav>
     <header class="${
-      this.#time === "night" ? "bg-dark text-white" : "bg-white text-muted"
-    } text-center shadow px-3 pb-5">
+      this.#time === "night"
+        ? "bg-dark text-white"
+        : "bg-white text-muted shadow"
+    } text-center px-3 pb-5">
       <span class="h1">
         <span>
           <i class="fa-solid fa-location-dot"></i>
@@ -371,7 +373,9 @@ class App {
     } text-center">
       <img src="../img/${
         this.#currentWeather._getWeatherForecast().icon
-      }" class="img-fluid" width="136" alt="weather_forecast_icon" />
+      }" class="img-fluid ${
+      this.#time === "night" ? "img-dark" : "img-day"
+    }" width="136" alt="weather_forecast_icon" />
       <div>
         <span class="h1">
           ${this.#currentWeather.temperature}
@@ -407,15 +411,17 @@ class App {
       const dailyWeatherHTML = `
         <div class="col-6">
           <div class="card ${
-            this.#time === "night" ? "bg-dark" : "bg-white"
-          } rounded shadow border-0 py-3">
+            this.#time === "night" ? "bg-dark" : "bg-white shadow"
+          } rounded border-0 py-2">
             <div class="card-header border-0 pb-0">
               <img src="../img/${
                 dailyWeather._getWeatherForecast().icon
-              }" class="img-fluid" alt="weather_forecast_icon" />
+              }" class="img-fluid ${
+        this.#time === "night" ? "img-dark" : "img-day"
+      }" width="64" alt="weather_forecast_icon" />
               <br />
               <span class="${
-                this.#time === "night" ? "text-white" : "text-black"
+                this.#time === "night" ? "text-light" : "text-black"
               }">${dailyWeather._getWeatherForecast().code}</span>
             </div>
             <div class="card-body">
