@@ -270,7 +270,7 @@ class App {
       <div
         class="offcanvas offcanvas-start ${
           this.#time === "night" ? "bg-black" : "bg-white"
-        } shadow border"
+        } shadow"
         id="offcanvas-nav-menu"
       >
         <div class="offcanvas-header align-items-center">
@@ -362,7 +362,7 @@ class App {
           minute: "2-digit",
         }).format(new Date())}
       </span>
-      <p class="${this.#time === "night" ? "text-white" : "text-black"} mt-3">
+      <p class="${this.#time === "night" ? "text-white" : "text-muted"} mt-3">
         ${this.#currentWeather._getWeatherForecast().weather}
       </p>
     </header>
@@ -462,12 +462,12 @@ class App {
         this.#time === "night" ? "bg-black" : "bg-white"
       }">
         <div class="modal-header ${
-          this.#time === "night" ? "text-white" : "text-muted"
+          this.#time === "night" ? "text-white" : "text-black"
         } border-0">
           <h6 class="mb-0">Search country</h6>
           <button
             type="button"
-            class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
+            class="btn ${this.#time === "night" ? "text-white" : "text-black"}"
             data-bs-dismiss="modal"
           >
             <i class="fa fa-times fa-xl"></i>
@@ -494,11 +494,15 @@ class App {
   }
 
   // Reading the API and getting data from it
-  _getWeatherData(position) {
+  _getWeatherData = (position) =>
     fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
     )
-      .then((promise) => promise.json())
+      .then((promise) => {
+        if (!promise.ok) throw new Error(promise.status);
+
+        return promise.json();
+      })
       .then((data) => {
         const { temperature_2m_max, windspeed_10m_max } = data.daily_units;
 
@@ -510,30 +514,18 @@ class App {
         this._setTheme(data);
         this._createCurrentWeather(data);
         this._createDailyWeather(data);
-      })
-      .finally(() => {
         this._renderCurrentWeather();
         this._renderDailyWeather();
         this._setModal();
-      });
-  }
-
-  // Showing error to user
-  _showError(error) {
-    $("#modal-error").modal("show");
-    document.querySelector("#modal-error-text").textContent = error;
-  }
+      })
+      .catch((err) => console.error(err.message))
+      .finally();
 
   // Getting location permission from user
-  _getPermission() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => this._getWeatherData(position),
-      () =>
-        this._showError(
-          "You have to allow the location permission to use this application."
-        )
+  _getPermission = () =>
+    navigator.geolocation.getCurrentPosition((position) =>
+      this._getWeatherData(position)
     );
-  }
 }
 
 const app = new App();
