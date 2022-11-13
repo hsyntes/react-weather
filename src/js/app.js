@@ -261,7 +261,7 @@ class App {
     <nav class="navbar ${this.#time === "night" ? "bg-dark" : "bg-white"} p-3">
       <button
         type="button"
-        class="btn ${this.#time === "night" ? "text-white" : "text-black"}"
+        class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvas-nav-menu"
       >
@@ -300,7 +300,7 @@ class App {
                 class="d-flex align-items-center ${
                   this.#time === "night"
                     ? "bg-dark text-white"
-                    : "bg-light text-black"
+                    : "bg-light text-muted"
                 } rounded p-3"
                 target="_blank"
               >
@@ -336,7 +336,7 @@ class App {
       </div>
       <button
         type="button"
-        class="btn ${this.#time === "night" ? "text-white" : "text-black"}"
+        class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
         data-bs-toggle="modal"
         data-bs-target="#modal-search-country"
       >
@@ -355,14 +355,14 @@ class App {
         </span>
       </span>
       <br />
-      <span class="h2" id="time">
+      <span class="h2">
         ${new Intl.DateTimeFormat(navigator.language, {
           weekday: "short",
           hour: "2-digit",
           minute: "2-digit",
         }).format(new Date())}
       </span>
-      <p class="${this.#time === "night" ? "text-white" : "text-muted"} mt-3">
+      <p class="${this.#time === "night" ? "text-white" : "text-black"} mt-3">
         ${this.#currentWeather._getWeatherForecast().weather}
       </p>
     </header>
@@ -414,7 +414,9 @@ class App {
                 dailyWeather._getWeatherForecast().icon
               }" class="img-fluid" alt="weather_forecast_icon" />
               <br />
-              <span>${dailyWeather._getWeatherForecast().code}</span>
+              <span class="${
+                this.#time === "night" ? "text-white" : "text-black"
+              }">${dailyWeather._getWeatherForecast().code}</span>
             </div>
             <div class="card-body">
               <div class="text-center">
@@ -476,7 +478,7 @@ class App {
         <div class="modal-body">
           <input
             type="text"
-            name="text"
+            name="input-search-country"
             id="input-search-country"
             class="form-control ${
               this.#time === "night" ? "bg-dark" : "bg-light"
