@@ -1,7 +1,7 @@
 $dark: #212121;
 $black: #191a19;
 
-$light: #cfe4ec;
+$light: #bef5ff;
 $white: #f6f6f6;
 
 $primary: #112d4e;
@@ -133,8 +133,8 @@ body.bg-light {
 
   main {
     margin-top: -50px;
-    img.img-light {
-      filter: drop-shadow(0 0 50px rgba($dark, $alpha: 0.75));
+    img.img-day {
+      filter: drop-shadow(0 0 30px rgba($dark, $alpha: 0.75));
     }
   }
 
@@ -143,7 +143,7 @@ body.bg-light {
       overflow-x: scroll;
       .card-header {
         img.img-day {
-          filter: drop-shadow(0 0 25px rgba($dark, $alpha: 0.5));
+          filter: drop-shadow(0 0 15px rgba($dark, $alpha: 0.75));
         }
       }
     }
