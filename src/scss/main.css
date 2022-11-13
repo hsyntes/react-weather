@@ -56,13 +56,13 @@ input.bg-light:focus {
   color: #191a19;
 }
 input.bg-light::-moz-placeholder {
-  color: #191a19;
+  color: rgba(33, 33, 33, 0.75);
 }
 input.bg-light:-ms-input-placeholder {
-  color: #191a19;
+  color: rgba(33, 33, 33, 0.75);
 }
 input.bg-light::placeholder {
-  color: #191a19;
+  color: rgba(33, 33, 33, 0.75);
 }
 
 ::-webkit-scrollbar {

@@ -454,7 +454,7 @@ class App {
   // Setting search country modal
   _setModal() {
     const modalSearchCountry = `
-  <div class="modal fade rounded shadow" id="modal-search-country">
+  <div class="modal fade" id="modal-search-country">
     <div
       class="modal-dialog modal-dialog-centered modal-fullscreen-md-down"
     >
