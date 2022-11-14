@@ -375,7 +375,7 @@ class App {
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid ${
       this.#time === "night" ? "img-dark" : "img-day"
-    }" width="192" alt="weather_forecast_icon" />
+    }" width="168" alt="weather_forecast_icon" />
       <div>
         <span class="h1">
           ${this.#currentWeather.temperature}
@@ -418,7 +418,7 @@ class App {
                 dailyWeather._getWeatherForecast().icon
               }" class="img-fluid ${
         this.#time === "night" ? "img-dark" : "img-day"
-      }" width="96" alt="weather_forecast_icon" />
+      }" width="84" alt="weather_forecast_icon" />
               <br />
               <span class="${
                 this.#time === "night" ? "text-light" : "text-black"
