@@ -209,6 +209,8 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+
+    // this.#time = "night";
   }
 
   // Creating the current weather forecast
@@ -293,8 +295,8 @@ class App {
           </button>
         </div>
         <div class="offcanvas-body">
-          <div class="list-group">
-            <div class="list-group-item border-0 ps-0">
+          <ul class="list-group">
+            <li class="list-group-item border-0 ps-0">
               <a
                 href="https://github.com/hsyntes"
                 class="d-flex align-items-center ${
@@ -330,8 +332,8 @@ class App {
                   <i class="fa fa-angle-right"></i>
                 </span>
               </a>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
       <button
@@ -356,7 +358,7 @@ class App {
           ${this.#currentWeather.timezone.split("/")[1]}
         </span>
       </span>
-      <br />
+      <br /> <br />
       <span class="h2">
         ${new Intl.DateTimeFormat(navigator.language, {
           weekday: "short",
@@ -364,7 +366,7 @@ class App {
           minute: "2-digit",
         }).format(new Date())}
       </span>
-      <p class="${this.#time === "night" ? "text-white" : "text-black"} mt-3">
+      <p class="${this.#time === "night" ? "text-white" : "text-black"} my-1">
         ${this.#currentWeather._getWeatherForecast().weather}
       </p>
     </header>
@@ -375,7 +377,7 @@ class App {
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid ${
       this.#time === "night" ? "img-dark" : "img-day"
-    }" width="136" alt="weather_forecast_icon" />
+    }" width="192" alt="weather_forecast_icon" />
       <div>
         <span class="h1">
           ${this.#currentWeather.temperature}
@@ -418,7 +420,7 @@ class App {
                 dailyWeather._getWeatherForecast().icon
               }" class="img-fluid ${
         this.#time === "night" ? "img-dark" : "img-day"
-      }" width="64" alt="weather_forecast_icon" />
+      }" width="96" alt="weather_forecast_icon" />
               <br />
               <span class="${
                 this.#time === "night" ? "text-light" : "text-black"
@@ -428,7 +430,9 @@ class App {
               <div class="text-center">
                 <span>
                   <i class="fa-regular fa-sun"></i>
-                  ${dailyWeather.temperatureMax}
+                  <span class="ms-1">
+                    ${dailyWeather.temperatureMax}
+                  </span>
                 </span>
                 <span>
                   <sup>${dailyWeather.tempUnit}</sup>
@@ -437,7 +441,9 @@ class App {
               <div class="text-center">
                 <span>
                   <i class="fa-regular fa-moon"></i>
-                  ${dailyWeather.temperatureMin}
+                  <span>
+                    ${dailyWeather.temperatureMin}
+                  </span>
                 </span>
                 <span>
                   <sup>${dailyWeather.tempUnit}</sup>
