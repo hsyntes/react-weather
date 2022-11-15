@@ -21,14 +21,14 @@ class Weather {
 
       case 1:
         return {
-          weather: "Mainly clear, partly cloudy and overcast",
+          weather: "Mainly clear",
           code: "Clear",
           icon: this.time === "night" ? "night.png" : "sun.png",
         };
 
       case 2:
         return {
-          weather: "Mainly clear, partly cloudy and overcast",
+          weather: "Partly cloudy",
           code: "Partly Cloudy",
           icon:
             this.time === "night"
@@ -38,7 +38,7 @@ class Weather {
 
       case 3:
         return {
-          weather: "Mainly clear, partly cloudy and overcast",
+          weather: "Cloudy, overcast",
           code: "Cloudy",
           icon: "cloudy.png",
         };
