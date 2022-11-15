@@ -102,7 +102,7 @@ class Weather {
       case 86:
         return {
           weather: "Snow showers slight and heavy",
-          code: "Snowly",
+          code: "Snowy",
           icon: "snow.png",
         };
 
