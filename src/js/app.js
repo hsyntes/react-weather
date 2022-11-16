@@ -253,6 +253,14 @@ class App {
     this.#dailyWeather.shift();
   }
 
+  // Getting the current time
+  _getTime = () =>
+    new Intl.DateTimeFormat(navigator.language, {
+      weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(new Date());
+
   // Showing both the current and daily weather on the display
   _renderCurrentWeather() {
     document.body.className = this.#time === "night" ? "bg-black" : "bg-light";
@@ -357,13 +365,7 @@ class App {
         </span>
       </span>
       <br /> <br />
-      <span class="h2">
-        ${new Intl.DateTimeFormat(navigator.language, {
-          weekday: "short",
-          hour: "2-digit",
-          minute: "2-digit",
-        }).format(new Date())}
-      </span>
+      <span class="h2" id="current-time">${this._getTime()}</span>
       <p class="${this.#time === "night" ? "text-white" : "text-black"} my-1">
         ${this.#currentWeather._getWeatherForecast().weather}
       </p>
@@ -378,7 +380,7 @@ class App {
     }" width="168" alt="weather_forecast_icon" />
       <div>
         <span class="h1">
-          ${this.#currentWeather.temperature}
+          ${Math.round(this.#currentWeather.temperature)}
           <sup>${this.#currentWeather.tempUnit}</sup>
         </span>
         <br />
@@ -399,13 +401,25 @@ class App {
       .insertAdjacentHTML("afterbegin", currentWeatherHTML);
   }
 
+  // Updating the current time
+  _updateTime = () =>
+    setInterval(
+      () =>
+        (document.querySelector("#current-time").textContent = this._getTime()),
+      1000
+    );
+
   // Showing daily weather forecast on the display
   _renderDailyWeather() {
-    document.querySelector(
-      "#daily-weather"
-    ).className = `row flex-nowrap py-3 text-center ${
+    const footer = document.createElement("footer");
+    footer.className = "mt-auto p-3";
+
+    const dailyWeatherDiv = document.createElement("div");
+    dailyWeatherDiv.className = `row flex-nowrap py-3 text-center ${
       this.#time === "night" ? "text-white" : "text-muted"
     }`;
+    dailyWeatherDiv.setAttribute("id", "daily-weather");
+    dailyWeatherDiv.innerHTML = "";
 
     this.#dailyWeather.forEach((dailyWeather) => {
       const dailyWeatherHTML = `
@@ -429,7 +443,7 @@ class App {
                 <span>
                   <i class="fa-regular fa-sun"></i>
                   <span class="ms-1">
-                    ${dailyWeather.temperatureMax}
+                    ${Math.round(dailyWeather.temperatureMax)}
                   </span>
                 </span>
                 <span>
@@ -440,7 +454,7 @@ class App {
                 <span>
                   <i class="fa-regular fa-moon"></i>
                   <span>
-                    ${dailyWeather.temperatureMin}
+                    ${Math.round(dailyWeather.temperatureMin)}
                   </span>
                 </span>
                 <span>
@@ -457,10 +471,11 @@ class App {
         </div>
         `;
 
-      document
-        .querySelector("#daily-weather")
-        .insertAdjacentHTML("beforeend", dailyWeatherHTML);
+      dailyWeatherDiv.innerHTML += dailyWeatherHTML;
+      footer.append(dailyWeatherDiv);
     });
+
+    document.querySelector(".app").append(footer);
   }
 
   // Setting search country modal
@@ -510,11 +525,7 @@ class App {
     fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
     )
-      .then((promise) => {
-        if (!promise.ok) throw new Error(promise.status);
-
-        return promise.json();
-      })
+      .then((promise) => promise.json())
       .then((data) => {
         const { temperature_2m_max, windspeed_10m_max } = data.daily_units;
 
@@ -526,17 +537,22 @@ class App {
         this._setTheme(data);
         this._createCurrentWeather(data);
         this._createDailyWeather(data);
+
         this._renderCurrentWeather();
+        this._updateTime();
         this._renderDailyWeather();
         this._setModal();
-      })
-      .catch((err) => console.error(err.message))
-      .finally();
+      });
+  // .finally();
+
+  // Showing error message to user
+  _showError = () => $("#modal-error").modal("show");
 
   // Getting location permission from user
   _getPermission = () =>
-    navigator.geolocation.getCurrentPosition((position) =>
-      this._getWeatherData(position)
+    navigator.geolocation.getCurrentPosition(
+      (position) => this._getWeatherData(position),
+      () => this._showError()
     );
 }
 
