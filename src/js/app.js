@@ -609,7 +609,7 @@ class App {
 
   // Showing error message to user
   _showError(err) {
-    const modal = `
+    const modalError = `
     <div class="modal fade" id="modal-error" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-white text-muted rounded shadow border-0">
@@ -637,7 +637,7 @@ class App {
       </div>
     </div>
       `;
-    this.#app.insertAdjacentHTML("beforeend", modal);
+    this.#app.insertAdjacentHTML("beforeend", modalError);
     $("#modal-error").modal("show");
   }
 
