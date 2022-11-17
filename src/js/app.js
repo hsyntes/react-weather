@@ -169,6 +169,7 @@ class App {
     this._createApp(className);
   }
 
+  // Creating the app div
   _createApp(className) {
     this.#app = document.createElement("div");
     this.#app.className = className;
@@ -481,7 +482,7 @@ class App {
       1000
     );
 
-  // Updating the current data
+  // Updating the current and daily weather's data
   _updateData() {
     [
       document.querySelector("#timezone").textContent,
@@ -568,7 +569,7 @@ class App {
     );
 
   // Showing error message to user
-  _showError = (err) => {
+  _showError(err) {
     const modal = `
   <div class="modal fade" id="modal-error" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
@@ -600,7 +601,7 @@ class App {
 
     document.body.insertAdjacentHTML("beforeend", modal);
     $("#modal-error").modal("show");
-  };
+  }
 
   // Reading the API and getting data from it
   _getWeatherData = (position) =>
