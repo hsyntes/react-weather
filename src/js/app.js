@@ -189,27 +189,25 @@ class App {
     const currentHour = new Date().getHours();
     const currentMinute = new Date().getMinutes();
 
-    setInterval(() => {
-      if (currentHour >= 12) {
-        currentHour >= Number(sunsetHour)
+    if (currentHour >= 12) {
+      currentHour >= Number(sunsetHour)
+        ? (this.#time = "night")
+        : (this.#time = "day");
+
+      if (currentHour === Number(sunsetHour))
+        currentMinute >= Number(sunsetMinute)
           ? (this.#time = "night")
           : (this.#time = "day");
+    } else {
+      currentHour <= Number(sunriseHour)
+        ? (this.#time = "night")
+        : (this.#time = "day");
 
-        if (currentHour === Number(sunsetHour))
-          currentMinute >= Number(sunsetMinute)
-            ? (this.#time = "night")
-            : (this.#time = "day");
-      } else {
-        currentHour <= Number(sunriseHour)
+      if (currentHour === Number(sunriseHour))
+        currentMinute <= Number(sunriseMinute)
           ? (this.#time = "night")
           : (this.#time = "day");
-
-        if (currentHour === Number(sunriseHour))
-          currentMinute <= Number(sunriseMinute)
-            ? (this.#time = "night")
-            : (this.#time = "day");
-      }
-    }, 60000);
+    }
   }
 
   // Creating the current weather forecast
@@ -599,6 +597,8 @@ class App {
                 this._createDailyWeather(data);
 
                 this._updateData();
+
+                this._setTheme(data);
               }),
           60000
         );
