@@ -343,7 +343,9 @@ class App {
       </div>
       <button
         type="button"
-        class="btn ${this.#time === "night" ? "text-white" : "text-muted"}"
+        class="btn btn-search ${
+          this.#time === "night" ? "text-white" : "text-muted"
+        }"
         data-bs-toggle="modal"
         data-bs-target="#modal-search-country"
       >
@@ -396,9 +398,7 @@ class App {
     </main>
     `;
 
-    document
-      .querySelector(".app")
-      .insertAdjacentHTML("afterbegin", currentWeatherHTML);
+    this.#app.insertAdjacentHTML("afterbegin", currentWeatherHTML);
   }
 
   // Showing daily weather forecast on the display
@@ -519,7 +519,7 @@ class App {
   }
 
   // Setting search country modal
-  _setModal() {
+  _setModalSearch() {
     const modalSearchCountry = `
   <div class="modal fade" id="modal-search-country">
     <div
@@ -557,7 +557,7 @@ class App {
   </div>
     `;
 
-    document.body.insertAdjacentHTML("beforeend", modalSearchCountry);
+    this.#app.insertAdjacentHTML("beforeend", modalSearchCountry);
   }
 
   // Calling the fetch API
@@ -603,7 +603,7 @@ class App {
           60000
         );
 
-        this._setModal();
+        this._setModalSearch();
       });
   // .finally();
 
@@ -637,8 +637,7 @@ class App {
       </div>
     </div>
       `;
-
-    document.body.insertAdjacentHTML("beforeend", modal);
+    this.#app.insertAdjacentHTML("beforeend", modal);
     $("#modal-error").modal("show");
   }
 
