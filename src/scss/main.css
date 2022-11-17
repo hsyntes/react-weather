@@ -3397,7 +3397,7 @@ textarea.form-control-lg {
   --bs-dropdown-inner-border-radius: calc(1rem - 1px);
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-divider-margin-y: 0.5rem;
-  --bs-dropdown-box-shadow: 0 0 20px rgba(33, 33, 33, 0.1);
+  --bs-dropdown-box-shadow: 0 0 20px rgba(33, 33, 33, 0.15);
   --bs-dropdown-link-color: rgba(33, 33, 33, 0.75);
   --bs-dropdown-link-hover-color: #212121;
   --bs-dropdown-link-hover-bg: #e2fbff;
@@ -5353,7 +5353,7 @@ textarea.form-control-lg {
   --bs-toast-border-width: 1px;
   --bs-toast-border-color: var(--bs-border-color-translucent);
   --bs-toast-border-radius: 1rem;
-  --bs-toast-box-shadow: 0 0 20px rgba(33, 33, 33, 0.1);
+  --bs-toast-box-shadow: 0 0 20px rgba(33, 33, 33, 0.15);
   --bs-toast-header-color: #6c757d;
   --bs-toast-header-bg: rgba(246, 246, 246, 0.85);
   --bs-toast-header-border-color: rgba(25, 26, 25, 0.05);
@@ -5561,7 +5561,7 @@ textarea.form-control-lg {
 @media (min-width: 576px) {
   .modal {
     --bs-modal-margin: 1.75rem;
-    --bs-modal-box-shadow: 0 0 20px rgba(33, 33, 33, 0.1);
+    --bs-modal-box-shadow: 0 0 20px rgba(33, 33, 33, 0.15);
   }
   .modal-dialog {
     max-width: var(--bs-modal-width);
@@ -5814,7 +5814,7 @@ textarea.form-control-lg {
   --bs-popover-border-color: var(--bs-border-color-translucent);
   --bs-popover-border-radius: 0.5rem;
   --bs-popover-inner-border-radius: calc(0.5rem - 1px);
-  --bs-popover-box-shadow: 0 0 20px rgba(33, 33, 33, 0.1);
+  --bs-popover-box-shadow: 0 0 20px rgba(33, 33, 33, 0.15);
   --bs-popover-header-padding-x: 1rem;
   --bs-popover-header-padding-y: 0.5rem;
   --bs-popover-header-font-size: 1rem;
@@ -7260,7 +7260,7 @@ textarea.form-control-lg {
 }
 
 .shadow {
-  box-shadow: 0 0 20px rgba(33, 33, 33, 0.1) !important;
+  box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }
 
 .shadow-sm {
