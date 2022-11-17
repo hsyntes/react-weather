@@ -590,9 +590,9 @@ class App {
             this._callAPI(position)
               .then((promise) => promise.json())
               .then((data) => {
-                console.log(data);
                 this._createCurrentWeather(data);
                 this._createDailyWeather(data);
+
                 this._updateData();
               }),
           60000
