@@ -179,7 +179,7 @@ class App {
     const currentMinute = new Date().getMinutes();
 
     setInterval(() => {
-      if (currentHour > 12) {
+      if (currentHour >= 12) {
         currentHour > Number(sunsetHour)
           ? (this.#time = "night")
           : (this.#time = "day");
