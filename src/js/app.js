@@ -15,7 +15,6 @@ class Weather {
       case 0:
         return {
           weather: "Clear sky",
-          code: "Clear",
           icon: this.time === "night" ? "night.png" : "sun.png",
         };
 
@@ -29,7 +28,6 @@ class Weather {
       case 2:
         return {
           weather: "Partly cloudy",
-          code: "Partly Cloudy",
           icon:
             this.time === "night"
               ? "partly-cloudy-night.png"
@@ -38,16 +36,14 @@ class Weather {
 
       case 3:
         return {
-          weather: "Cloudy, overcast",
-          code: "Cloudy",
+          weather: "Cloudy",
           icon: "cloudy.png",
         };
 
       case 45:
       case 48:
         return {
-          weather: "Fog and depositing rime fog",
-          code: "Foggy",
+          weather: "Foggy",
           icon: "fog.png",
         };
 
@@ -57,8 +53,7 @@ class Weather {
       case 56:
       case 57:
         return {
-          weather: "Drizzle: light, moderate and dense intensity",
-          code: "Light rainly",
+          weather: "Light rainly",
           icon: "light-rain.png",
         };
 
@@ -66,16 +61,14 @@ class Weather {
       case 63:
       case 65:
         return {
-          weather: "Rain: slight, moderate and heavy intensity",
-          code: "Slight rainly",
+          weather: "Slight rainly",
           icon: "rain.png",
         };
 
       case 66:
       case 67:
         return {
-          weather: "Freezing rain: light and heavy intensity",
-          code: "Heavy rainly",
+          weather: "Heavy rainly",
           icon: "heavy-rain.png",
         };
 
@@ -84,8 +77,7 @@ class Weather {
       case 75:
       case 77:
         return {
-          weather: "Snowfall: slight, moderate and heavy intensity",
-          code: "Snowly",
+          weather: "Snowfall",
           icon: "snow.png",
         };
 
@@ -93,31 +85,27 @@ class Weather {
       case 81:
       case 82:
         return {
-          weather: "Rain showers: slight, moderate and violent",
-          code: "Heavy rainly",
+          weather: "Heavy rainly",
           icon: "heavy-rain.png",
         };
 
       case 85:
       case 86:
         return {
-          weather: "Snow showers slight and heavy",
-          code: "Snowy",
+          weather: "Snowy",
           icon: "snow.png",
         };
 
       case 95:
       case 96:
         return {
-          weather: "Thunderstorm: slight or moderate",
-          code: "Thunderstorm",
+          weather: "Thunderstorm",
           icon: "storm.png",
         };
 
       case 99:
         return {
-          weather: "Thunderstorm with slight and heavy hail",
-          code: "Thunderstorm",
+          weather: "Thunderstorm",
           icon: "storm.png",
         };
     }
@@ -190,25 +178,27 @@ class App {
     const currentHour = new Date().getHours();
     const currentMinute = new Date().getMinutes();
 
-    if (currentHour > 12) {
-      currentHour > Number(sunsetHour)
-        ? (this.#time = "night")
-        : (this.#time = "day");
-
-      if (currentHour === Number(sunsetHour))
-        currentMinute > Number(sunsetMinute)
+    setInterval(() => {
+      if (currentHour > 12) {
+        currentHour > Number(sunsetHour)
           ? (this.#time = "night")
           : (this.#time = "day");
-    } else {
-      currentHour < Number(sunriseHour)
-        ? (this.#time = "night")
-        : (this.#time = "day");
 
-      if (currentHour === Number(sunriseHour))
-        currentMinute < Number(sunriseMinute)
+        if (currentHour === Number(sunsetHour))
+          currentMinute > Number(sunsetMinute)
+            ? (this.#time = "night")
+            : (this.#time = "day");
+      } else {
+        currentHour < Number(sunriseHour)
           ? (this.#time = "night")
           : (this.#time = "day");
-    }
+
+        if (currentHour === Number(sunriseHour))
+          currentMinute < Number(sunriseMinute)
+            ? (this.#time = "night")
+            : (this.#time = "day");
+      }
+    }, 1000);
   }
 
   // Creating the current weather forecast
@@ -436,7 +426,7 @@ class App {
               <br />
               <span class="${
                 this.#time === "night" ? "text-light" : "text-black"
-              }">${dailyWeather._getWeatherForecast().code}</span>
+              }">${dailyWeather._getWeatherForecast().weather}</span>
             </div>
             <div class="card-body">
               <div class="text-center">
