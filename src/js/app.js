@@ -350,13 +350,14 @@ class App {
         <span>
           <i class="fa-solid fa-location-dot"></i>
         </span>
-        <span>
+        <span id="timezone">
           ${this.#currentWeather.timezone.split("/")[1]}
         </span>
       </span>
       <br /> <br />
       <span class="h2" id="current-time">${this._getTime()}</span>
-      <p class="${this.#time === "night" ? "text-white" : "text-black"} my-1">
+      <p class="${this.#time === "night" ? "text-white" : "text-black"} my-1"
+        id ="current-weather">
         ${this.#currentWeather._getWeatherForecast().weather}
       </p>
     </header>
@@ -367,9 +368,9 @@ class App {
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid ${
       this.#time === "night" ? "img-dark" : "img-day"
-    }" width="168" alt="weather_forecast_icon" />
+    }" id="current-weather-icon" width="168" alt="weather_forecast_icon" />
       <div>
-        <span class="h1">
+        <span class="h1" id="current-temperature">
           ${Math.round(this.#currentWeather.temperature)}
           <sup>${this.#currentWeather.tempUnit}</sup>
         </span>
@@ -377,7 +378,7 @@ class App {
         <span>
           <i class="fas fa-wind"></i>
         </span>
-        <span>
+        <span id="current-windspeed">
           ${this.#currentWeather.windSpeed} ${
       this.#currentWeather.windSpeedUnit
     }
@@ -390,14 +391,6 @@ class App {
       .querySelector(".app")
       .insertAdjacentHTML("afterbegin", currentWeatherHTML);
   }
-
-  // Updating the current time
-  _updateTime = () =>
-    setInterval(
-      () =>
-        (document.querySelector("#current-time").textContent = this._getTime()),
-      1000
-    );
 
   // Showing daily weather forecast on the display
   _renderDailyWeather() {
@@ -420,11 +413,11 @@ class App {
             <div class="card-header border-0 pb-0">
               <img src="../img/${
                 dailyWeather._getWeatherForecast().icon
-              }" class="img-fluid ${
+              }" class="img-fluid daily-weather-icon ${
         this.#time === "night" ? "img-dark" : "img-day"
       }" width="84" alt="weather_forecast_icon" />
               <br />
-              <span class="${
+              <span class="daily-weather ${
                 this.#time === "night" ? "text-light" : "text-black"
               }">${dailyWeather._getWeatherForecast().weather}</span>
             </div>
@@ -432,7 +425,7 @@ class App {
               <div class="text-center">
                 <span>
                   <i class="fa-regular fa-sun"></i>
-                  <span class="ms-1">
+                  <span class="daily-weather-temperature-max ms-1">
                     ${Math.round(dailyWeather.temperatureMax)}
                   </span>
                 </span>
@@ -443,7 +436,7 @@ class App {
               <div class="text-center">
                 <span>
                   <i class="fa-regular fa-moon"></i>
-                  <span>
+                  <span class="daily-weather-temperature-min ms-1">
                     ${Math.round(dailyWeather.temperatureMin)}
                   </span>
                 </span>
@@ -455,7 +448,7 @@ class App {
             <div class="card-footer ${
               this.#time === "night" ? "text-light" : "text-black"
             } border-0 pt-0">
-              <span>${dailyWeather._getDay()}</span>
+              <span class="daily-weather-day">${dailyWeather._getDay()}</span>
             </div>
           </div>
         </div>
@@ -466,6 +459,59 @@ class App {
     });
 
     document.querySelector(".app").append(footer);
+  }
+
+  // Updating the current time
+  _updateTime = () =>
+    setInterval(
+      () =>
+        (document.querySelector("#current-time").textContent = this._getTime()),
+      1000
+    );
+
+  _updateData() {
+    [
+      document.querySelector("#timezone").textContent,
+      document.querySelector("#current-weather").textContent,
+      document.querySelector("#current-weather-icon").src,
+      document.querySelector("#current-temperature").innerHTML,
+      document.querySelector("#current-windspeed").textContent,
+    ] = [
+      this.#currentWeather.timezone.split("/")[1],
+      this.#currentWeather._getWeatherForecast().weather,
+      `../img/${this.#currentWeather._getWeatherForecast().icon}`,
+      `
+      <span class="h1" id="current-temperature">
+        ${Math.round(this.#currentWeather.temperature)}
+        <sup>${this.#currentWeather.tempUnit}</sup>
+      </span>
+      `,
+      `${this.#currentWeather.windSpeed} ${this.#currentWeather.windSpeedUnit}`,
+    ];
+
+    this.#dailyWeather.forEach((dailyWeather, index) => {
+      [
+        document.querySelectorAll(".daily-weather-icon").src,
+        document.querySelectorAll(".daily-weather").textContent,
+        document.querySelectorAll(".daily-weather-temperature-max").textContent,
+        document.querySelectorAll(".daily-weather-temperature-min").textContent,
+        document.querySelectorAll(".daily-weather-day").textContent,
+      ] = [
+        `../img/${dailyWeather._getWeatherForecast().icon}`,
+        dailyWeather._getWeatherForecast().weather,
+        Math.round(dailyWeather.temperatureMax),
+        Math.round(dailyWeather.temperatureMin),
+        dailyWeather._getDay(),
+      ];
+
+      // document
+      //   .querySelectorAll(".daily-weather-icon")
+      //   .forEach((dailyWeatherIcon) => {
+      //     dailyWeatherIcon.src = `../img/${
+      //       dailyWeather._getWeatherForecast().icon
+      //     }`;
+      //   });
+    });
   }
 
   // Setting search country modal
@@ -525,12 +571,30 @@ class App {
         ];
 
         this._setTheme(data);
+
         this._createCurrentWeather(data);
         this._createDailyWeather(data);
 
         this._renderCurrentWeather();
-        this._updateTime();
         this._renderDailyWeather();
+
+        this._updateTime();
+
+        setInterval(
+          () =>
+            fetch(
+              `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
+            )
+              .then((promise) => promise.json())
+              .then((data) => {
+                this._createCurrentWeather(data);
+                this._createDailyWeather(data);
+
+                this._updateData();
+              }),
+          1000
+        );
+
         this._setModal();
       });
   // .finally();
