@@ -156,6 +156,7 @@ class DailyWeather extends Weather {
 
 // App Class
 class App {
+  #app;
   #currentWeather;
 
   #dailyWeather = [];
@@ -169,10 +170,10 @@ class App {
   }
 
   _createApp(className) {
-    const app = document.createElement("div");
-    app.className = className;
+    this.#app = document.createElement("div");
+    this.#app.className = className;
 
-    document.body.prepend(app);
+    document.body.prepend(this.#app);
 
     this._getPermission();
   }
