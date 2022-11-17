@@ -164,7 +164,16 @@ class App {
   #windSpeedUnit;
   #time;
 
-  constructor() {
+  constructor(className) {
+    this._createApp(className);
+  }
+
+  _createApp(className) {
+    const app = document.createElement("div");
+    app.className = className;
+
+    document.body.prepend(app);
+
     this._getPermission();
   }
 
@@ -471,6 +480,7 @@ class App {
       1000
     );
 
+  // Updating the current data
   _updateData() {
     [
       document.querySelector("#timezone").textContent,
@@ -505,14 +515,6 @@ class App {
         Math.round(dailyWeather.temperatureMin),
         dailyWeather._getDay(),
       ];
-
-      // document
-      //   .querySelectorAll(".daily-weather-icon")
-      //   .forEach((dailyWeatherIcon) => {
-      //     dailyWeatherIcon.src = `../img/${
-      //       dailyWeather._getWeatherForecast().icon
-      //     }`;
-      //   });
     });
   }
 
@@ -558,10 +560,46 @@ class App {
     document.body.insertAdjacentHTML("beforeend", modalSearchCountry);
   }
 
+  // Calling the fetch API
   _callAPI = (position) =>
     fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
     );
+
+  // Showing error message to user
+  _showError = (err) => {
+    const modal = `
+  <div class="modal fade" id="modal-error" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-white text-muted rounded shadow border-0">
+        <div class="modal-header pb-0 border-0">
+          <h6 class="text-primary mx-auto mb-0">
+            <span>
+              <i class="fa fa-warning text-primary"></i>
+            </span>
+            <span>Error</span>
+          </h6>
+        </div>
+        <div class="modal-body">
+          <p class="text-center text-muted mb-0" id="modal-error-text">${err}</p>
+        </div>
+        <div class="modal-footer py-0 border-0">
+          <button
+            type="button"
+            class="btn text-primary mx-auto px-4 py-2"
+            data-bs-dismiss="modal"
+          >
+            Got it
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", modal);
+    $("#modal-error").modal("show");
+  };
 
   // Reading the API and getting data from it
   _getWeatherData = (position) =>
@@ -602,41 +640,6 @@ class App {
       });
   // .finally();
 
-  // Showing error message to user
-  _showError = (err) => {
-    const modal = `
-  <div class="modal fade" id="modal-error" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-white text-muted rounded shadow border-0">
-        <div class="modal-header pb-0 border-0">
-          <h6 class="text-primary mx-auto mb-0">
-            <span>
-              <i class="fa fa-warning text-primary"></i>
-            </span>
-            <span>Error</span>
-          </h6>
-        </div>
-        <div class="modal-body">
-          <p class="text-center text-muted mb-0" id="modal-error-text">${err}</p>
-        </div>
-        <div class="modal-footer py-0 border-0">
-          <button
-            type="button"
-            class="btn text-primary mx-auto px-4 py-2"
-            data-bs-dismiss="modal"
-          >
-            Got it
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-    `;
-
-    document.body.insertAdjacentHTML("beforeend", modal);
-    $("#modal-error").modal("show");
-  };
-
   // Getting location permission from user
   _getPermission = () =>
     navigator.geolocation.getCurrentPosition(
@@ -648,4 +651,4 @@ class App {
     );
 }
 
-const app = new App();
+const app = new App("app d-flex flex-column");
