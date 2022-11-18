@@ -439,7 +439,7 @@ class App {
     </header>
     <main class="${
       this.#time === "night" ? "text-white" : "text-muted"
-    } text-center p-3">
+    } text-center px-3">
       <img src="../img/${
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid ${
@@ -473,7 +473,7 @@ class App {
     footer.className = "p-3";
 
     const dailyWeatherDiv = document.createElement("div");
-    dailyWeatherDiv.className = `row flex-nowrap pb-2 text-center ${
+    dailyWeatherDiv.className = `row flex-nowrap py-3 text-center ${
       this.#time === "night" ? "text-white" : "text-muted"
     }`;
     dailyWeatherDiv.setAttribute("id", "daily-weather");
