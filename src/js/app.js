@@ -637,6 +637,7 @@ class App {
       </div>
     </div>
       `;
+
     this.#app.insertAdjacentHTML("beforeend", modalError);
     $("#modal-error").modal("show");
   }
