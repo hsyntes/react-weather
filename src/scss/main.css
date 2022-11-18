@@ -63,27 +63,39 @@ input.bg-light::placeholder {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
   height: 2px;
+}
+
+hr.hr-black {
+  background: #191a19 !important;
+  color: #191a19 !important;
+}
+
+hr.hr-white {
+  background: #f6f6f6 !important;
+  color: #f6f6f6 !important;
 }
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 100vh;
+  overflow-y: scroll;
 }
 
 body.bg-black ::-webkit-scrollbar-thumb {
-  background: #f6f6f6;
+  background: #e2fbff;
   border-radius: 3rem;
 }
 
 body.bg-light ::-webkit-scrollbar-thumb {
-  background: #191a19;
+  background: #212121;
   border-radius: 3rem;
 }
 
 .app {
   height: 100vh;
+  overflow-y: scroll;
 }
 .app nav .offcanvas .list-group .list-group-item #avatar-developer {
   width: 48px;
@@ -93,7 +105,7 @@ body.bg-light ::-webkit-scrollbar-thumb {
   border-radius: 0 0 30% 30%;
 }
 .app main {
-  margin-top: -50px;
+  margin-top: -70px;
 }
 .app main img.img-day {
   filter: drop-shadow(0 0 30px rgba(33, 33, 33, 0.5));
@@ -209,7 +221,7 @@ hr {
   margin: 1rem 0;
   color: inherit;
   border: 0;
-  border-top: 1px solid;
+  border-top: 2px solid;
   opacity: 0.25;
 }
 

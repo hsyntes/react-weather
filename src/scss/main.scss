@@ -20,6 +20,8 @@ $h4-font-size: 2.4rem;
 $h5-font-size: 1.8rem;
 $h6-font-size: 1.4rem;
 
+$input-font-size: 1rem;
+
 $border-color: $text-muted;
 $border-radius: 1rem;
 $box-shadow: 0 0 20px rgba($dark, $alpha: 0.15);
@@ -31,6 +33,8 @@ $dropdown-link-hover-color: $dark;
 $transition-base: all 0.3s ease-out;
 
 $modal-fade-transform: scale(0.9);
+
+$hr-border-width: 2px;
 
 p {
   font-size: 1rem !important;
@@ -92,8 +96,18 @@ input.bg-light {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
   height: 2px;
+}
+
+hr.hr-black {
+  background: $black !important;
+  color: $black !important;
+}
+
+hr.hr-white {
+  background: $white !important;
+  color: $white !important;
 }
 
 body {
@@ -101,24 +115,26 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 100vh;
   // overflow: hidden;
+  overflow-y: scroll;
 }
 
 body.bg-black {
   ::-webkit-scrollbar-thumb {
-    background: $white;
+    background: $light;
     border-radius: 3rem;
   }
 }
 
 body.bg-light {
   ::-webkit-scrollbar-thumb {
-    background: $black;
+    background: $dark;
     border-radius: 3rem;
   }
 }
 
 .app {
   height: 100vh;
+  overflow-y: scroll;
   nav {
     .offcanvas {
       .list-group {
@@ -137,7 +153,7 @@ body.bg-light {
   }
 
   main {
-    margin-top: -50px;
+    margin-top: -70px;
     img.img-day {
       filter: drop-shadow(0 0 30px rgba($dark, $alpha: 0.5));
     }

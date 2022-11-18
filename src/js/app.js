@@ -159,7 +159,28 @@ class App {
   #app;
   #currentWeather;
 
+  #colors = {
+    white: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-white"
+    ),
+
+    black: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-black"
+    ),
+
+    light: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-light"
+    ),
+
+    dark: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-dark"
+    ),
+  };
+
+  #tempChart;
+
   #dailyWeather = [];
+  #currentDailyWeather;
 
   #temperatureUnit;
   #windSpeedUnit;
@@ -169,7 +190,7 @@ class App {
     this._createApp(className);
   }
 
-  // Creating the app div
+  // Creating the app container
   _createApp(className) {
     this.#app = document.createElement("div");
     this.#app.className = className;
@@ -177,7 +198,15 @@ class App {
     document.body.prepend(this.#app);
 
     this._getPermission();
+
+    this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
   }
+
+  // Calling the fetch API
+  _callAPI = (position) =>
+    fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode,temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
+    );
 
   // Setting the theme by time
   _setTheme(data) {
@@ -260,6 +289,42 @@ class App {
       minute: "2-digit",
     }).format(new Date());
 
+  // Creating line chart temperatures by hours
+  _createTempChart(data) {
+    const hours = [];
+    data.hourly.time.slice(1, 6).forEach((hour) => hours.push(hour.slice(-5)));
+
+    const temperatures = [];
+    data.hourly.temperature_2m
+      .slice(1, 6)
+      .forEach((temperature) => temperatures.push(temperature));
+
+    const ctx = document.querySelector("#temp-chart");
+
+    this.#tempChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: hours,
+        datasets: [
+          {
+            label: "Hourly",
+            data: temperatures,
+
+            borderColor: `${
+              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            }`,
+
+            borderJoinStyle: "round",
+
+            backgroundColor: `${
+              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            }`,
+          },
+        ],
+      },
+    });
+  }
+
   // Showing both the current and daily weather on the display
   _renderCurrentWeather() {
     document.body.className = this.#time === "night" ? "bg-black" : "bg-light";
@@ -315,7 +380,7 @@ class App {
                   <img
                     src="https://avatars.githubusercontent.com/u/69708483?v=4"
                     class="img-fluid rounded-circle"
-                    alt="developer"
+                    alt="_developer"
                   />
                 </div>
                 <div class="ms-3">
@@ -374,12 +439,12 @@ class App {
     </header>
     <main class="${
       this.#time === "night" ? "text-white" : "text-muted"
-    } text-center">
+    } text-center p-3">
       <img src="../img/${
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid ${
       this.#time === "night" ? "img-dark" : "img-day"
-    }" id="current-weather-icon" width="168" alt="weather_forecast_icon" />
+    }" id="current-weather-icon" width="168" alt="_weather_forecast_icon" />
       <div>
         <span class="h1" id="current-temperature">
           ${Math.round(this.#currentWeather.temperature)}
@@ -395,6 +460,7 @@ class App {
     }
         </span>
       </div>
+      <canvas id="temp-chart""></canvas>
     </main>
     `;
 
@@ -404,10 +470,10 @@ class App {
   // Showing daily weather forecast on the display
   _renderDailyWeather() {
     const footer = document.createElement("footer");
-    footer.className = "mt-auto p-3";
+    footer.className = "p-3";
 
     const dailyWeatherDiv = document.createElement("div");
-    dailyWeatherDiv.className = `row flex-nowrap py-3 text-center ${
+    dailyWeatherDiv.className = `row flex-nowrap pb-2 text-center ${
       this.#time === "night" ? "text-white" : "text-muted"
     }`;
     dailyWeatherDiv.setAttribute("id", "daily-weather");
@@ -418,13 +484,16 @@ class App {
         <div class="col-6">
           <div class="card ${
             this.#time === "night" ? "bg-dark" : "bg-white shadow"
-          } rounded border-0 py-2">
+          } rounded border-0 py-2"
+          data-bs-toggle="modal"
+          data-bs-target="#modal-daily-weather"
+          daily-weather-data=${index}>
             <div class="card-header border-0 pb-0">
               <img src="../img/${
                 dailyWeather._getWeatherForecast().icon
               }" class="img-fluid daily-weather-icon ${
         this.#time === "night" ? "img-dark" : "img-day"
-      }" width="84" alt="weather_forecast_icon" />
+      }" width="84" alt="_weather_forecast_icon" />
               <br />
               <span class="daily-weather ${
                 this.#time === "night" ? "text-light" : "text-black"
@@ -501,70 +570,72 @@ class App {
       `${this.#currentWeather.windSpeed} ${this.#currentWeather.windSpeedUnit}`,
     ];
 
-    this.#dailyWeather.forEach((dailyWeather, index) => {
-      [
-        document.querySelectorAll(".daily-weather-icon").src,
-        document.querySelectorAll(".daily-weather").textContent,
-        document.querySelectorAll(".daily-weather-temperature-max").textContent,
-        document.querySelectorAll(".daily-weather-temperature-min").textContent,
-        document.querySelectorAll(".daily-weather-day").textContent,
-      ] = [
-        `../img/${dailyWeather._getWeatherForecast().icon}`,
-        dailyWeather._getWeatherForecast().weather,
-        Math.round(dailyWeather.temperatureMax),
-        Math.round(dailyWeather.temperatureMin),
-        dailyWeather._getDay(),
-      ];
-    });
+    // this.#dailyWeather.forEach((dailyWeather, index) => {
+    //   [
+    //     document.querySelectorAll(".daily-weather-icon").src,
+    //     document.querySelectorAll(".daily-weather").textContent,
+    //     document.querySelectorAll(".daily-weather-temperature-max").textContent,
+    //     document.querySelectorAll(".daily-weather-temperature-min").textContent,
+    //     document.querySelectorAll(".daily-weather-day").textContent,
+    //   ] = [
+    //     `../img/${dailyWeather._getWeatherForecast().icon}`,
+    //     dailyWeather._getWeatherForecast().weather,
+    //     Math.round(dailyWeather.temperatureMax),
+    //     Math.round(dailyWeather.temperatureMin),
+    //     dailyWeather._getDay(),
+    //   ];
+    // });
   }
 
   // Setting search country modal
-  _setModalSearch() {
-    const modalSearchCountry = `
-  <div class="modal fade" id="modal-search-country">
-    <div
-      class="modal-dialog modal-dialog-centered modal-fullscreen-md-down"
-    >
-      <div class="modal-content ${
-        this.#time === "night" ? "bg-black" : "bg-white"
-      }">
-        <div class="modal-header ${
-          this.#time === "night" ? "text-white" : "text-black"
-        } border-0">
-          <h6 class="mb-0">Search country</h6>
-          <button
-            type="button"
-            class="btn ${this.#time === "night" ? "text-white" : "text-black"}"
-            data-bs-dismiss="modal"
-          >
-            <i class="fa fa-times fa-xl"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input
-            type="text"
-            name="input-search-country"
-            id="input-search-country"
-            class="form-control ${
-              this.#time === "night" ? "bg-dark" : "bg-light"
-            } py-3"
-            placeholder="Search any country"
-          />
-        </div>
-        <div class="modal-footer border-0"></div>
-      </div>
-    </div>
-  </div>
-    `;
+  _setModals() {
+    document
+      .querySelectorAll(".modal-content")
+      .forEach(
+        (modalContent) =>
+          (modalContent.className += ` ${
+            this.#time === "night"
+              ? "bg-black text-white"
+              : "bg-white text-muted"
+          }`)
+      );
 
-    this.#app.insertAdjacentHTML("beforeend", modalSearchCountry);
+    document
+      .querySelectorAll(".modal-title")
+      .forEach(
+        (modalTitle) =>
+          (modalTitle.className += ` ${
+            this.#time === "night" ? "text-white" : "text-black"
+          }`)
+      );
+
+    document
+      .querySelectorAll(".btn-close-modal")
+      .forEach(
+        (btnCloseModal) =>
+          (btnCloseModal.className += ` ${
+            this.#time === "night" ? "text-white" : "text-black"
+          }`)
+      );
+
+    document
+      .querySelectorAll(".modal-input")
+      .forEach(
+        (modalInput) =>
+          (modalInput.className += ` ${
+            this.#time === "night" ? "bg-dark" : "bg-light"
+          }`)
+      );
+
+    document
+      .querySelectorAll("hr")
+      .forEach(
+        (hr) =>
+          (hr.className = `mx-auto w-50 ${
+            this.#time === "night" ? "hr-white" : "hr-black"
+          }`)
+      );
   }
-
-  // Calling the fetch API
-  _callAPI = (position) =>
-    fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
-    );
 
   // Reading the API and getting data from it
   _getWeatherData = (position) =>
@@ -586,6 +657,8 @@ class App {
         this._renderCurrentWeather();
         this._renderDailyWeather();
 
+        this._createTempChart(data);
+
         this._updateTime();
 
         setInterval(
@@ -594,7 +667,7 @@ class App {
               .then((promise) => promise.json())
               .then((data) => {
                 this._createCurrentWeather(data);
-                this._createDailyWeather(data);
+                // this._createDailyWeather(data);
 
                 this._updateData();
 
@@ -603,7 +676,7 @@ class App {
           60000
         );
 
-        this._setModalSearch();
+        this._setModals();
       });
   // .finally();
 
@@ -614,12 +687,12 @@ class App {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-white text-muted rounded shadow border-0">
           <div class="modal-header pb-0 border-0">
-            <h6 class="text-primary mx-auto mb-0">
+            <h4 class="text-primary mx-auto mb-0">
               <span>
                 <i class="fa fa-warning text-primary"></i>
               </span>
               <span>Error</span>
-            </h6>
+            </h4>
           </div>
           <div class="modal-body">
             <p class="text-center text-muted mb-0" id="modal-error-text">${err}</p>
@@ -651,6 +724,60 @@ class App {
           "You have to allow the location permission to use this app."
         )
     );
+
+  // Getting the current daily weather's data (clicked)
+  _getCurrentDailyWeather(e) {
+    const clickedCard = e.target.closest(".card");
+
+    if (!clickedCard) return;
+
+    this.#currentDailyWeather =
+      this.#dailyWeather[clickedCard.getAttribute("daily-weather-data")];
+
+    const [
+      currentDailyWeatherImg,
+      currentDailyWeatherDay,
+      currentDailyWeatherWeather,
+      currentDailyWeatherTemperatureMax,
+      currentDailyWeatherTemperatureMin,
+    ] = [
+      document.querySelector("#current-daily-weather-img"),
+      document.querySelector("#current-daily-weather-day"),
+      document.querySelector("#current-daily-weather-weather"),
+      document.querySelector("#current-daily-weather-temperature-max"),
+      document.querySelector("#current-daily-weather-temperature-min"),
+    ];
+
+    [
+      currentDailyWeatherImg.src,
+      currentDailyWeatherDay.textContent,
+      currentDailyWeatherWeather.textContent,
+      currentDailyWeatherTemperatureMax.innerHTML,
+      currentDailyWeatherTemperatureMin.innerHTML,
+    ] = [
+      `../img/${this.#currentDailyWeather._getWeatherForecast().icon}`,
+      this.#currentDailyWeather._getDay(),
+      this.#currentDailyWeather._getWeatherForecast().weather,
+      `
+    <span>
+      <i class="fa-regular fa-sun"></i>
+      <span class="ms-1">
+        ${Math.round(this.#currentDailyWeather.temperatureMax)}
+        <sup>${this.#currentDailyWeather.tempUnit}</sup>
+      </span>
+    </span>
+      `,
+      `
+    <span>
+      <i class="fa-regular fa-moon"></i>
+      <span class="ms-1">
+        ${Math.round(this.#currentDailyWeather.temperatureMin)}
+        <sup>${this.#currentDailyWeather.tempUnit}</sup>
+      </span>
+    </span>
+      `,
+    ];
+  }
 }
 
 const app = new App("app d-flex flex-column");
