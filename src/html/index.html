@@ -10,82 +10,80 @@
     <title>Weather Forecast</title>
   </head>
   <body>
-    <div class="modal fade" id="modal-search-country">
-      <div class="modal-dialog modal-dialog-centered modal-fullscreen-xl-down">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <h5 class="modal-title mb-0">Search country</h5>
-            <button
-              type="button"
-              class="btn btn-close-modal"
-              data-bs-dismiss="modal"
-            >
-              <i class="fa fa-times fa-xl"></i>
-            </button>
-          </div>
-          <div class="modal-body">
-            <input
-              type="text"
-              name="input-search-country"
-              id="input-search-country"
-              class="form-control modal-input py-3"
-              placeholder="Search any country"
-            />
-          </div>
-          <div class="modal-footer border-0"></div>
-        </div>
+    <div
+      class="offcanvas offcanvas-bottom rounded"
+      id="offcanvas-search-country"
+      style="height: 90%"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title mb-0">Search country</h5>
+        <button
+          type="button"
+          class="btn btn-close-offcanvas"
+          data-bs-dismiss="offcanvas"
+        >
+          <i class="fa fa-times fa-xl"></i>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <input
+          type="text"
+          name="input-search-country"
+          id="input-search-country"
+          class="form-control offcanvas-input py-3"
+          placeholder="Search any country"
+        />
       </div>
     </div>
-    <div class="modal fade" id="modal-daily-weather">
-      <div class="modal-dialog modal-dialog-centered modal-fullscreen-xl-down">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <h5 class="modal-title mb-0" id="current-daily-weather-day"></h5>
-            <button
-              type="button"
-              class="btn btn-close-modal ms-auto"
-              data-bs-dismiss="modal"
-            >
-              <i class="fa fa-times fa-xl"></i>
-            </button>
+    <div
+      class="offcanvas offcanvas-bottom rounded"
+      id="offcanvas-daily-weather"
+      style="height: 90%"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title mb-0" id="current-daily-weather-day"></h5>
+        <button
+          type="button"
+          class="btn btn-close-offcanvas"
+          data-bs-dismiss="offcanvas"
+        >
+          <i class="fa fa-times fa-xl"></i>
+        </button>
+      </div>
+      <div
+        class="offcanvas-body d-flex flex-column align-items-center text-center"
+      >
+        <h2 class="mb-0" id="current-daily-weather-location"></h2>
+        <img
+          src=""
+          id="current-daily-weather-img"
+          width="168"
+          alt="_current_daily_weather_icon"
+        />
+        <div>
+          <span class="h4" id="current-daily-weather-weather"></span>
+        </div>
+        <div class="w-100 my-auto">
+          <div class="my-4">
+            <span id="current-daily-weather-temperature-max"> </span>
+            <br />
+            <span id="current-daily-weather-temperature-min"> </span>
+            <br />
+            <span id="current-daily-weather-windspeed"></span>
           </div>
-          <div
-            class="modal-body d-flex flex-column align-items-center text-center"
+          <!-- <hr /> -->
+          <button
+            type="button"
+            id="btn-other-data"
+            class="btn"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse-other-data"
           >
-            <h2 class="mb-0" id="current-daily-weather-location"></h2>
-            <img
-              src=""
-              id="current-daily-weather-img"
-              width="168"
-              alt="_current_daily_weather_icon"
-            />
-            <div>
-              <span class="h4" id="current-daily-weather-weather"></span>
-            </div>
-            <div class="w-100 my-auto">
-              <div class="my-4">
-                <span id="current-daily-weather-temperature-max"> </span>
-                <br />
-                <span id="current-daily-weather-temperature-min"> </span>
-                <br />
-                <span id="current-daily-weather-windspeed"></span>
-              </div>
-              <!-- <hr /> -->
-              <button
-                type="button"
-                id="btn-other-data"
-                class="btn"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapse-other-data"
-              >
-                Show other data
-              </button>
-              <div class="collapse" id="collapse-other-data">
-                <div class="others-current-weather-data"></div>
-              </div>
-            </div>
+            Show other data
+          </button>
+          <div class="collapse" id="collapse-other-data">
+            <div class="others-current-weather-data"></div>
           </div>
-          <div class="modal-footer border-0"></div>
         </div>
       </div>
     </div>

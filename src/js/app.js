@@ -439,8 +439,8 @@ class App {
         class="btn btn-search ${
           this.#time === "night" ? "text-white" : "text-muted"
         }"
-        data-bs-toggle="modal"
-        data-bs-target="#modal-search-country"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvas-search-country"
       >
         <i class="fa fa-search fa-xl"></i>
       </button>
@@ -513,8 +513,8 @@ class App {
           <div class="card ${
             this.#time === "night" ? "bg-dark" : "bg-white shadow"
           } rounded border-0 py-2"
-          data-bs-toggle="modal"
-          data-bs-target="#modal-daily-weather"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-daily-weather"
           daily-weather-data=${index}>
             <div class="card-header border-0 pb-0">
               <img src="../img/${
@@ -599,52 +599,43 @@ class App {
     ];
   }
 
-  // Setting search country modal
-  _setModals() {
+  // Setting offcanvases
+  _setOffcanvases() {
     document
-      .querySelectorAll(".modal-content")
+      .querySelectorAll(".offcanvas")
       .forEach(
-        (modalContent) =>
-          (modalContent.className += ` ${
+        (offcanvas) =>
+          (offcanvas.className += ` ${
             this.#time === "night"
-              ? "bg-black text-white"
-              : "bg-white text-muted"
+              ? "bg-black text-white border"
+              : "bg-white text-muted border-0 shadow"
           }`)
       );
 
     document
-      .querySelectorAll(".modal-title")
+      .querySelectorAll(".offcanvas-title")
       .forEach(
-        (modalTitle) =>
-          (modalTitle.className += ` ${
+        (offcanvasTitle) =>
+          (offcanvasTitle.className += ` ${
             this.#time === "night" ? "text-white" : "text-black"
           }`)
       );
 
     document
-      .querySelectorAll(".btn-close-modal")
+      .querySelectorAll(".offcanvas-input")
       .forEach(
-        (btnCloseModal) =>
-          (btnCloseModal.className += ` ${
+        (offcanvasInput) =>
+          (offcanvasInput.className += ` ${
+            this.#time === "night" ? "input-dark" : "input-light"
+          }`)
+      );
+
+    document
+      .querySelectorAll(".btn-close-offcanvas")
+      .forEach(
+        (btnCloseOffcanvas) =>
+          (btnCloseOffcanvas.className += ` ${
             this.#time === "night" ? "text-white" : "text-black"
-          }`)
-      );
-
-    document
-      .querySelectorAll(".modal-input")
-      .forEach(
-        (modalInput) =>
-          (modalInput.className += ` ${
-            this.#time === "night" ? "bg-dark" : "bg-light"
-          }`)
-      );
-
-    document
-      .querySelectorAll("hr")
-      .forEach(
-        (hr) =>
-          (hr.className = `mx-auto w-50 ${
-            this.#time === "night" ? "hr-white" : "hr-black"
           }`)
       );
   }
@@ -693,7 +684,7 @@ class App {
           60000
         );
 
-        this._setModals();
+        this._setOffcanvases();
       });
   // .finally();
 
@@ -767,7 +758,7 @@ class App {
       currentDailyWeatherTemperatureMin,
       currentDailyWeatherWindSpeed,
       othersCurrentWeatherData,
-      btnModalCloseDailyWeather,
+      btnCloseOffCanvas,
     ] = [
       document.querySelector("#current-daily-weather-location"),
       document.querySelector("#current-daily-weather-img"),
@@ -777,8 +768,10 @@ class App {
       document.querySelector("#current-daily-weather-temperature-min"),
       document.querySelector("#current-daily-weather-windspeed"),
       document.querySelector(".others-current-weather-data"),
-      document.querySelector("#modal-daily-weather .btn-close-modal"),
+      document.querySelectorAll(".btn-close-offcanvas"),
     ];
+
+    console.log(btnCloseOffCanvas);
 
     [
       currentDailyWeatherLocation.innerHTML,
@@ -859,9 +852,11 @@ class App {
       `,
     ];
 
-    btnModalCloseDailyWeather.addEventListener("click", () => {
-      $("#collapse-other-data").collapse("hide");
-    });
+    btnCloseOffCanvas.forEach((btnCloseOffCanvas) =>
+      btnCloseOffCanvas.addEventListener("click", () =>
+        $("#collapse-other-data").collapse("hide")
+      )
+    );
   }
 }
 

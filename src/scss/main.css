@@ -24,42 +24,44 @@ a {
   background: none !important;
 }
 
-input.bg-dark {
-  border: 1px solid rgba(246, 246, 246, 0.5);
-  color: #f6f6f6;
+input.input-dark {
+  background: none !important;
+  border: 1px solid rgba(226, 251, 255, 0.5) !important;
+  color: #e2fbff !important;
 }
-input.bg-dark:focus {
-  box-shadow: 0 0 3px rgba(246, 246, 246, 0.5);
-  caret-color: #f6f6f6;
-  color: #f6f6f6;
+input.input-dark:focus {
+  box-shadow: 0 0 3px rgba(246, 246, 246, 0.5) !important;
+  caret-color: #e2fbff !important;
+  color: #f6f6f6 !important;
 }
-input.bg-dark::-moz-placeholder {
-  color: #f6f6f6;
+input.input-dark::-moz-placeholder {
+  color: #f6f6f6 !important;
 }
-input.bg-dark:-ms-input-placeholder {
-  color: #f6f6f6;
+input.input-dark:-ms-input-placeholder {
+  color: #f6f6f6 !important;
 }
-input.bg-dark::placeholder {
-  color: #f6f6f6;
+input.input-dark::placeholder {
+  color: #f6f6f6 !important;
 }
 
-input.bg-light {
-  border: 1px solid rgba(25, 26, 25, 0.5);
-  color: #191a19;
+input.input-light {
+  background: none !important;
+  border: 1px solid rgba(33, 33, 33, 0.5) !important;
+  color: #191a19 !important;
 }
-input.bg-light:focus {
-  box-shadow: 0 0 3px rgba(25, 26, 25, 0.5);
-  caret-color: #191a19;
-  color: #191a19;
+input.input-light:focus {
+  box-shadow: 0 0 3px rgba(33, 33, 33, 0.5) !important;
+  caret-color: #212121 !important;
+  color: #191a19 !important;
 }
-input.bg-light::-moz-placeholder {
-  color: rgba(33, 33, 33, 0.75);
+input.input-light::-moz-placeholder {
+  color: rgba(33, 33, 33, 0.75) !important;
 }
-input.bg-light:-ms-input-placeholder {
-  color: rgba(33, 33, 33, 0.75);
+input.input-light:-ms-input-placeholder {
+  color: rgba(33, 33, 33, 0.75) !important;
 }
-input.bg-light::placeholder {
-  color: rgba(33, 33, 33, 0.75);
+input.input-light::placeholder {
+  color: rgba(33, 33, 33, 0.75) !important;
 }
 
 ::-webkit-scrollbar {
@@ -5464,7 +5466,7 @@ textarea.form-control-lg {
 }
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
-  transform: translateY(5%);
+  transform: scale(0.9);
 }
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {

@@ -24,6 +24,7 @@ $input-font-size: 0.95rem;
 
 $border-color: $text-muted;
 $border-radius: 1rem;
+
 $box-shadow: 0 0 20px rgba($dark, $alpha: 0.15);
 
 $dropdown-link-color: $muted;
@@ -32,8 +33,7 @@ $dropdown-link-hover-color: $dark;
 
 $transition-base: all 0.3s ease-out;
 
-// $modal-fade-transform: scale(0.9);
-$modal-fade-transform: translateY(5%);
+$modal-fade-transform: scale(0.9);
 
 $hr-border-width: 2px;
 $hr-opacity: 0.5;
@@ -67,33 +67,35 @@ a {
   background: none !important;
 }
 
-input.bg-dark {
-  border: 1px solid rgba($color: $white, $alpha: 0.5);
-  color: $white;
+input.input-dark {
+  background: none !important;
+  border: 1px solid rgba($color: $light, $alpha: 0.5) !important;
+  color: $light !important;
 
   &:focus {
-    box-shadow: 0 0 3px rgba($color: $white, $alpha: 0.5);
-    caret-color: $white;
-    color: $white;
+    box-shadow: 0 0 3px rgba($color: $white, $alpha: 0.5) !important;
+    caret-color: $light !important;
+    color: $white !important;
   }
 
   &::placeholder {
-    color: $white;
+    color: $white !important;
   }
 }
 
-input.bg-light {
-  border: 1px solid rgba($color: $black, $alpha: 0.5);
-  color: $black;
+input.input-light {
+  background: none !important;
+  border: 1px solid rgba($color: $dark, $alpha: 0.5) !important;
+  color: $black !important;
 
   &:focus {
-    box-shadow: 0 0 3px rgba($color: $black, $alpha: 0.5);
-    caret-color: $black;
-    color: $black;
+    box-shadow: 0 0 3px rgba($color: $dark, $alpha: 0.5) !important;
+    caret-color: $dark !important;
+    color: $black !important;
   }
 
   &::placeholder {
-    color: $muted;
+    color: $muted !important;
   }
 }
 
