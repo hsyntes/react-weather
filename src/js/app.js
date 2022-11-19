@@ -241,10 +241,14 @@ class App {
                         <div class="row align-items-center">
                           <div class="col-2">
                             <div class="country-img-box">
-                              <img src="${countries[0]?.flags?.svg}" class="rounded-circle" />
+                              <img src="${
+                                countries[0]?.flags?.svg
+                              }" class="rounded-circle" />
                             </div>
                           </div>
-                          <div class="col-10">${result.name}, ${result.country}</div>
+                          <div class="col-10 ${
+                            this.#time === "night" ? "text-white" : "text-black"
+                          }">${result.name}, ${result.country}</div>
                         </div>
                     </div>
                       `;
@@ -294,6 +298,8 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+
+    this.#time = "day";
   }
 
   // Creating the current weather forecast
