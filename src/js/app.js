@@ -139,12 +139,22 @@ class DailyWeather extends Weather {
     windSpeedUnit,
     temperatureMax,
     temperatureMin,
-    date
+    windSpeed,
+    date,
+    precipitationSum,
+    rain_sum,
+    showersSum,
+    snowfallSum
   ) {
     super(weatherCode, time, tempUnit, windSpeedUnit);
     this.temperatureMax = temperatureMax;
     this.temperatureMin = temperatureMin;
+    this.windSpeed = windSpeed;
     this.date = date;
+    this.precipitationSum = precipitationSum;
+    this.rainSum = rain_sum;
+    this.showersSum = showersSum;
+    this.snowfallSum = snowfallSum;
   }
 
   // Getting the weekdays
@@ -160,20 +170,20 @@ class App {
   #currentWeather;
 
   #colors = {
-    white: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-white"
-    ),
-
-    black: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-black"
-    ),
-
     light: getComputedStyle(document.documentElement).getPropertyValue(
       "--bs-light"
     ),
 
     dark: getComputedStyle(document.documentElement).getPropertyValue(
       "--bs-dark"
+    ),
+
+    white: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-white"
+    ),
+
+    black: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-black"
     ),
   };
 
@@ -182,8 +192,8 @@ class App {
   #dailyWeather = [];
   #currentDailyWeather;
 
-  #temperatureUnit;
-  #windSpeedUnit;
+  #units = {};
+
   #time;
 
   constructor(className) {
@@ -237,6 +247,7 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+    // this.#time = "day";
   }
 
   // Creating the current weather forecast
@@ -247,8 +258,8 @@ class App {
     this.#currentWeather = new CurrentWeather(
       weathercode,
       this.#time,
-      this.#temperatureUnit,
-      this.#windSpeedUnit,
+      this.#units.temperatureUnit,
+      this.#units.windSpeedUnit,
       timezone,
       temperature,
       windspeed
@@ -257,8 +268,17 @@ class App {
 
   // Creating daily weather forecasts for 1 week
   _createDailyWeather(data) {
-    const { weathercode, temperature_2m_max, temperature_2m_min, time } =
-      data.daily;
+    const {
+      weathercode,
+      temperature_2m_max,
+      temperature_2m_min,
+      windspeed_10m_max,
+      time,
+      precipitation_sum,
+      rain_sum,
+      showers_sum,
+      snowfall_sum,
+    } = data.daily;
 
     let day = 0;
 
@@ -266,11 +286,16 @@ class App {
       const dailyWeather = new DailyWeather(
         weathercode[day],
         "day",
-        this.#temperatureUnit,
-        this.#windSpeedUnit,
+        this.#units.temperatureUnit,
+        this.#units.windSpeedUnit,
         temperature_2m_max[day],
         temperature_2m_min[day],
-        time[day]
+        windspeed_10m_max[day],
+        time[day],
+        precipitation_sum[day],
+        rain_sum[day],
+        showers_sum[day],
+        snowfall_sum[day]
       );
 
       this.#dailyWeather.push(dailyWeather);
@@ -292,14 +317,18 @@ class App {
   // Creating line chart temperatures by hours
   _createTempChart(data) {
     const hours = [];
-    data.hourly.time.slice(1, 6).forEach((hour) => hours.push(hour.slice(-5)));
+    data.hourly.time
+      .slice(new Date().getHours() + 1, new Date().getHours() + 11)
+      .forEach((hour) => hours.push(hour.slice(-5)));
 
     const temperatures = [];
     data.hourly.temperature_2m
-      .slice(1, 6)
+      .slice(new Date().getHours() + 1, new Date().getHours() + 11)
       .forEach((temperature) => temperatures.push(temperature));
 
     const ctx = document.querySelector("#temp-chart");
+
+    if (this.#tempChart) this.#tempChart.destroy();
 
     this.#tempChart = new Chart(ctx, {
       type: "line",
@@ -569,22 +598,6 @@ class App {
       `,
       `${this.#currentWeather.windSpeed} ${this.#currentWeather.windSpeedUnit}`,
     ];
-
-    // this.#dailyWeather.forEach((dailyWeather, index) => {
-    //   [
-    //     document.querySelectorAll(".daily-weather-icon").src,
-    //     document.querySelectorAll(".daily-weather").textContent,
-    //     document.querySelectorAll(".daily-weather-temperature-max").textContent,
-    //     document.querySelectorAll(".daily-weather-temperature-min").textContent,
-    //     document.querySelectorAll(".daily-weather-day").textContent,
-    //   ] = [
-    //     `../img/${dailyWeather._getWeatherForecast().icon}`,
-    //     dailyWeather._getWeatherForecast().weather,
-    //     Math.round(dailyWeather.temperatureMax),
-    //     Math.round(dailyWeather.temperatureMin),
-    //     dailyWeather._getDay(),
-    //   ];
-    // });
   }
 
   // Setting search country modal
@@ -642,23 +655,30 @@ class App {
     this._callAPI(position)
       .then((promise) => promise.json())
       .then((data) => {
-        const { temperature_2m_max, windspeed_10m_max } = data.daily_units;
-
-        [this.#temperatureUnit, this.#windSpeedUnit] = [
+        const {
           temperature_2m_max,
           windspeed_10m_max,
-        ];
+          precipitation_sum,
+          rain_sum,
+          showers_sum,
+          snowfall_sum,
+        } = data.daily_units;
+
+        this.#units = {
+          temperatureUnit: temperature_2m_max,
+          windSpeedUnit: windspeed_10m_max,
+          precipitationUnit: precipitation_sum,
+          rainSumUnit: rain_sum,
+          showersSumUnit: showers_sum,
+          snowfallSumUnit: snowfall_sum,
+        };
 
         this._setTheme(data);
-
         this._createCurrentWeather(data);
         this._createDailyWeather(data);
-
         this._renderCurrentWeather();
         this._renderDailyWeather();
-
         this._createTempChart(data);
-
         this._updateTime();
 
         setInterval(
@@ -667,10 +687,8 @@ class App {
               .then((promise) => promise.json())
               .then((data) => {
                 this._createCurrentWeather(data);
-                // this._createDailyWeather(data);
-
                 this._updateData();
-
+                this._createTempChart(data);
                 this._setTheme(data);
               }),
           60000
@@ -727,6 +745,13 @@ class App {
 
   // Getting the current daily weather's data (clicked)
   _getCurrentDailyWeather(e) {
+    const btnOtherData = document.querySelector("#btn-other-data");
+    btnOtherData.classList.remove("d-none");
+
+    btnOtherData.style.color = `${
+      this.#time === "night" ? `${this.#colors.white}` : `${this.#colors.black}`
+    }`;
+
     const clickedCard = e.target.closest(".card");
 
     if (!clickedCard) return;
@@ -735,26 +760,45 @@ class App {
       this.#dailyWeather[clickedCard.getAttribute("daily-weather-data")];
 
     const [
+      currentDailyWeatherLocation,
       currentDailyWeatherImg,
       currentDailyWeatherDay,
       currentDailyWeatherWeather,
       currentDailyWeatherTemperatureMax,
       currentDailyWeatherTemperatureMin,
+      currentDailyWeatherWindSpeed,
+      othersCurrentWeatherData,
+      btnModalCloseDailyWeather,
     ] = [
+      document.querySelector("#current-daily-weather-location"),
       document.querySelector("#current-daily-weather-img"),
       document.querySelector("#current-daily-weather-day"),
       document.querySelector("#current-daily-weather-weather"),
       document.querySelector("#current-daily-weather-temperature-max"),
       document.querySelector("#current-daily-weather-temperature-min"),
+      document.querySelector("#current-daily-weather-windspeed"),
+      document.querySelector(".others-current-weather-data"),
+      document.querySelector("#modal-daily-weather .btn-close-modal"),
     ];
 
     [
+      currentDailyWeatherLocation.innerHTML,
       currentDailyWeatherImg.src,
       currentDailyWeatherDay.textContent,
       currentDailyWeatherWeather.textContent,
       currentDailyWeatherTemperatureMax.innerHTML,
       currentDailyWeatherTemperatureMin.innerHTML,
+      currentDailyWeatherWindSpeed.innerHTML,
+      othersCurrentWeatherData.innerHTML,
     ] = [
+      `
+    <span>
+      <i class="fa-solid fa-location-dot"></i>
+    </span>
+    <span id="timezone">
+      ${this.#currentWeather.timezone.split("/")[1]}
+    </span>
+      `,
       `../img/${this.#currentDailyWeather._getWeatherForecast().icon}`,
       this.#currentDailyWeather._getDay(),
       this.#currentDailyWeather._getWeatherForecast().weather,
@@ -763,7 +807,7 @@ class App {
       <i class="fa-regular fa-sun"></i>
       <span class="ms-1">
         ${Math.round(this.#currentDailyWeather.temperatureMax)}
-        <sup>${this.#currentDailyWeather.tempUnit}</sup>
+        <sup>${this.#units.temperatureUnit}</sup>
       </span>
     </span>
       `,
@@ -772,11 +816,53 @@ class App {
       <i class="fa-regular fa-moon"></i>
       <span class="ms-1">
         ${Math.round(this.#currentDailyWeather.temperatureMin)}
-        <sup>${this.#currentDailyWeather.tempUnit}</sup>
+        <sup>${this.#units.temperatureUnit}</sup>
       </span>
     </span>
       `,
+      `
+    <span>
+      <i class="fas fa-wind"></i>
+      <span>${this.#currentDailyWeather.windSpeed} ${
+        this.#units.windSpeedUnit
+      }</span>
+    </span>  
+      `,
+      `
+      ${
+        [
+          this.#currentDailyWeather.precipitationSum,
+          this.#currentDailyWeather.rainSum,
+          this.#currentDailyWeather.showersSum,
+          this.#currentDailyWeather.snowfallSum,
+        ].some((data) => data > 0)
+          ? `
+      <hr class="${
+        this.#time === "night" ? "hr-white" : "hr-black"
+      } mx-auto w-50" />
+      <span>
+        <p class="mb-0">Precipitation sum: ${
+          this.#currentDailyWeather.precipitationSum
+        } ${this.#units.precipitationUnit}</p>
+        <p class="mb-0">Showers sum: ${this.#currentDailyWeather.showersSum} ${
+              this.#units.showersSumUnit
+            }</p>
+        <p class="mb-0">Rain sum: ${this.#currentDailyWeather.rainSum} ${
+              this.#units.rainSumUnit
+            }</p>
+        <p class="mb-0">Snow fall: ${this.#currentDailyWeather.snowfallSum} ${
+              this.#units.snowfallSumUnit
+            }</p>
+      </span>
+    `
+          : btnOtherData.classList.add("d-none")
+      }
+      `,
     ];
+
+    btnModalCloseDailyWeather.addEventListener("click", () => {
+      $("#collapse-other-data").collapse("hide");
+    });
   }
 }
 

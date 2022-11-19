@@ -20,7 +20,7 @@ $h4-font-size: 2.4rem;
 $h5-font-size: 1.8rem;
 $h6-font-size: 1.4rem;
 
-$input-font-size: 1rem;
+$input-font-size: 0.95rem;
 
 $border-color: $text-muted;
 $border-radius: 1rem;
@@ -32,9 +32,11 @@ $dropdown-link-hover-color: $dark;
 
 $transition-base: all 0.3s ease-out;
 
-$modal-fade-transform: scale(0.9);
+// $modal-fade-transform: scale(0.9);
+$modal-fade-transform: translateY(5%);
 
 $hr-border-width: 2px;
+$hr-opacity: 0.5;
 
 p {
   font-size: 1rem !important;

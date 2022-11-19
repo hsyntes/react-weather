@@ -49,20 +49,39 @@
               <i class="fa fa-times fa-xl"></i>
             </button>
           </div>
-          <div class="modal-body text-center">
+          <div
+            class="modal-body d-flex flex-column align-items-center text-center"
+          >
+            <h2 class="mb-0" id="current-daily-weather-location"></h2>
             <img
               src=""
               id="current-daily-weather-img"
-              width="126"
+              width="168"
               alt="_current_daily_weather_icon"
             />
             <div>
               <span class="h4" id="current-daily-weather-weather"></span>
-              <div class="my-2">
+            </div>
+            <div class="w-100 my-auto">
+              <div class="my-4">
                 <span id="current-daily-weather-temperature-max"> </span>
                 <br />
                 <span id="current-daily-weather-temperature-min"> </span>
-                <hr />
+                <br />
+                <span id="current-daily-weather-windspeed"></span>
+              </div>
+              <!-- <hr /> -->
+              <button
+                type="button"
+                id="btn-other-data"
+                class="btn"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-other-data"
+              >
+                Show other data
+              </button>
+              <div class="collapse" id="collapse-other-data">
+                <div class="others-current-weather-data"></div>
               </div>
             </div>
           </div>
