@@ -6,7 +6,7 @@ p {
 a {
   text-decoration: none !important;
   color: rgba(33, 33, 33, 0.75) !important;
-  transition: all 0.3s ease-out !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 .list-group .list-group-item {
@@ -20,7 +20,7 @@ a {
 
 .btn.text-muted:hover {
   color: #212121 !important;
-  transition: all 0.3s ease-out !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 .btn-active-light {
@@ -3426,9 +3426,9 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0 0 20px rgba(33, 33, 33, 0.15);
-  --bs-dropdown-link-color: rgba(33, 33, 33, 0.75);
-  --bs-dropdown-link-hover-color: #212121;
-  --bs-dropdown-link-hover-bg: #e2fbff;
+  --bs-dropdown-link-color: #212529;
+  --bs-dropdown-link-hover-color: #1e2125;
+  --bs-dropdown-link-hover-bg: #e9ecef;
   --bs-dropdown-link-active-color: #f6f6f6;
   --bs-dropdown-link-active-bg: #112d4e;
   --bs-dropdown-link-disabled-color: #adb5bd;

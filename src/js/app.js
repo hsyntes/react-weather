@@ -603,16 +603,21 @@ class App {
 
   // Setting offcanvases
   _setOffcanvases() {
-    document
-      .querySelectorAll(".offcanvas")
-      .forEach(
-        (offcanvas) =>
-          (offcanvas.className += ` ${
-            this.#time === "night"
-              ? "bg-black text-white border"
-              : "bg-white text-muted border-0 shadow"
-          }`)
-      );
+    document.querySelectorAll(".offcanvas").forEach((offcanvas) => {
+      offcanvas.className += ` ${
+        this.#time === "night"
+          ? "bg-black text-white"
+          : "bg-white text-muted shadow"
+      }`;
+
+      if (offcanvas.classList.contains("offcanvas-bottom"))
+        offcanvas.style.height = `${
+          100 -
+          ((document.querySelector("nav").getBoundingClientRect().height + 20) *
+            100) /
+            document.body.getBoundingClientRect().height
+        }%`;
+    });
 
     document
       .querySelectorAll(".offcanvas-title")
@@ -707,12 +712,12 @@ class App {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-white text-muted rounded shadow border-0">
           <div class="modal-header pb-0 border-0">
-            <h4 class="text-primary mx-auto mb-0">
+            <h6 class="modal-title text-primary mx-auto mb-0">
               <span>
                 <i class="fa fa-warning text-primary"></i>
               </span>
               <span>Error</span>
-            </h4>
+            </h6>
           </div>
           <div class="modal-body">
             <p class="text-center text-muted mb-0" id="modal-error-text">${err}</p>

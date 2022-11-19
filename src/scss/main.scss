@@ -22,16 +22,14 @@ $h6-font-size: 1.4rem;
 
 $input-font-size: 0.95rem;
 
-$border-color: $text-muted;
+$border-color: $muted;
 $border-radius: 1rem;
 
 $box-shadow: 0 0 20px rgba($dark, $alpha: 0.15);
 
-$dropdown-link-color: $muted;
-$dropdown-link-hover-bg: $light;
-$dropdown-link-hover-color: $dark;
+$transition-base: all 0.3s ease-in-out;
 
-$transition-base: all 0.3s ease-out;
+$offcanvas-transition-duration: 0.3s;
 
 $modal-fade-transform: scale(0.9);
 
