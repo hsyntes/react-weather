@@ -251,7 +251,7 @@ class App {
 
                       document
                         .querySelector(".searched-cities")
-                        .insertAdjacentHTML("afterbegin", searchedCities);
+                        .insertAdjacentHTML("beforeend", searchedCities);
                     });
               });
             }
