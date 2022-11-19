@@ -14,9 +14,23 @@ a {
   border: none;
 }
 
+.btn {
+  background: none !important;
+}
+
 .btn.text-muted:hover {
   color: #212121 !important;
   transition: all 0.3s ease-out !important;
+}
+
+.btn-active-light {
+  background: #191a19 !important;
+  color: #f6f6f6 !important;
+}
+
+.btn-active-dark {
+  background: #f6f6f6 !important;
+  color: #191a19 !important;
 }
 
 .card-header,

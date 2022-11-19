@@ -55,11 +55,25 @@ a {
   }
 }
 
+.btn {
+  background: none !important;
+}
+
 .btn.text-muted {
   &:hover {
     color: $dark !important;
     transition: $transition-base !important;
   }
+}
+
+.btn-active-light {
+  background: $black !important;
+  color: $white !important;
+}
+
+.btn-active-dark {
+  background: $white !important;
+  color: $black !important;
 }
 
 .card-header,

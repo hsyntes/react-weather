@@ -343,6 +343,8 @@ class App {
             }`,
 
             borderJoinStyle: "round",
+            borderWidth: 2,
+            pointBorderWidth: 8,
 
             backgroundColor: `${
               this.#time === "night" ? this.#colors.white : this.#colors.black
@@ -638,6 +640,16 @@ class App {
             this.#time === "night" ? "text-white" : "text-black"
           }`)
       );
+
+    document
+      .querySelector("#btn-other-data")
+      .addEventListener("click", () =>
+        document
+          .querySelector("#btn-other-data")
+          .classList.toggle(
+            `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
+          )
+      );
   }
 
   // Reading the API and getting data from it
@@ -737,10 +749,24 @@ class App {
   _getCurrentDailyWeather(e) {
     const btnOtherData = document.querySelector("#btn-other-data");
     btnOtherData.classList.remove("d-none");
+    btnOtherData.classList.remove(
+      `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
+    );
 
-    btnOtherData.style.color = `${
-      this.#time === "night" ? `${this.#colors.white}` : `${this.#colors.black}`
-    }`;
+    [btnOtherData.style.color, btnOtherData.style.border] = [
+      `${
+        this.#time === "night"
+          ? `${this.#colors.white}`
+          : `${this.#colors.black}`
+      }`,
+      `${
+        this.#time === "night"
+          ? `1px solid ${this.#colors.white}`
+          : `1px solid ${this.#colors.black}`
+      }`,
+    ];
+
+    $("#collapse-other-data").collapse("hide");
 
     const clickedCard = e.target.closest(".card");
 
@@ -770,8 +796,6 @@ class App {
       document.querySelector(".others-current-weather-data"),
       document.querySelectorAll(".btn-close-offcanvas"),
     ];
-
-    console.log(btnCloseOffCanvas);
 
     [
       currentDailyWeatherLocation.innerHTML,
@@ -851,12 +875,6 @@ class App {
       }
       `,
     ];
-
-    btnCloseOffCanvas.forEach((btnCloseOffCanvas) =>
-      btnCloseOffCanvas.addEventListener("click", () =>
-        $("#collapse-other-data").collapse("hide")
-      )
-    );
   }
 }
 
