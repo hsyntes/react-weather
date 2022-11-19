@@ -318,12 +318,12 @@ class App {
   _createTempChart(data) {
     const hours = [];
     data.hourly.time
-      .slice(new Date().getHours() + 1, new Date().getHours() + 11)
+      .slice(new Date().getHours() + 1, new Date().getHours() + 13)
       .forEach((hour) => hours.push(hour.slice(-5)));
 
     const temperatures = [];
     data.hourly.temperature_2m
-      .slice(new Date().getHours() + 1, new Date().getHours() + 11)
+      .slice(new Date().getHours() + 1, new Date().getHours() + 13)
       .forEach((temperature) => temperatures.push(temperature));
 
     const ctx = document.querySelector("#temp-chart");
@@ -489,7 +489,7 @@ class App {
     }
         </span>
       </div>
-      <canvas id="temp-chart""></canvas>
+      <canvas class="mt-4" id="temp-chart"></canvas>
     </main>
     `;
 
