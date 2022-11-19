@@ -36,7 +36,33 @@
       </div>
     </div>
     <div
-      class="offcanvas offcanvas-bottom border-0 rounded shadow"
+      class="offcanvas offcanvas-bottom border-0"
+      id="offcanvas-searched-city"
+      style="height: 100%"
+    >
+      <div class="offcanvas-header">
+        <button
+          type="button"
+          class="btn btn-close-offcanvas"
+          data-bs-dismiss="offcanvas"
+        >
+          <i class="fa fa-angle-left fa-xl"></i>
+        </button>
+        <h5 class="offcanvas-title mb-0" id="label-searched-city"></h5>
+      </div>
+      <div class="offcanvas-body">
+        <input
+          type="text"
+          name="input-search-city"
+          id="input-search-city"
+          class="form-control offcanvas-input py-3"
+          placeholder="Search any cities"
+        />
+        <div class="searched-cities mt-3"></div>
+      </div>
+    </div>
+    <div
+      class="offcanvas offcanvas-bottom border-0 rounded-top shadow"
       id="offcanvas-daily-weather"
     >
       <div class="offcanvas-header">

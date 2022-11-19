@@ -220,10 +220,11 @@ class App {
         )
           .then((promise) => promise.json())
           .then((cities) => {
+            console.log(cities);
             const { results } = cities;
 
             document.querySelector(".searched-cities").innerHTML = "";
-            if (typeof results !== "undefined") {
+            if (results)
               results.forEach((result) => {
                 if (result.country)
                   fetch(
@@ -235,9 +236,8 @@ class App {
                   )
                     .then((promise) => promise.json())
                     .then((countries) => {
-                      console.log(countries);
                       const searchedCities = `
-                    <div class="searched-city py-2 my-1">
+                    <div class="searched-city py-2 my-1" id="${result.id}">
                         <div class="row align-items-center">
                           <div class="col-2">
                             <div class="country-img-box">
@@ -248,7 +248,13 @@ class App {
                           </div>
                           <div class="col-10 ${
                             this.#time === "night" ? "text-white" : "text-black"
-                          }">${result.name}, ${result.country}</div>
+                          }">
+                            <span>
+                              ${result.name.trim()}, ${
+                        result.admin1 ? result.admin1.trim() : ""
+                      }, ${result.country.trim()}
+                            </span>
+                          </div>
                         </div>
                     </div>
                       `;
@@ -258,7 +264,61 @@ class App {
                         .insertAdjacentHTML("beforeend", searchedCities);
                     });
               });
-            }
+          });
+      });
+
+    document
+      .querySelector("#offcanvas-search-city")
+      .addEventListener("click", (e) => {
+        let location = e.target.closest(".searched-city");
+
+        console.log(location);
+
+        if (!location) return;
+
+        const locationId = location.getAttribute("id");
+
+        location =
+          location.firstElementChild.lastElementChild.firstElementChild.textContent
+            .trim()
+            .split(", ");
+
+        const city = location.at(0);
+
+        console.log(location);
+
+        fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${String(
+            city
+          ).toLowerCase()}&count=100`
+        )
+          .then((promise) => promise.json())
+          .then((cities) => {
+            let { results } = cities;
+
+            const [selectedCity] = results.filter(
+              (result) => result.id === Number(locationId)
+            );
+
+            const { latitude, longitude } = selectedCity;
+            const position = { coords: { latitude, longitude } };
+
+            this._callAPI(position);
+
+            $("#offcanvas-search-city").offcanvas("hide");
+
+            document.querySelector("#input-search-city").value = "";
+            document.querySelector(".searched-cities").innerHTML = "";
+
+            $("#offcanvas-searched-city").offcanvas("show");
+
+            document
+              .querySelector("#offcanvas-searched-city")
+              .classList.add("offcanvas-start");
+
+            document
+              .querySelector("#offcanvas-searched-city")
+              .classList.remove("offcanvas-bottom");
           });
       });
   }
@@ -394,8 +454,7 @@ class App {
             }`,
 
             borderJoinStyle: "round",
-            borderWidth: 2,
-            pointBorderWidth: 8,
+            borderWidth: 1,
 
             backgroundColor: `${
               this.#time === "night" ? this.#colors.white : this.#colors.black
@@ -661,7 +720,7 @@ class App {
           : "bg-white text-muted shadow"
       }`;
 
-      if (offcanvas.classList.contains("offcanvas-bottom"))
+      if (offcanvas.classList.contains("rounded-top"))
         offcanvas.style.height = `${
           100 -
           ((document.querySelector("nav").getBoundingClientRect().height + 20) *
@@ -840,7 +899,6 @@ class App {
       currentDailyWeatherTemperatureMin,
       currentDailyWeatherWindSpeed,
       othersCurrentWeatherData,
-      btnCloseOffCanvas,
     ] = [
       document.querySelector("#current-daily-weather-location"),
       document.querySelector("#current-daily-weather-img"),
@@ -850,7 +908,6 @@ class App {
       document.querySelector("#current-daily-weather-temperature-min"),
       document.querySelector("#current-daily-weather-windspeed"),
       document.querySelector(".others-current-weather-data"),
-      document.querySelectorAll(".btn-close-offcanvas"),
     ];
 
     [
