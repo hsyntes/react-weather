@@ -132,6 +132,23 @@ body {
   height: 100vh;
   // overflow: hidden;
   overflow-y: scroll;
+
+  #offcanvas-search-city {
+    .offcanvas-body {
+      .country-img-box {
+        width: 28px;
+        height: 28px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+    }
+  }
 }
 
 body.bg-black {

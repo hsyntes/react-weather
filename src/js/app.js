@@ -210,6 +210,53 @@ class App {
     this._getPermission();
 
     this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
+    document
+      .querySelector("#input-search-city")
+      .addEventListener("keyup", () => {
+        fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${
+            document.querySelector("#input-search-city").value
+          }`
+        )
+          .then((promise) => promise.json())
+          .then((cities) => {
+            const { results } = cities;
+
+            document.querySelector(".searched-cities").innerHTML = "";
+            if (typeof results !== "undefined") {
+              results.forEach((result) => {
+                if (result.country)
+                  fetch(
+                    `https://restcountries.com/v3.1/name/${String(
+                      result.country
+                    )
+                      .trim()
+                      .toLowerCase()}`
+                  )
+                    .then((promise) => promise.json())
+                    .then((countries) => {
+                      console.log(countries);
+                      const searchedCities = `
+                    <div class="searched-city py-2 my-1">
+                        <div class="row align-items-center">
+                          <div class="col-2">
+                            <div class="country-img-box">
+                              <img src="${countries[0]?.flags?.svg}" class="rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="col-10">${result.name}, ${result.country}</div>
+                        </div>
+                    </div>
+                      `;
+
+                      document
+                        .querySelector(".searched-cities")
+                        .insertAdjacentHTML("afterbegin", searchedCities);
+                    });
+              });
+            }
+          });
+      });
   }
 
   // Calling the fetch API
@@ -442,7 +489,7 @@ class App {
           this.#time === "night" ? "text-white" : "text-muted"
         }"
         data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvas-search-country"
+        data-bs-target="#offcanvas-search-city"
       >
         <i class="fa fa-search fa-xl"></i>
       </button>
