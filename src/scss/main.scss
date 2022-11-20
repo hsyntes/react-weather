@@ -151,6 +151,10 @@ body {
       }
     }
   }
+
+  #offcanvas-daily-weather {
+    transition: $offcanvas-transition-duration !important;
+  }
 }
 
 body.bg-black {

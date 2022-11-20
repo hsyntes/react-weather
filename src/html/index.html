@@ -45,7 +45,6 @@
           <button
             type="button"
             class="btn btn-close-offcanvas"
-            id="btn-back-current-weather"
             data-bs-dismiss="offcanvas"
           >
             <i class="fa fa-angle-left fa-xl"></i>
@@ -61,9 +60,22 @@
         </div>
         <div class="col-2"></div>
       </div>
-      <div class="offcanvas-body text-center">
+      <div class="offcanvas-body d-flex flex-column align-items-center">
         <span class="h2" id="searched-current-time"></span>
-        <p class="my-1"></p>
+        <p class="my-1 mb-0" id="searched-current-weather"></p>
+        <img
+          src=""
+          class="img-fluid"
+          id="searched-current-weather-icon"
+          width="168"
+          alt="_searched_current_weather_icon"
+        />
+        <div>
+          <span class="h1" id="searched-current-temperature"></span>
+          <br />
+          <span id="searched-current-windspeed"></span>
+        </div>
+        <canvas class="mt-4" id="searched-temperature-chart"></canvas>
       </div>
     </div>
     <div

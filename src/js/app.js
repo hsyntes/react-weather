@@ -164,6 +164,12 @@ class DailyWeather extends Weather {
     }).format(new Date(this.date));
 }
 
+// class SearchedCurrentWeather extends Weather {
+//   constructor(weatherCode, time, tempUnit, windSpeedUnit) {
+//     super(weatherCode, time, tempUnit, windSpeedUnit);
+//   }
+// }
+
 // App Class
 class App {
   #app;
@@ -187,10 +193,13 @@ class App {
     ),
   };
 
-  #tempChart;
+  #currentTemperatureChart;
+  #searchedTemperatureChart;
 
   #dailyWeather = [];
   #currentDailyWeather;
+
+  #searcedCurrentWeather;
 
   #units = {};
 
@@ -200,7 +209,7 @@ class App {
     weekday: "short",
     hour: "2-digit",
     minute: "2-digit",
-  }).format(new Date());
+  });
 
   #animateKeyframes = [
     { transform: "translateY(0%) rotateZ(0deg)" },
@@ -333,10 +342,10 @@ class App {
   }
 
   // Getting the current time
-  _getTime = () => this.#dateTimeFormat;
+  _getTime = () => this.#dateTimeFormat.format(new Date());
 
-  // Creating line chart temperatures by hours
-  _createTempChart(data) {
+  // Creating line chart temperature
+  _createTemperatureChart(ctx, data) {
     const hours = [];
     data.hourly.time
       .slice(new Date().getHours() + 1, new Date().getHours() + 13)
@@ -347,11 +356,7 @@ class App {
       .slice(new Date().getHours() + 1, new Date().getHours() + 13)
       .forEach((temperature) => temperatures.push(temperature));
 
-    const ctx = document.querySelector("#temp-chart");
-
-    if (this.#tempChart) this.#tempChart.destroy();
-
-    this.#tempChart = new Chart(ctx, {
+    return new Chart(ctx, {
       type: "line",
       data: {
         labels: hours,
@@ -374,6 +379,16 @@ class App {
         ],
       },
     });
+  }
+
+  // Creating line chart temperatures by hours for current city
+  _createCurrentTemperatureChart(data) {
+    if (this.#currentTemperatureChart) this.#currentTemperatureChart.destroy();
+
+    this.#currentTemperatureChart = this._createTemperatureChart(
+      document.querySelector("#current-temperature-chart"),
+      data
+    );
   }
 
   // Showing both the current and daily weather on the display
@@ -507,12 +522,12 @@ class App {
           <i class="fas fa-wind"></i>
         </span>
         <span id="current-windspeed">
-          ${this.#currentWeather.windSpeed} ${
+          ${Math.round(this.#currentWeather.windSpeed)} ${
       this.#currentWeather.windSpeedUnit
     }
         </span>
       </div>
-      <canvas class="mt-4" id="temp-chart"></canvas>
+      <canvas class="mt-4" id="current-temperature-chart"></canvas>
     </main>
     `;
 
@@ -640,7 +655,9 @@ class App {
         <sup>${this.#currentWeather.tempUnit}</sup>
       </span>
       `,
-      `${this.#currentWeather.windSpeed} ${this.#currentWeather.windSpeedUnit}`,
+      `${Math.round(this.#currentWeather.windSpeed)} ${
+        this.#currentWeather.windSpeedUnit
+      }`,
     ];
   }
 
@@ -689,15 +706,21 @@ class App {
           }`)
       );
 
-    document
-      .querySelector("#btn-other-data")
-      .addEventListener("click", () =>
-        document
-          .querySelector("#btn-other-data")
-          .classList.toggle(
-            `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
-          )
-      );
+    document.querySelector("#btn-other-data").addEventListener("click", () => {
+      document
+        .querySelector("#btn-other-data")
+        .classList.toggle(
+          `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
+        );
+
+      document
+        .querySelector("#offcanvas-daily-weather")
+        .classList.toggle("h-100");
+
+      document
+        .querySelector("#offcanvas-daily-weather")
+        .classList.toggle("rounded-top");
+    });
   }
 
   // Reading the API and getting data from it
@@ -728,7 +751,7 @@ class App {
         this._createDailyWeather(data);
         this._renderCurrentWeather();
         this._renderDailyWeather();
-        this._createTempChart(data);
+        this._createCurrentTemperatureChart(data);
         this._updateTime();
 
         setInterval(
@@ -738,7 +761,7 @@ class App {
               .then((data) => {
                 this._createCurrentWeather(data);
                 this._updateData();
-                this._createTempChart(data);
+                this._createCurrentTemperatureChart(data);
                 this._setTheme(data);
               }),
           60000
@@ -800,6 +823,14 @@ class App {
     btnOtherData.classList.remove(
       `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
     );
+
+    document
+      .querySelector("#offcanvas-daily-weather")
+      .classList.remove("h-100");
+
+    document
+      .querySelector("#offcanvas-daily-weather")
+      .classList.add("rounded-top");
 
     [btnOtherData.style.color, btnOtherData.style.border] = [
       `${
@@ -885,7 +916,7 @@ class App {
       `
     <span>
       <i class="fas fa-wind"></i>
-      <span>${this.#currentDailyWeather.windSpeed} ${
+      <span>${Math.round(this.#currentDailyWeather.windSpeed)} ${
         this.#units.windSpeedUnit
       }</span>
     </span>  
@@ -927,16 +958,85 @@ class App {
       .animate(this.#animateKeyframes, this.#animateOptions);
   }
 
+  // Creating the current weather by searched city
+  _createSearchedCurrentWeather(data) {
+    const { weathercode, temperature, windspeed } = data.current_weather;
+    const { timezone } = data;
+
+    this.#searcedCurrentWeather = new CurrentWeather(
+      weathercode,
+      this.#time,
+      this.#units.temperatureUnit,
+      this.#units.windSpeedUnit,
+      timezone,
+      temperature,
+      windspeed
+    );
+  }
+
+  // Creating line chart temperatures by hours for searched city
+  _createSearchedTemperatureChart(data) {
+    if (this.#searchedTemperatureChart)
+      this.#searchedTemperatureChart.destroy();
+
+    this.#searchedTemperatureChart = this._createTemperatureChart(
+      document.querySelector("#searched-temperature-chart"),
+      data
+    );
+  }
+
+  // Showing the current weather by searched city on the display
   _renderSearchedCity(data, city) {
-    const [searchedCity, searchedCurrentTime] = [
+    const [
+      searchedCity,
+      searchedCurrentTime,
+      searchedCurrentWeather,
+      searchedCurrentWeatherIcon,
+      searchedCurrentTemperature,
+      searchedCurrentWindSpeed,
+    ] = [
       document.querySelector("#searched-city"),
       document.querySelector("#searched-current-time"),
+      document.querySelector("#searched-current-weather"),
+      document.querySelector("#searched-current-weather-icon"),
+      document.querySelector("#searched-current-temperature"),
+      document.querySelector("#searched-current-windspeed"),
     ];
 
-    [searchedCity.textContent, searchedCurrentTime.textContent] = [
+    searchedCurrentWeatherIcon.classList.add(
+      `${this.#time === "night" ? "img-dark" : "img-light"}`
+    );
+
+    searchedCurrentWeatherIcon.animate(
+      this.#animateKeyframes,
+      this.#animateOptions
+    );
+
+    [
+      searchedCity.textContent,
+      searchedCurrentTime.textContent,
+      searchedCurrentWeather.textContent,
+      searchedCurrentWeatherIcon.src,
+      searchedCurrentTemperature.innerHTML,
+      searchedCurrentWindSpeed.innerHTML,
+    ] = [
       city,
-      this.#dateTimeFormat,
+      this.#dateTimeFormat.format(new Date()),
+      this.#searcedCurrentWeather._getWeatherForecast().weather,
+      `../img/${this.#searcedCurrentWeather._getWeatherForecast().icon}`,
+      `
+      ${Math.round(this.#searcedCurrentWeather.temperature)}
+      <sup>${this.#searcedCurrentWeather.tempUnit}</sup>
+      `,
+      `
+      <i class="fas fa-wind"></i>
+      ${Math.round(this.#searcedCurrentWeather.windSpeed)} ${
+        this.#searcedCurrentWeather.windSpeedUnit
+      }
+      `,
     ];
+
+    this._createSearchedTemperatureChart(data);
   }
 
   // Searched city
@@ -988,6 +1088,7 @@ class App {
 
             $("#offcanvas-searched-city").offcanvas("show");
 
+            this._createSearchedCurrentWeather(data);
             this._renderSearchedCity(data, city);
           });
       });
