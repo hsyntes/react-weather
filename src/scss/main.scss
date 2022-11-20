@@ -131,16 +131,22 @@ body {
 
   #offcanvas-search-city {
     .offcanvas-body {
-      .country-img-box {
-        width: 28px;
-        height: 28px;
-        overflow: hidden;
+      .searched-city {
+        &:active {
+          background: $dark !important;
+        }
 
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
+        .country-img-box {
+          width: 28px;
+          height: 28px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
         }
       }
     }

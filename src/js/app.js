@@ -196,6 +196,12 @@ class App {
 
   #time;
 
+  #dateTimeFormat = new Intl.DateTimeFormat(navigator.language, {
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date());
+
   #animateKeyframes = [
     { transform: "translateY(0%) rotateZ(0deg)" },
     { transform: "translateY(3%) rotateZ(5deg)" },
@@ -327,12 +333,7 @@ class App {
   }
 
   // Getting the current time
-  _getTime = () =>
-    new Intl.DateTimeFormat(navigator.language, {
-      weekday: "short",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(new Date());
+  _getTime = () => this.#dateTimeFormat;
 
   // Creating line chart temperatures by hours
   _createTempChart(data) {
@@ -461,6 +462,7 @@ class App {
         class="btn btn-search ${
           this.#time === "night" ? "text-white" : "text-muted"
         }"
+        id="btn-search-cities"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvas-search-city"
       >
@@ -519,6 +521,17 @@ class App {
     document
       .querySelector("#current-weather-icon")
       .animate(this.#animateKeyframes, this.#animateOptions);
+
+    document
+      .querySelector("#btn-search-cities")
+      .addEventListener("click", () => {
+        document
+          .querySelector("#offcanvas-searched-city")
+          .classList.remove("offcanvas-start");
+        document
+          .querySelector("#offcanvas-searched-city")
+          .classList.add("offcanvas-bottom");
+      });
   }
 
   // Showing daily weather forecast on the display
@@ -914,6 +927,18 @@ class App {
       .animate(this.#animateKeyframes, this.#animateOptions);
   }
 
+  _renderSearchedCity(data, city) {
+    const [searchedCity, searchedCurrentTime] = [
+      document.querySelector("#searched-city"),
+      document.querySelector("#searched-current-time"),
+    ];
+
+    [searchedCity.textContent, searchedCurrentTime.textContent] = [
+      city,
+      this.#dateTimeFormat,
+    ];
+  }
+
   // Searched city
   _searchedCity(e) {
     let location = e.target.closest(".searched-city");
@@ -962,6 +987,8 @@ class App {
               .classList.remove("offcanvas-bottom");
 
             $("#offcanvas-searched-city").offcanvas("show");
+
+            this._renderSearchedCity(data, city);
           });
       });
   }
@@ -989,7 +1016,7 @@ class App {
                 .then((promise) => promise.json())
                 .then((countries) => {
                   const searchedCities = `
-                <div class="searched-city py-2 my-1" id="${result.id}">
+                <div class="searched-city rounded p-3 my-1" id="${result.id}">
                     <div class="row align-items-center">
                       <div class="col-2">
                         <div class="country-img-box">

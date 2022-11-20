@@ -94,12 +94,15 @@ body {
   height: 100vh;
   overflow-y: scroll;
 }
-body #offcanvas-search-city .offcanvas-body .country-img-box {
+body #offcanvas-search-city .offcanvas-body .searched-city:active {
+  background: #212121 !important;
+}
+body #offcanvas-search-city .offcanvas-body .searched-city .country-img-box {
   width: 28px;
   height: 28px;
   overflow: hidden;
 }
-body #offcanvas-search-city .offcanvas-body .country-img-box img {
+body #offcanvas-search-city .offcanvas-body .searched-city .country-img-box img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
