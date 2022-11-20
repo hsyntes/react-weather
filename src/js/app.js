@@ -196,8 +196,29 @@ class App {
 
   #time;
 
+  #animateKeyframes = [
+    { transform: "translateY(0%) rotateZ(0deg)" },
+    { transform: "translateY(3%) rotateZ(5deg)" },
+    { transform: "translateY(-3%) rotateZ(-5deg)" },
+    { transform: "translateY(0%) rotateZ(0deg)" },
+  ];
+
+  #animateOptions = {
+    duration: 10000,
+    iterations: Infinity,
+    easing: "linear",
+  };
+
   constructor(className) {
     this._createApp(className);
+
+    document
+      .querySelector("#input-search-city")
+      .addEventListener("keyup", () => this._searchCities());
+
+    document
+      .querySelector("#offcanvas-search-city")
+      .addEventListener("click", (e) => this._searchedCity(e));
   }
 
   // Creating the app container
@@ -210,117 +231,6 @@ class App {
     this._getPermission();
 
     this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
-    document
-      .querySelector("#input-search-city")
-      .addEventListener("keyup", () => {
-        fetch(
-          `https://geocoding-api.open-meteo.com/v1/search?name=${
-            document.querySelector("#input-search-city").value
-          }`
-        )
-          .then((promise) => promise.json())
-          .then((cities) => {
-            console.log(cities);
-            const { results } = cities;
-
-            document.querySelector(".searched-cities").innerHTML = "";
-            if (results)
-              results.forEach((result) => {
-                if (result.country)
-                  fetch(
-                    `https://restcountries.com/v3.1/name/${String(
-                      result.country
-                    )
-                      .trim()
-                      .toLowerCase()}`
-                  )
-                    .then((promise) => promise.json())
-                    .then((countries) => {
-                      const searchedCities = `
-                    <div class="searched-city py-2 my-1" id="${result.id}">
-                        <div class="row align-items-center">
-                          <div class="col-2">
-                            <div class="country-img-box">
-                              <img src="${
-                                countries[0]?.flags?.svg
-                              }" class="rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="col-10 ${
-                            this.#time === "night" ? "text-white" : "text-black"
-                          }">
-                            <span>
-                              ${result.name.trim()}, ${
-                        result.admin1 ? result.admin1.trim() : ""
-                      }, ${result.country.trim()}
-                            </span>
-                          </div>
-                        </div>
-                    </div>
-                      `;
-
-                      document
-                        .querySelector(".searched-cities")
-                        .insertAdjacentHTML("beforeend", searchedCities);
-                    });
-              });
-          });
-      });
-
-    document
-      .querySelector("#offcanvas-search-city")
-      .addEventListener("click", (e) => {
-        let location = e.target.closest(".searched-city");
-
-        console.log(location);
-
-        if (!location) return;
-
-        const locationId = location.getAttribute("id");
-
-        location =
-          location.firstElementChild.lastElementChild.firstElementChild.textContent
-            .trim()
-            .split(", ");
-
-        const city = location.at(0);
-
-        console.log(location);
-
-        fetch(
-          `https://geocoding-api.open-meteo.com/v1/search?name=${String(
-            city
-          ).toLowerCase()}&count=100`
-        )
-          .then((promise) => promise.json())
-          .then((cities) => {
-            let { results } = cities;
-
-            const [selectedCity] = results.filter(
-              (result) => result.id === Number(locationId)
-            );
-
-            const { latitude, longitude } = selectedCity;
-            const position = { coords: { latitude, longitude } };
-
-            this._callAPI(position);
-
-            $("#offcanvas-search-city").offcanvas("hide");
-
-            document.querySelector("#input-search-city").value = "";
-            document.querySelector(".searched-cities").innerHTML = "";
-
-            $("#offcanvas-searched-city").offcanvas("show");
-
-            document
-              .querySelector("#offcanvas-searched-city")
-              .classList.add("offcanvas-start");
-
-            document
-              .querySelector("#offcanvas-searched-city")
-              .classList.remove("offcanvas-bottom");
-          });
-      });
   }
 
   // Calling the fetch API
@@ -605,6 +515,10 @@ class App {
     `;
 
     this.#app.insertAdjacentHTML("afterbegin", currentWeatherHTML);
+
+    document
+      .querySelector("#current-weather-icon")
+      .animate(this.#animateKeyframes, this.#animateOptions);
   }
 
   // Showing daily weather forecast on the display
@@ -679,6 +593,12 @@ class App {
     });
 
     document.querySelector(".app").append(footer);
+
+    document
+      .querySelectorAll(".daily-weather-icon")
+      .forEach((dailyWeatherIcon) => {
+        dailyWeatherIcon.animate(this.#animateKeyframes, this.#animateOptions);
+      });
   }
 
   // Updating the current time
@@ -901,7 +821,7 @@ class App {
       othersCurrentWeatherData,
     ] = [
       document.querySelector("#current-daily-weather-location"),
-      document.querySelector("#current-daily-weather-img"),
+      document.querySelector("#current-daily-weather-icon"),
       document.querySelector("#current-daily-weather-day"),
       document.querySelector("#current-daily-weather-weather"),
       document.querySelector("#current-daily-weather-temperature-max"),
@@ -988,6 +908,115 @@ class App {
       }
       `,
     ];
+
+    document
+      .querySelector("#current-daily-weather-icon")
+      .animate(this.#animateKeyframes, this.#animateOptions);
+  }
+
+  // Searched city
+  _searchedCity(e) {
+    let location = e.target.closest(".searched-city");
+
+    if (!location) return;
+
+    const locationId = location.getAttribute("id");
+
+    location =
+      location.firstElementChild.lastElementChild.firstElementChild.textContent
+        .trim()
+        .split(", ");
+
+    const city = location.at(0);
+
+    fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${String(
+        city
+      ).toLowerCase()}&count=100`
+    )
+      .then((promise) => promise.json())
+      .then((cities) => {
+        let { results } = cities;
+
+        const [selectedCity] = results.filter(
+          (result) => result.id === Number(locationId)
+        );
+
+        const { latitude, longitude } = selectedCity;
+        const position = { coords: { latitude, longitude } };
+
+        this._callAPI(position)
+          .then((promise) => promise.json())
+          .then((data) => {
+            document.querySelector("#input-search-city").value = "";
+            document.querySelector(".searched-cities").innerHTML = "";
+
+            $("#offcanvas-search-city").offcanvas("hide");
+
+            document
+              .querySelector("#offcanvas-searched-city")
+              .classList.add("offcanvas-start");
+
+            document
+              .querySelector("#offcanvas-searched-city")
+              .classList.remove("offcanvas-bottom");
+
+            $("#offcanvas-searched-city").offcanvas("show");
+          });
+      });
+  }
+
+  // Searching the cities
+  _searchCities() {
+    fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${
+        document.querySelector("#input-search-city").value
+      }`
+    )
+      .then((promise) => promise.json())
+      .then((cities) => {
+        const { results } = cities;
+
+        document.querySelector(".searched-cities").innerHTML = "";
+        if (results)
+          results.forEach((result) => {
+            if (result.country)
+              fetch(
+                `https://restcountries.com/v3.1/name/${String(result.country)
+                  .trim()
+                  .toLowerCase()}`
+              )
+                .then((promise) => promise.json())
+                .then((countries) => {
+                  const searchedCities = `
+                <div class="searched-city py-2 my-1" id="${result.id}">
+                    <div class="row align-items-center">
+                      <div class="col-2">
+                        <div class="country-img-box">
+                          <img src="${
+                            countries[0]?.flags?.svg
+                          }" class="rounded-circle" />
+                        </div>
+                      </div>
+                      <div class="col-10 ${
+                        this.#time === "night" ? "text-white" : "text-black"
+                      }">
+                        <span>
+                          ${result.name.trim()}, ${
+                    result.admin1 ? result.admin1.trim() : ""
+                  }, ${result.country.trim()}
+                        </span>
+                      </div>
+                    </div>
+                </div>
+                  `;
+
+                  document
+                    .querySelector(".searched-cities")
+                    .insertAdjacentHTML("beforeend", searchedCities);
+                });
+          });
+      });
   }
 }
 
