@@ -213,8 +213,8 @@ class App {
 
   #animateKeyframes = [
     { transform: "translateY(0%) rotateZ(0deg)" },
-    { transform: "translateY(3%) rotateZ(5deg)" },
-    { transform: "translateY(-3%) rotateZ(-5deg)" },
+    { transform: "translateY(2%) rotateZ(3deg)" },
+    { transform: "translateY(-2%) rotateZ(-3deg)" },
     { transform: "translateY(0%) rotateZ(0deg)" },
   ];
 
@@ -408,7 +408,7 @@ class App {
       <div
         class="offcanvas offcanvas-start ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
-        }"
+        } rounded-top"
         id="offcanvas-nav-menu"
       >
         <div class="offcanvas-header align-items-center">
@@ -684,27 +684,39 @@ class App {
       .forEach(
         (offcanvasTitle) =>
           (offcanvasTitle.className += ` ${
-            this.#time === "night" ? "text-white" : "text-black"
+            this.#time === "night" ? "text-white" : "text-muted"
           }`)
       );
 
-    document
-      .querySelectorAll(".offcanvas-input")
-      .forEach(
-        (offcanvasInput) =>
-          (offcanvasInput.className += ` ${
-            this.#time === "night" ? "input-dark" : "input-light"
-          }`)
+    document.querySelectorAll(".offcanvas-input").forEach((offcanvasInput) => {
+      offcanvasInput.className += ` ${
+        this.#time === "night" ? "input-dark" : "input-light"
+      }`;
+
+      offcanvasInput.addEventListener("click", () =>
+        document.querySelectorAll(".offcanvas").forEach((offcanvas) => {
+          setTimeout(() => {
+            offcanvas.classList.add("h-100");
+            offcanvas.classList.remove("rounded-top");
+          }, 500);
+        })
       );
+    });
 
     document
       .querySelectorAll(".btn-close-offcanvas")
-      .forEach(
-        (btnCloseOffcanvas) =>
-          (btnCloseOffcanvas.className += ` ${
-            this.#time === "night" ? "text-white" : "text-black"
-          }`)
-      );
+      .forEach((btnCloseOffcanvas) => {
+        btnCloseOffcanvas.className += ` ${
+          this.#time === "night" ? "text-white" : "text-muted"
+        }`;
+
+        btnCloseOffcanvas.addEventListener("click", () =>
+          document.querySelectorAll(".offcanvas").forEach((offcanvas) => {
+            offcanvas.classList.remove("h-100");
+            offcanvas.classList.add("rounded-top");
+          })
+        );
+      });
 
     document.querySelector("#btn-other-data").addEventListener("click", () => {
       document
@@ -713,9 +725,13 @@ class App {
           `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
         );
 
-      document
-        .querySelector("#offcanvas-daily-weather")
-        .classList.toggle("h-100");
+      setTimeout(
+        () =>
+          document
+            .querySelector("#offcanvas-daily-weather")
+            .classList.toggle("h-100"),
+        500
+      );
 
       document
         .querySelector("#offcanvas-daily-weather")
@@ -762,7 +778,6 @@ class App {
                 this._createCurrentWeather(data);
                 this._updateData();
                 this._createCurrentTemperatureChart(data);
-                this._setTheme(data);
               }),
           60000
         );
@@ -1117,7 +1132,11 @@ class App {
                 .then((promise) => promise.json())
                 .then((countries) => {
                   const searchedCities = `
-                <div class="searched-city rounded p-3 my-1" id="${result.id}">
+                <div class="searched-city ${
+                  this.#time === "night"
+                    ? "searched-city-dark"
+                    : "searched-city-light"
+                } rounded p-3 my-1" id="${result.id}">
                     <div class="row align-items-center">
                       <div class="col-2">
                         <div class="country-img-box">
@@ -1131,8 +1150,8 @@ class App {
                       }">
                         <span>
                           ${result.name.trim()}, ${
-                    result.admin1 ? result.admin1.trim() : ""
-                  }, ${result.country.trim()}
+                    result.admin1 ? result.admin1.trim() + "," : ""
+                  } ${result.country.trim()}
                         </span>
                       </div>
                     </div>

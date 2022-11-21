@@ -94,8 +94,9 @@ body {
   height: 100vh;
   overflow-y: scroll;
 }
-body #offcanvas-search-city .offcanvas-body .searched-city:active {
-  background: #212121 !important;
+body #offcanvas-nav-menu {
+  height: 100% !important;
+  border-radius: 0 1rem 0 0 !important;
 }
 body #offcanvas-search-city .offcanvas-body .searched-city .country-img-box {
   width: 28px;
@@ -110,7 +111,13 @@ body #offcanvas-search-city .offcanvas-body .searched-city .country-img-box img 
   -o-object-position: center;
      object-position: center;
 }
-body #offcanvas-daily-weather {
+body #offcanvas-search-city .offcanvas-body .searched-city.searched-city-dark:active {
+  background: #212121;
+}
+body #offcanvas-search-city .offcanvas-body .searched-city.searched-city-light:active {
+  background: #e2fbff;
+}
+body .offcanvas {
   transition: 0.3s !important;
 }
 

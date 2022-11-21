@@ -129,13 +129,14 @@ body {
   // overflow: hidden;
   overflow-y: scroll;
 
+  #offcanvas-nav-menu {
+    height: 100% !important;
+    border-radius: 0 $border-radius 0 0 !important;
+  }
+
   #offcanvas-search-city {
     .offcanvas-body {
       .searched-city {
-        &:active {
-          background: $dark !important;
-        }
-
         .country-img-box {
           width: 28px;
           height: 28px;
@@ -149,10 +150,26 @@ body {
           }
         }
       }
+
+      .searched-city.searched-city-dark {
+        &:active {
+          background: $dark;
+        }
+      }
+
+      .searched-city.searched-city-light {
+        &:active {
+          background: $light;
+        }
+      }
     }
   }
 
-  #offcanvas-daily-weather {
+  // #offcanvas-daily-weather {
+  //   transition: $offcanvas-transition-duration !important;
+  // }
+
+  .offcanvas {
     transition: $offcanvas-transition-duration !important;
   }
 }
