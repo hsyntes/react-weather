@@ -216,7 +216,7 @@ class App {
   ];
 
   #animateOptions = {
-    duration: 10000,
+    duration: 7500,
     iterations: Infinity,
     easing: "linear",
   };
