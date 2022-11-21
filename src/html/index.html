@@ -38,7 +38,7 @@
     <div
       class="offcanvas offcanvas-bottom border-0"
       id="offcanvas-searched-city"
-      style="height: 100%; width: 100%"
+      style="height: 100%; width: 100%; overflow-x: hidden"
     >
       <div class="offcanvas-header">
         <div class="col-2 text-start">
@@ -60,9 +60,7 @@
         </div>
         <div class="col-2"></div>
       </div>
-      <div
-        class="offcanvas-body d-flex flex-column align-items-center text-center"
-      >
+      <div class="offcanvas-body text-center border">
         <span class="h2" id="searched-current-time"></span>
         <p class="my-1 mb-0" id="searched-current-weather"></p>
         <img
@@ -78,6 +76,11 @@
           <span id="searched-current-windspeed"></span>
         </div>
         <canvas class="mt-4" id="searched-temperature-chart"></canvas>
+        <div
+          class="row flex-nowrap mt-4 py-3 text-center"
+          id="offcanvas-searched-daily-weather-footer"
+          style="overflow-x: scroll"
+        ></div>
       </div>
     </div>
     <div

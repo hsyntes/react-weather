@@ -9,6 +9,7 @@ class Weather {
     this.windSpeedUnit = windSpeedUnit;
   }
 
+  // Encapsulation
   // Getting the weather forecast by the weather code
   _getWeatherForecast() {
     switch (this.weatherCode) {
@@ -164,16 +165,12 @@ class DailyWeather extends Weather {
     }).format(new Date(this.date));
 }
 
-// class SearchedCurrentWeather extends Weather {
-//   constructor(weatherCode, time, tempUnit, windSpeedUnit) {
-//     super(weatherCode, time, tempUnit, windSpeedUnit);
-//   }
-// }
-
 // App Class
 class App {
   #app;
+
   #currentWeather;
+  #searcedCurrentWeather;
 
   #colors = {
     light: getComputedStyle(document.documentElement).getPropertyValue(
@@ -197,9 +194,9 @@ class App {
   #searchedTemperatureChart;
 
   #dailyWeather = [];
-  #currentDailyWeather;
+  #searchedDailyWeather = [];
 
-  #searcedCurrentWeather;
+  #currentDailyWeather;
 
   #units = {};
 
@@ -285,12 +282,11 @@ class App {
     }
   }
 
-  // Creating the current weather forecast
-  _createCurrentWeather(data) {
+  _createCurrentWeatherObject(data) {
     const { weathercode, temperature, windspeed } = data.current_weather;
     const { timezone } = data;
 
-    this.#currentWeather = new CurrentWeather(
+    return new CurrentWeather(
       weathercode,
       this.#time,
       this.#units.temperatureUnit,
@@ -300,9 +296,13 @@ class App {
       windspeed
     );
   }
+  // Creating the current weather forecast
+  _createCurrentWeather = (data) =>
+    (this.#currentWeather = this._createCurrentWeatherObject(data));
 
-  // Creating daily weather forecasts for 1 week
-  _createDailyWeather(data) {
+  _createDailyWeatherObject(data) {
+    const dailyWeather = [];
+
     const {
       weathercode,
       temperature_2m_max,
@@ -317,29 +317,33 @@ class App {
 
     let day = 0;
 
-    while (day < 7) {
-      const dailyWeather = new DailyWeather(
-        weathercode[day],
-        "day",
-        this.#units.temperatureUnit,
-        this.#units.windSpeedUnit,
-        temperature_2m_max[day],
-        temperature_2m_min[day],
-        windspeed_10m_max[day],
-        time[day],
-        precipitation_sum[day],
-        rain_sum[day],
-        showers_sum[day],
-        snowfall_sum[day]
+    while (day < data.daily.temperature_2m_max.length) {
+      dailyWeather.push(
+        new DailyWeather(
+          weathercode[day],
+          "day",
+          this.#units.temperatureUnit,
+          this.#units.windSpeedUnit,
+          temperature_2m_max[day],
+          temperature_2m_min[day],
+          windspeed_10m_max[day],
+          time[day],
+          precipitation_sum[day],
+          rain_sum[day],
+          showers_sum[day],
+          snowfall_sum[day]
+        )
       );
-
-      this.#dailyWeather.push(dailyWeather);
 
       day++;
     }
 
-    this.#dailyWeather.shift();
+    return dailyWeather;
   }
+
+  // Creating daily weather forecasts for 1 week
+  _createDailyWeather = (data) =>
+    (this.#dailyWeather = this._createDailyWeatherObject(data));
 
   // Getting the current time
   _getTime = () => this.#dateTimeFormat.format(new Date());
@@ -408,7 +412,7 @@ class App {
       <div
         class="offcanvas offcanvas-start ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
-        } rounded-top"
+        }"
         id="offcanvas-nav-menu"
       >
         <div class="offcanvas-header align-items-center">
@@ -688,35 +692,23 @@ class App {
           }`)
       );
 
-    document.querySelectorAll(".offcanvas-input").forEach((offcanvasInput) => {
-      offcanvasInput.className += ` ${
-        this.#time === "night" ? "input-dark" : "input-light"
-      }`;
-
-      offcanvasInput.addEventListener("click", () =>
-        document.querySelectorAll(".offcanvas").forEach((offcanvas) => {
-          setTimeout(() => {
-            offcanvas.classList.add("h-100");
-            offcanvas.classList.remove("rounded-top");
-          }, 500);
-        })
+    document
+      .querySelectorAll(".offcanvas-input")
+      .forEach(
+        (offcanvasInput) =>
+          (offcanvasInput.className += ` ${
+            this.#time === "night" ? "input-dark" : "input-light"
+          }`)
       );
-    });
 
     document
       .querySelectorAll(".btn-close-offcanvas")
-      .forEach((btnCloseOffcanvas) => {
-        btnCloseOffcanvas.className += ` ${
-          this.#time === "night" ? "text-white" : "text-muted"
-        }`;
-
-        btnCloseOffcanvas.addEventListener("click", () =>
-          document.querySelectorAll(".offcanvas").forEach((offcanvas) => {
-            offcanvas.classList.remove("h-100");
-            offcanvas.classList.add("rounded-top");
-          })
-        );
-      });
+      .forEach(
+        (btnCloseOffcanvas) =>
+          (btnCloseOffcanvas.className += ` ${
+            this.#time === "night" ? "text-white" : "text-muted"
+          }`)
+      );
 
     document.querySelector("#btn-other-data").addEventListener("click", () => {
       document
@@ -724,18 +716,6 @@ class App {
         .classList.toggle(
           `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
         );
-
-      setTimeout(
-        () =>
-          document
-            .querySelector("#offcanvas-daily-weather")
-            .classList.toggle("h-100"),
-        500
-      );
-
-      document
-        .querySelector("#offcanvas-daily-weather")
-        .classList.toggle("rounded-top");
     });
   }
 
@@ -838,14 +818,6 @@ class App {
     btnOtherData.classList.remove(
       `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
     );
-
-    document
-      .querySelector("#offcanvas-daily-weather")
-      .classList.remove("h-100");
-
-    document
-      .querySelector("#offcanvas-daily-weather")
-      .classList.add("rounded-top");
 
     [btnOtherData.style.color, btnOtherData.style.border] = [
       `${
@@ -974,20 +946,9 @@ class App {
   }
 
   // Creating the current weather by searched city
-  _createSearchedCurrentWeather(data) {
-    const { weathercode, temperature, windspeed } = data.current_weather;
-    const { timezone } = data;
-
-    this.#searcedCurrentWeather = new CurrentWeather(
-      weathercode,
-      this.#time,
-      this.#units.temperatureUnit,
-      this.#units.windSpeedUnit,
-      timezone,
-      temperature,
-      windspeed
-    );
-  }
+  _createSearchedCurrentWeather = (data) =>
+    // Polymorphism
+    (this.#searcedCurrentWeather = this._createCurrentWeatherObject(data));
 
   // Creating line chart temperatures by hours for searched city
   _createSearchedTemperatureChart(data) {
@@ -1000,6 +961,9 @@ class App {
     );
   }
 
+  _createSearchedDailyWeather = (data) =>
+    (this.#searchedDailyWeather = this._createDailyWeatherObject(data));
+
   // Showing the current weather by searched city on the display
   _renderSearchedCity(data, city) {
     const [
@@ -1009,6 +973,7 @@ class App {
       searchedCurrentWeatherIcon,
       searchedCurrentTemperature,
       searchedCurrentWindSpeed,
+      offcanvasSearcedDailyWeatherFooter,
     ] = [
       document.querySelector("#searched-city"),
       document.querySelector("#searched-current-time"),
@@ -1016,6 +981,7 @@ class App {
       document.querySelector("#searched-current-weather-icon"),
       document.querySelector("#searched-current-temperature"),
       document.querySelector("#searched-current-windspeed"),
+      document.querySelector("#offcanvas-searched-daily-weather-footer"),
     ];
 
     searchedCurrentWeatherIcon.classList.add(
@@ -1050,6 +1016,67 @@ class App {
       }
       `,
     ];
+
+    this.#searchedDailyWeather.forEach((searchedDailyWeather, index) => {
+      const searchedDailyWeatherHTML = `
+      <div class="col-6">
+        <div class="card ${
+          this.#time === "night" ? "bg-dark" : "bg-white shadow"
+        } rounded border-0 py-2"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvas-daily-weather"
+        daily-weather-data=${index}>
+          <div class="card-header border-0 pb-0">
+            <img src="../img/${
+              searchedDailyWeather._getWeatherForecast().icon
+            }" class="img-fluid daily-weather-icon ${
+        this.#time === "night" ? "img-dark" : "img-day"
+      }" width="84" alt="_weather_forecast_icon" />
+            <br />
+            <span class="daily-weather ${
+              this.#time === "night" ? "text-light" : "text-black"
+            }">${searchedDailyWeather._getWeatherForecast().weather}</span>
+          </div>
+          <div class="card-body">
+            <div class="text-center">
+              <span>
+                <i class="fa-regular fa-sun"></i>
+                <span class="daily-weather-temperature-max ms-1">
+                  ${Math.round(searchedDailyWeather.temperatureMax)}
+                </span>
+              </span>
+              <span>
+                <sup>${searchedDailyWeather.tempUnit}</sup>
+              </span>
+            </div>
+            <div class="text-center">
+              <span>
+                <i class="fa-regular fa-moon"></i>
+                <span class="daily-weather-temperature-min ms-1">
+                  ${Math.round(searchedDailyWeather.temperatureMin)}
+                </span>
+              </span>
+              <span>
+                <sup>${searchedDailyWeather.tempUnit}</sup>
+              </span>
+            </div>
+          </div>
+          <div class="card-footer ${
+            this.#time === "night" ? "text-light" : "text-black"
+          } border-0 pt-0">
+            <span class="daily-weather-day">${
+              index === 0 ? "Tomorrow" : `${searchedDailyWeather._getDay()}`
+            }</span>
+          </div>
+        </div>
+      </div>
+      `;
+
+      offcanvasSearcedDailyWeatherFooter.insertAdjacentHTML(
+        "afterbegin",
+        searchedDailyWeatherHTML
+      );
+    });
 
     this._createSearchedTemperatureChart(data);
   }
@@ -1104,6 +1131,7 @@ class App {
             $("#offcanvas-searched-city").offcanvas("show");
 
             this._createSearchedCurrentWeather(data);
+            this._createSearchedDailyWeather(data);
             this._renderSearchedCity(data, city);
           });
       });
