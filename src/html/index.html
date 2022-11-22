@@ -9,9 +9,9 @@
     <script defer src="../js/app.js"></script>
     <title>Weather Forecast</title>
   </head>
-  <body>
+  <body class="row">
     <div
-      class="offcanvas offcanvas-bottom border-0 rounded-top shadow"
+      class="offcanvas offcanvas-bottom col-4 mx-auto border-0 rounded-top shadow"
       id="offcanvas-search-city"
     >
       <div class="offcanvas-header">
@@ -36,11 +36,11 @@
       </div>
     </div>
     <div
-      class="offcanvas offcanvas-bottom border-0"
+      class="offcanvas offcanvas-bottom col-4 mx-auto border-0 shadow"
       id="offcanvas-searched-city"
-      style="height: 100%; width: 100%; overflow-x: hidden"
+      style="height: 100%; overflow-x: hidden"
     >
-      <div class="offcanvas-header">
+      <div class="offcanvas-header position-static">
         <div class="col-2 text-start">
           <button
             type="button"
@@ -60,7 +60,7 @@
         </div>
         <div class="col-2"></div>
       </div>
-      <div class="offcanvas-body text-center border">
+      <div class="offcanvas-body text-center">
         <span class="h2" id="searched-current-time"></span>
         <p class="my-1 mb-0" id="searched-current-weather"></p>
         <img
@@ -84,7 +84,7 @@
       </div>
     </div>
     <div
-      class="offcanvas offcanvas-bottom border-0 rounded-top shadow"
+      class="offcanvas offcanvas-bottom col-4 mx-auto border-0 rounded-top shadow"
       id="offcanvas-daily-weather"
     >
       <div class="offcanvas-header">

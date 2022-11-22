@@ -132,6 +132,9 @@ body {
   #offcanvas-search-city {
     .offcanvas-body {
       .searched-city {
+        user-select: none;
+        cursor: pointer;
+
         .country-img-box {
           width: 28px;
           height: 28px;

@@ -94,6 +94,13 @@ body {
   height: 100vh;
   overflow-y: scroll;
 }
+body #offcanvas-search-city .offcanvas-body .searched-city {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
 body #offcanvas-search-city .offcanvas-body .searched-city .country-img-box {
   width: 28px;
   height: 28px;

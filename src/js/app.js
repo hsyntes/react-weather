@@ -410,7 +410,7 @@ class App {
         <i class="fa-solid fa-bars fa-xl"></i>
       </button>
       <div
-        class="offcanvas offcanvas-start ${
+        class="offcanvas offcanvas-bottom col-4 mx-auto border-0 rounded-top shadow ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
         }"
         id="offcanvas-nav-menu"
@@ -541,16 +541,16 @@ class App {
       .querySelector("#current-weather-icon")
       .animate(this.#animateKeyframes, this.#animateOptions);
 
-    document
-      .querySelector("#btn-search-cities")
-      .addEventListener("click", () => {
-        document
-          .querySelector("#offcanvas-searched-city")
-          .classList.remove("offcanvas-start");
-        document
-          .querySelector("#offcanvas-searched-city")
-          .classList.add("offcanvas-bottom");
-      });
+    // document
+    //   .querySelector("#btn-search-cities")
+    //   .addEventListener("click", () => {
+    //     document
+    //       .querySelector("#offcanvas-searched-city")
+    //       .classList.remove("offcanvas-start");
+    //     document
+    //       .querySelector("#offcanvas-searched-city")
+    //       .classList.add("offcanvas-bottom");
+    //   });
   }
 
   // Showing daily weather forecast on the display
@@ -674,13 +674,20 @@ class App {
           : "bg-white text-muted shadow"
       }`;
 
-      if (offcanvas.classList.contains("rounded-top"))
-        offcanvas.style.height = `${
-          100 -
-          ((document.querySelector("nav").getBoundingClientRect().height + 20) *
-            100) /
-            document.body.getBoundingClientRect().height
-        }%`;
+      offcanvas.style.height = `${
+        100 -
+        ((document.querySelector("nav").getBoundingClientRect().height + 20) *
+          100) /
+          document.body.getBoundingClientRect().height
+      }%`;
+
+      // if (offcanvas.classList.contains("rounded-top"))
+      //   offcanvas.style.height = `${
+      //     100 -
+      //     ((document.querySelector("nav").getBoundingClientRect().height + 20) *
+      //       100) /
+      //       document.body.getBoundingClientRect().height
+      //   }%`;
     });
 
     document
@@ -1120,13 +1127,13 @@ class App {
 
             $("#offcanvas-search-city").offcanvas("hide");
 
-            document
-              .querySelector("#offcanvas-searched-city")
-              .classList.add("offcanvas-start");
+            // document
+            //   .querySelector("#offcanvas-searched-city")
+            //   .classList.add("offcanvas-start");
 
-            document
-              .querySelector("#offcanvas-searched-city")
-              .classList.remove("offcanvas-bottom");
+            // document
+            //   .querySelector("#offcanvas-searched-city")
+            //   .classList.remove("offcanvas-bottom");
 
             $("#offcanvas-searched-city").offcanvas("show");
 
@@ -1195,4 +1202,6 @@ class App {
   }
 }
 
-const app = new App("app d-flex flex-column");
+const app = new App(
+  "app d-flex flex-column col-4 mx-auto border rounded shadow"
+);
