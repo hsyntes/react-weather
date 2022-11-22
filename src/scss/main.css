@@ -31,15 +31,32 @@ a {
 
 .card {
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
 }
 .card .card-header,
 .card .card-footer {
   background: none !important;
 }
 
+a.bg-dark,
+.card.bg-dark {
+  transition: all 0.3s ease-in-out;
+}
+a.bg-dark:hover,
 .card.bg-dark:hover {
-  background: #191a19 !important;
+  background: #1e1e1e !important;
+  box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
+}
+
+a.bg-light,
+.card.bg-light,
+.card.bg-white {
+  transition: all 0.3s ease-in-out;
+}
+a.bg-light:hover,
+.card.bg-light:hover,
+.card.bg-white:hover {
+  background: #d8faff !important;
+  box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }
 
 input.input-dark {

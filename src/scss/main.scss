@@ -72,7 +72,6 @@ a {
 
 .card {
   cursor: pointer;
-  transition: $transition-base;
 
   .card-header,
   .card-footer {
@@ -80,9 +79,25 @@ a {
   }
 }
 
+a.bg-dark,
 .card.bg-dark {
+  transition: $transition-base;
+
   &:hover {
-    background: $black !important;
+    // background: $black !important;
+    background: darken($color: $dark, $amount: 1) !important;
+    box-shadow: $box-shadow !important;
+  }
+}
+
+a.bg-light,
+.card.bg-light,
+.card.bg-white {
+  transition: $transition-base;
+
+  &:hover {
+    background: darken($color: $light, $amount: 2) !important;
+    box-shadow: $box-shadow !important;
   }
 }
 

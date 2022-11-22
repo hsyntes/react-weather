@@ -280,6 +280,8 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+
+    // this.#time = "day";
   }
 
   _createCurrentWeatherObject(data) {
@@ -397,7 +399,8 @@ class App {
 
   // Showing both the current and daily weather on the display
   _renderCurrentWeather() {
-    document.body.className = this.#time === "night" ? "bg-black" : "bg-light";
+    document.body.className +=
+      this.#time === "night" ? " bg-black" : " bg-light";
 
     const currentWeatherHTML = `
     <nav class="navbar ${this.#time === "night" ? "bg-dark" : "bg-white"} p-3">
@@ -410,7 +413,7 @@ class App {
         <i class="fa-solid fa-bars fa-xl"></i>
       </button>
       <div
-        class="offcanvas offcanvas-bottom col-lg-4 col-md-6 col-sm-8 mx-auto border-0 rounded-top shadow ${
+        class="offcanvas offcanvas-bottom col-lg-4 col-md-6 col-sm-8 px-0 mx-auto border-0 rounded-top shadow ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
         }"
         id="offcanvas-nav-menu"
@@ -1203,5 +1206,5 @@ class App {
 }
 
 const app = new App(
-  "app d-flex flex-column col-lg-4 col-md-6 col-sm-8 mx-auto border rounded shadow"
+  "app d-flex flex-column col-lg-4 col-md-6 col-sm-8 px-0 mx-auto border rounded shadow"
 );
