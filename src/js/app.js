@@ -282,6 +282,7 @@ class App {
     }
   }
 
+  // Creating objects for current weather forecasts
   _createCurrentWeatherObject(data) {
     const { weathercode, temperature, windspeed } = data.current_weather;
     const { timezone } = data;
@@ -300,6 +301,7 @@ class App {
   _createCurrentWeather = (data) =>
     (this.#currentWeather = this._createCurrentWeatherObject(data));
 
+  // Creating objects for daily weather forecasts
   _createDailyWeatherObject(data) {
     const dailyWeather = [];
 
@@ -969,7 +971,9 @@ class App {
     );
   }
 
+  // Creating daily weather objects for searched city
   _createSearchedDailyWeather = (data) =>
+    // Polymorphism
     (this.#searchedDailyWeather = this._createDailyWeatherObject(data));
 
   // Showing the current weather by searched city on the display
