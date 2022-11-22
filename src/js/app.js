@@ -212,14 +212,14 @@ class App {
   });
 
   #animateKeyframes = [
-    { transform: "translateY(0%) rotateZ(0deg)" },
-    { transform: "translateY(2%) rotateZ(3deg)" },
-    { transform: "translateY(-2%) rotateZ(-3deg)" },
-    { transform: "translateY(0%) rotateZ(0deg)" },
+    { transform: "translateY(0%)" },
+    { transform: "translateY(2%)" },
+    { transform: "translateY(-2%)" },
+    { transform: "translateY(0%)" },
   ];
 
   #animateOptions = {
-    duration: 7500,
+    duration: 5000,
     iterations: Infinity,
     easing: "linear",
   };

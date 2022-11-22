@@ -29,32 +29,37 @@ a {
   color: #191a19 !important;
 }
 
-.card {
-  cursor: pointer;
-}
 .card .card-header,
 .card .card-footer {
   background: none !important;
 }
 
-a.bg-dark,
-.card.bg-dark {
+a.bg-light,
+.card.bg-light.card-daily-weather,
+.card.bg-white.card-daily-weather,
+.searched-city.searched-city-dark {
+  cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-a.bg-dark:hover,
-.card.bg-dark:hover {
-  background: #1e1e1e !important;
+a.bg-light:hover,
+.card.bg-light.card-daily-weather:hover,
+.card.bg-white.card-daily-weather:hover,
+.searched-city.searched-city-dark:hover {
+  background: #1c1c1c !important;
   box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }
 
 a.bg-light,
 .card.bg-light.card-daily-weather,
-.card.bg-white.card-daily-weather {
+.card.bg-white.card-daily-weather,
+.searched-city.searched-city-light {
+  cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 a.bg-light:hover,
 .card.bg-light.card-daily-weather:hover,
-.card.bg-white.card-daily-weather:hover {
+.card.bg-white.card-daily-weather:hover,
+.searched-city.searched-city-light:hover {
   background: #d8faff !important;
   box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }
@@ -117,13 +122,13 @@ hr.hr-white {
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 100vh;
-  overflow-y: scroll;
-}
-body #offcanvas-search-city .offcanvas-body .searched-city {
+  overflow: hidden;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+body #offcanvas-search-city .offcanvas-body .searched-city {
   cursor: pointer;
 }
 body #offcanvas-search-city .offcanvas-body .searched-city .country-img-box {

@@ -71,28 +71,30 @@ a {
 }
 
 .card {
-  cursor: pointer;
-
   .card-header,
   .card-footer {
     background: none !important;
   }
 }
 
-a.bg-dark,
-.card.bg-dark {
+a.bg-light,
+.card.bg-light.card-daily-weather,
+.card.bg-white.card-daily-weather,
+.searched-city.searched-city-dark {
+  cursor: pointer;
   transition: $transition-base;
 
   &:hover {
-    // background: $black !important;
-    background: darken($color: $dark, $amount: 1) !important;
+    background: darken($color: $dark, $amount: 2) !important;
     box-shadow: $box-shadow !important;
   }
 }
 
 a.bg-light,
 .card.bg-light.card-daily-weather,
-.card.bg-white.card-daily-weather {
+.card.bg-white.card-daily-weather,
+.searched-city.searched-city-light {
+  cursor: pointer;
   transition: $transition-base;
 
   &:hover {
@@ -153,12 +155,13 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 100vh;
   // overflow: hidden;
-  overflow-y: scroll;
+  overflow: hidden;
+  user-select: none;
 
   #offcanvas-search-city {
     .offcanvas-body {
       .searched-city {
-        user-select: none;
+        // user-select: none;
         cursor: pointer;
 
         .country-img-box {
