@@ -70,9 +70,20 @@ a {
   color: $black !important;
 }
 
-.card-header,
-.card-footer {
-  background: none !important;
+.card {
+  cursor: pointer;
+  transition: $transition-base;
+
+  .card-header,
+  .card-footer {
+    background: none !important;
+  }
+}
+
+.card.bg-dark {
+  &:hover {
+    background: $black !important;
+  }
 }
 
 input.input-dark {

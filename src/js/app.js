@@ -410,7 +410,7 @@ class App {
         <i class="fa-solid fa-bars fa-xl"></i>
       </button>
       <div
-        class="offcanvas offcanvas-bottom col-4 mx-auto border-0 rounded-top shadow ${
+        class="offcanvas offcanvas-bottom col-lg-4 col-md-6 col-sm-8 mx-auto border-0 rounded-top shadow ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
         }"
         id="offcanvas-nav-menu"
@@ -1203,5 +1203,5 @@ class App {
 }
 
 const app = new App(
-  "app d-flex flex-column col-4 mx-auto border rounded shadow"
+  "app d-flex flex-column col-lg-4 col-md-6 col-sm-8 mx-auto border rounded shadow"
 );

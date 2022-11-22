@@ -29,9 +29,17 @@ a {
   color: #191a19 !important;
 }
 
-.card-header,
-.card-footer {
+.card {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.card .card-header,
+.card .card-footer {
   background: none !important;
+}
+
+.card.bg-dark:hover {
+  background: #191a19 !important;
 }
 
 input.input-dark {
