@@ -203,12 +203,26 @@ body.bg-black {
     background: $light;
     border-radius: 3rem;
   }
+
+  #btn-other-data {
+    &:hover {
+      background: $light !important;
+      color: $dark !important;
+    }
+  }
 }
 
 body.bg-light {
   ::-webkit-scrollbar-thumb {
     background: $dark;
     border-radius: 3rem;
+  }
+
+  #btn-other-data {
+    &:hover {
+      background: $dark !important;
+      color: $light !important;
+    }
   }
 }
 
