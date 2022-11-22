@@ -1,6 +1,6 @@
 "use strict";
 
-// Weather Class
+// Weather Class (Abstract)
 class Weather {
   constructor(weatherCode, time, tempUnit, windSpeedUnit) {
     this.weatherCode = weatherCode;
@@ -114,6 +114,7 @@ class Weather {
 }
 
 // Current Weather Class
+// Inheritance
 class CurrentWeather extends Weather {
   constructor(
     weatherCode,
@@ -132,6 +133,7 @@ class CurrentWeather extends Weather {
 }
 
 // Daily Weather Class
+// Inheritance
 class DailyWeather extends Weather {
   constructor(
     weatherCode,
@@ -159,6 +161,7 @@ class DailyWeather extends Weather {
   }
 
   // Getting the weekdays
+  // Encapsulation
   _getDay = () =>
     new Intl.DateTimeFormat(navigator.language, {
       weekday: "long",
@@ -245,7 +248,7 @@ class App {
     this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
   }
 
-  // Calling the fetch API
+  // Calling the Weather Forecast API
   _callAPI = (position) =>
     fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode,temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
@@ -297,6 +300,7 @@ class App {
       windspeed
     );
   }
+
   // Creating the current weather forecast
   _createCurrentWeather = (data) =>
     (this.#currentWeather = this._createCurrentWeatherObject(data));
@@ -543,17 +547,6 @@ class App {
     document
       .querySelector("#current-weather-icon")
       .animate(this.#animateKeyframes, this.#animateOptions);
-
-    // document
-    //   .querySelector("#btn-search-cities")
-    //   .addEventListener("click", () => {
-    //     document
-    //       .querySelector("#offcanvas-searched-city")
-    //       .classList.remove("offcanvas-start");
-    //     document
-    //       .querySelector("#offcanvas-searched-city")
-    //       .classList.add("offcanvas-bottom");
-    //   });
   }
 
   // Showing daily weather forecast on the display
@@ -683,14 +676,6 @@ class App {
           100) /
           document.body.getBoundingClientRect().height
       }%`;
-
-      // if (offcanvas.classList.contains("rounded-top"))
-      //   offcanvas.style.height = `${
-      //     100 -
-      //     ((document.querySelector("nav").getBoundingClientRect().height + 20) *
-      //       100) /
-      //       document.body.getBoundingClientRect().height
-      //   }%`;
     });
 
     document
@@ -1129,15 +1114,6 @@ class App {
             document.querySelector(".searched-cities").innerHTML = "";
 
             $("#offcanvas-search-city").offcanvas("hide");
-
-            // document
-            //   .querySelector("#offcanvas-searched-city")
-            //   .classList.add("offcanvas-start");
-
-            // document
-            //   .querySelector("#offcanvas-searched-city")
-            //   .classList.remove("offcanvas-bottom");
-
             $("#offcanvas-searched-city").offcanvas("show");
 
             this._createSearchedCurrentWeather(data);
