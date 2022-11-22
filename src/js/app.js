@@ -571,7 +571,7 @@ class App {
     this.#dailyWeather.forEach((dailyWeather, index) => {
       const dailyWeatherHTML = `
         <div class="col-6">
-          <div class="card ${
+          <div class="card card-daily-weather ${
             this.#time === "night" ? "bg-dark" : "bg-white shadow"
           } rounded border-0 py-2"
           data-bs-toggle="offcanvas"
@@ -1035,8 +1035,6 @@ class App {
         <div class="card ${
           this.#time === "night" ? "bg-dark" : "bg-white shadow"
         } rounded border-0 py-2"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvas-daily-weather"
         daily-weather-data=${index}>
           <div class="card-header border-0 pb-0">
             <img src="../img/${
@@ -1208,5 +1206,5 @@ class App {
 }
 
 const app = new App(
-  "app d-flex flex-column col-lg-4 col-md-6 col-sm-8 px-0 mx-auto border rounded shadow"
+  "app d-flex flex-column col-lg-4 col-md-6 col-sm-8 px-0 mx-auto rounded shadow"
 );

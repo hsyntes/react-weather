@@ -48,13 +48,13 @@ a.bg-dark:hover,
 }
 
 a.bg-light,
-.card.bg-light,
-.card.bg-white {
+.card.bg-light.card-daily-weather,
+.card.bg-white.card-daily-weather {
   transition: all 0.3s ease-in-out;
 }
 a.bg-light:hover,
-.card.bg-light:hover,
-.card.bg-white:hover {
+.card.bg-light.card-daily-weather:hover,
+.card.bg-white.card-daily-weather:hover {
   background: #d8faff !important;
   box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }

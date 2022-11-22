@@ -91,8 +91,8 @@ a.bg-dark,
 }
 
 a.bg-light,
-.card.bg-light,
-.card.bg-white {
+.card.bg-light.card-daily-weather,
+.card.bg-white.card-daily-weather {
   transition: $transition-base;
 
   &:hover {
@@ -188,10 +188,6 @@ body {
       }
     }
   }
-
-  // #offcanvas-daily-weather {
-  //   transition: $offcanvas-transition-duration !important;
-  // }
 
   .offcanvas {
     transition: $offcanvas-transition-duration !important;
