@@ -280,8 +280,6 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
-
-    // this.#time = "day";
   }
 
   _createCurrentWeatherObject(data) {
