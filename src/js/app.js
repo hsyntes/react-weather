@@ -219,7 +219,7 @@ class App {
   ];
 
   #animateOptions = {
-    duration: 5000,
+    duration: 3500,
     iterations: Infinity,
     easing: "linear",
   };
@@ -238,14 +238,18 @@ class App {
 
   // Creating the app container
   _createApp(className) {
-    this.#app = document.createElement("div");
-    this.#app.className = className;
+    window.addEventListener("load", () => {
+      this.#app = document.createElement("div");
+      this.#app.className = className;
 
-    document.body.prepend(this.#app);
+      document.body.prepend(this.#app);
 
-    this._getPermission();
+      this._getPermission();
 
-    this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
+      this.#app.addEventListener("click", (e) =>
+        this._getCurrentDailyWeather(e)
+      );
+    });
   }
 
   // Calling the Weather Forecast API
@@ -419,7 +423,7 @@ class App {
         <i class="fa-solid fa-bars fa-xl"></i>
       </button>
       <div
-        class="offcanvas offcanvas-bottom  col-lg-6 px-0 mx-auto border-0 rounded-top shadow ${
+        class="offcanvas offcanvas-bottom  col-md-6 px-0 mx-auto border-0 rounded-top shadow ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
         }"
         id="offcanvas-nav-menu"
@@ -554,7 +558,7 @@ class App {
   // Showing daily weather forecast on the display
   _renderDailyWeather() {
     const footer = document.createElement("footer");
-    footer.className = "p-3";
+    footer.className = "mt-auto p-3";
 
     const dailyWeatherDiv = document.createElement("div");
     dailyWeatherDiv.className = `row flex-nowrap py-3 text-center ${
@@ -1198,6 +1202,4 @@ class App {
   }
 }
 
-const app = new App(
-  "app d-flex flex-column col-lg-6 col-md-8 m-0 p-0 mx-auto rounded shadow"
-);
+const app = new App("app d-flex flex-column col-md-6 m-0 p-0 mx-auto shadow");
