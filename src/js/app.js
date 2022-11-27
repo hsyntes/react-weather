@@ -344,6 +344,8 @@ class App {
       day++;
     }
 
+    dailyWeather.shift();
+
     return dailyWeather;
   }
 
@@ -434,7 +436,7 @@ class App {
           <button
             type="button"
             class="btn ${
-              this.#time === "night" ? "text-white" : "text-black"
+              this.#time === "night" ? "text-white" : "text-muted"
             } ms-auto"
             data-bs-dismiss="offcanvas"
           >
@@ -663,6 +665,13 @@ class App {
 
   // Setting offcanvases
   _setOffcanvases() {
+    const offCanvasDefaultHeight = `${
+      100 -
+      ((document.querySelector("nav").getBoundingClientRect().height + 20) *
+        100) /
+        document.body.getBoundingClientRect().height
+    }%`;
+
     document.querySelectorAll(".offcanvas").forEach((offcanvas) => {
       offcanvas.className += ` ${
         this.#time === "night"
@@ -670,12 +679,8 @@ class App {
           : "bg-white text-muted shadow"
       }`;
 
-      offcanvas.style.height = `${
-        100 -
-        ((document.querySelector("nav").getBoundingClientRect().height + 20) *
-          100) /
-          document.body.getBoundingClientRect().height
-      }%`;
+      if (!offcanvas.classList.contains("offcanvas-fullscreen"))
+        offcanvas.style.height = offCanvasDefaultHeight;
     });
 
     document
@@ -687,23 +692,34 @@ class App {
           }`)
       );
 
-    document
-      .querySelectorAll(".offcanvas-input")
-      .forEach(
-        (offcanvasInput) =>
-          (offcanvasInput.className += ` ${
-            this.#time === "night" ? "input-dark" : "input-light"
-          }`)
-      );
+    document.querySelectorAll(".offcanvas-input").forEach((offcanvasInput) => {
+      offcanvasInput.className += ` ${
+        this.#time === "night" ? "input-dark" : "input-light"
+      }`;
+
+      offcanvasInput.addEventListener("click", () => {
+        document
+          .querySelector("#offcanvas-search-city")
+          .classList.remove("rounded-top");
+        document.querySelector("#offcanvas-search-city").style.height = "100%";
+      });
+    });
 
     document
       .querySelectorAll(".btn-close-offcanvas")
-      .forEach(
-        (btnCloseOffcanvas) =>
-          (btnCloseOffcanvas.className += ` ${
-            this.#time === "night" ? "text-white" : "text-muted"
-          }`)
-      );
+      .forEach((btnCloseOffcanvas) => {
+        btnCloseOffcanvas.className += ` ${
+          this.#time === "night" ? "text-white" : "text-muted"
+        }`;
+
+        btnCloseOffcanvas.addEventListener("click", () => {
+          document
+            .querySelector("#offcanvas-search-city")
+            .classList.add("rounded-top");
+          document.querySelector("#offcanvas-search-city").style.height =
+            offCanvasDefaultHeight;
+        });
+      });
 
     document.querySelector("#btn-other-data").addEventListener("click", () => {
       document
@@ -1014,6 +1030,7 @@ class App {
       `,
     ];
 
+    offcanvasSearcedDailyWeatherFooter.innerHTML = "";
     this.#searchedDailyWeather.forEach((searchedDailyWeather, index) => {
       const searchedDailyWeatherHTML = `
       <div class="col-6">
@@ -1068,7 +1085,7 @@ class App {
       `;
 
       offcanvasSearcedDailyWeatherFooter.insertAdjacentHTML(
-        "afterbegin",
+        "beforeend",
         searchedDailyWeatherHTML
       );
     });
@@ -1182,5 +1199,5 @@ class App {
 }
 
 const app = new App(
-  "app d-flex flex-column col-lg-6 col-md-8 mx-0 px-0 mx-auto rounded shadow"
+  "app d-flex flex-column col-lg-6 col-md-8 m-0 p-0 mx-auto rounded shadow"
 );
