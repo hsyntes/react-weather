@@ -225,6 +225,8 @@ class App {
   };
 
   constructor(className) {
+    window.addEventListener("contextmenu", (e) => e.preventDefault());
+
     this._createApp(className);
 
     document
