@@ -500,7 +500,7 @@ class App {
             this.#time === "night" ? "text-white" : "text-black"
           } mb-0">
             <span>
-              <img src="img/icon.ico" width="32" />
+              <img src="/img/icon.ico" width="32" />
             </span>
             <span>Weather Forecast</span>
           </h4>
@@ -613,7 +613,7 @@ class App {
     <main class="${
       this.#time === "night" ? "text-white" : "text-muted"
     } text-center px-3">
-      <img src="img/${
+      <img src="/img/${
         this.#currentWeather._getWeatherForecast().icon
       }" class="img-fluid ${
       this.#time === "night" ? "img-dark" : "img-day"
@@ -666,7 +666,7 @@ class App {
           data-bs-target="#offcanvas-daily-weather"
           daily-weather-data=${index}>
             <div class="card-header border-0 pb-0">
-              <img src="img/${
+              <img src="/img/${
                 dailyWeather._getWeatherForecast().icon
               }" class="img-fluid daily-weather-icon ${
         this.#time === "night" ? "img-dark" : "img-day"
@@ -743,7 +743,7 @@ class App {
     ] = [
       this.#currentWeather.timezone.split("/")[1],
       this.#currentWeather._getWeatherForecast().weather,
-      `img/${this.#currentWeather._getWeatherForecast().icon}`,
+      `/img/${this.#currentWeather._getWeatherForecast().icon}`,
       `
       <span class="h1" id="current-temperature">
         ${Math.round(this.#currentWeather.temperature)}
@@ -973,7 +973,7 @@ class App {
       ${this.#currentWeather.timezone.split("/")[1]}
     </span>
       `,
-      `img/${this.#currentDailyWeather._getWeatherForecast().icon}`,
+      `/img/${this.#currentDailyWeather._getWeatherForecast().icon}`,
       this.#currentDailyWeather._getDay(),
       this.#currentDailyWeather._getWeatherForecast().weather,
       `
@@ -1100,7 +1100,7 @@ class App {
       city,
       this.#dateTimeFormat.format(new Date()),
       this.#searcedCurrentWeather._getWeatherForecast().weather,
-      `img/${this.#searcedCurrentWeather._getWeatherForecast().icon}`,
+      `/img/${this.#searcedCurrentWeather._getWeatherForecast().icon}`,
       `
       ${Math.round(this.#searcedCurrentWeather.temperature)}
       <sup>${this.#searcedCurrentWeather.tempUnit}</sup>
@@ -1129,7 +1129,7 @@ class App {
         } rounded border-0 py-2"
         daily-weather-data=${index}>
           <div class="card-header border-0 pb-0">
-            <img src="img/${
+            <img src="/img/${
               searchedDailyWeather._getWeatherForecast().icon
             }" class="img-fluid daily-weather-icon ${
         this.#time === "night" ? "img-dark" : "img-day"
