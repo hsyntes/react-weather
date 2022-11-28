@@ -482,28 +482,28 @@ class App {
                 </span>
               </a>
               <div class="collapse" id="collapse-developer">
-                <a href="https://www.github.com/hsyntes" class="${
+                <a href="https://www.github.com/hsyntes/" class="${
                   this.#time === "night" ? "text-white" : "text-black"
                 } d-block rounded px-3 py-2"
                 target="_blank">
                   <i class="fa-brands fa-github"></i>
                   <span class="ms-2">Github</span>
                 </a>
-                <a href="https://www.linkedin.com/hsyntes" class="${
+                <a href="https://www.linkedin.com/in/hsyntes/" class="${
                   this.#time === "night" ? "text-white" : "text-black"
                 } d-block rounded px-3 py-2"
                 target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
-                  <span class="ms-2">LinkedIN</span>
+                  <span class="ms-2">LinkedIn</span>
                 </a>
-                <a href="https://www.twitter.com/hsyntes" class="${
+                <a href="https://www.twitter.com/hsyntes/" class="${
                   this.#time === "night" ? "text-white" : "text-black"
                 } d-block rounded px-3 py-2"
                 target="_blank">
                   <i class="fa-brands fa-twitter"></i>
                   <span class="ms-2">Twitter</span>
                 </a>
-                <a href="https://www.instagram.com/hsyntes" class="${
+                <a href="https://www.instagram.com/hsyntes/" class="${
                   this.#time === "night" ? "text-white" : "text-black"
                 } d-block rounded px-3 py-2 pb-3"
                 target="_blank">
@@ -587,9 +587,9 @@ class App {
     footer.className = "mt-auto p-3";
 
     const dailyWeatherDiv = document.createElement("div");
-    dailyWeatherDiv.className = `row flex-nowrap py-3 text-center ${
+    dailyWeatherDiv.className = `row flex-nowrap text-center ${
       this.#time === "night" ? "text-white" : "text-muted"
-    }`;
+    } py-3 `;
     dailyWeatherDiv.setAttribute("id", "daily-weather");
     dailyWeatherDiv.innerHTML = "";
 
@@ -1050,6 +1050,13 @@ class App {
       `,
     ];
 
+    const searchedDailyWeatherDiv = document.createElement("div");
+    searchedDailyWeatherDiv.className = `row flex-nowrap text-center ${
+      this.#time === "night" ? "text-white" : "text-muted"
+    } py-3`;
+    searchedDailyWeatherDiv.style.overflowX = "scroll";
+    searchedDailyWeatherDiv.innerHTML = "";
+
     offcanvasSearcedDailyWeatherFooter.innerHTML = "";
     this.#searchedDailyWeather.forEach((searchedDailyWeather, index) => {
       const searchedDailyWeatherHTML = `
@@ -1104,10 +1111,8 @@ class App {
       </div>
       `;
 
-      offcanvasSearcedDailyWeatherFooter.insertAdjacentHTML(
-        "beforeend",
-        searchedDailyWeatherHTML
-      );
+      searchedDailyWeatherDiv.innerHTML += searchedDailyWeatherHTML;
+      offcanvasSearcedDailyWeatherFooter.append(searchedDailyWeatherDiv);
     });
 
     this._createSearchedTemperatureChart(data);
