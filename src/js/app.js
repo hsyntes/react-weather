@@ -366,7 +366,6 @@ class App {
 
   // Creating line chart temperature
   _createTemperatureChart(ctx, data) {
-    console.log(data);
     const hours = [];
     data.hourly.time
       .slice(new Date().getHours() + 1, new Date().getHours() + 13)
