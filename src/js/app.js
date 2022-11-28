@@ -366,6 +366,7 @@ class App {
 
   // Creating line chart temperature
   _createTemperatureChart(ctx, data) {
+    console.log(data);
     const hours = [];
     data.hourly.time
       .slice(new Date().getHours() + 1, new Date().getHours() + 13)
@@ -445,12 +446,15 @@ class App {
               this.#time === "night" ? this.#colors.light : this.#colors.dark
             }`,
 
+            displayColors: false,
+
             intersect: false,
 
             callbacks: {
               label: function (context) {
                 let [label, index] = [context.dataset.label, context.dataIndex];
-                label = weatherForecasts[index];
+                const { temperature_2m } = data.hourly_units;
+                label = `${weatherForecasts[index]}, ${temperatures[index]}${temperature_2m}`;
 
                 return label;
               },
