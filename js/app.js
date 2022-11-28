@@ -440,7 +440,7 @@ class App {
             padding: 10,
             boxPadding: 2,
 
-            borderWidth: 0.5,
+            borderWidth: 1,
             borderColor: `${
               this.#time === "night" ? this.#colors.light : this.#colors.dark
             }`,
