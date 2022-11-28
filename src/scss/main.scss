@@ -25,9 +25,13 @@ $input-font-size: 0.95rem;
 $border-color: $muted;
 $border-radius: 1rem;
 
+$btn-close-opacity: 1;
+
 $box-shadow: 0 0 20px rgba($dark, $alpha: 0.15);
 
 $transition-base: all 0.3s ease-in-out;
+
+$transition-collapse: $transition-base;
 
 $offcanvas-transition-duration: 0.3s;
 
@@ -51,23 +55,51 @@ a {
 
 .btn {
   background: none !important;
-}
-
-.btn.text-muted {
-  &:hover {
-    color: $dark !important;
-    transition: $transition-base !important;
+  &:active,
+  &:focus {
+    box-shadow: none !important;
   }
 }
 
-.btn-active-light {
-  background: $black !important;
-  color: $white !important;
+.btn.btn-close {
+  // color: $muted !important;
+  position: relative;
+  transition: $transition-base;
+
+  i,
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
-.btn-active-dark {
-  background: $white !important;
+.btn-dark {
+  color: $white !important;
+
+  &:active {
+    background: $dark !important;
+    box-shadow: $box-shadow !important;
+  }
+}
+
+.btn-light {
   color: $black !important;
+
+  &:active {
+    background: $light !important;
+    box-shadow: $box-shadow !important;
+  }
+}
+
+.btn.text-muted {
+  color: $muted !important;
+  &:hover,
+  &:active {
+    color: $dark !important;
+    transition: $transition-base !important;
+  }
 }
 
 .card {
@@ -77,10 +109,7 @@ a {
   }
 }
 
-a.bg-dark,
-.card.bg-light.card-daily-weather,
-.card.bg-white.card-daily-weather,
-.searched-city.searched-city-dark {
+.card.bg-dark.card-daily-weather {
   cursor: pointer;
   transition: $transition-base;
 
@@ -90,10 +119,7 @@ a.bg-dark,
   }
 }
 
-a.bg-light,
-.card.bg-light.card-daily-weather,
-.card.bg-white.card-daily-weather,
-.searched-city.searched-city-light {
+.card.bg-white.card-daily-weather {
   cursor: pointer;
   transition: $transition-base;
 
@@ -150,6 +176,11 @@ hr.hr-white {
   color: $white !important;
 }
 
+svg.svg-inline--fa,
+i {
+  transition: $transition-base !important;
+}
+
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -160,9 +191,7 @@ body {
 
   #offcanvas-search-city {
     .offcanvas-body {
-      .searched-city {
-        cursor: pointer;
-
+      .btn {
         .country-img-box {
           width: 28px;
           height: 28px;
@@ -174,18 +203,6 @@ body {
             object-fit: cover;
             object-position: center;
           }
-        }
-      }
-
-      .searched-city.searched-city-dark {
-        &:active {
-          background: $dark;
-        }
-      }
-
-      .searched-city.searched-city-light {
-        &:active {
-          background: $light;
         }
       }
     }
@@ -214,13 +231,6 @@ body.bg-light {
   ::-webkit-scrollbar-thumb {
     background: $dark;
     border-radius: 3rem;
-  }
-
-  #btn-other-data {
-    &:hover {
-      background: $dark !important;
-      color: $light !important;
-    }
   }
 }
 

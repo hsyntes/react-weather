@@ -238,17 +238,19 @@ class App {
 
   // Creating the app container
   _createApp(className) {
-    window.addEventListener("load", () => {
-      this.#app = document.createElement("div");
-      this.#app.className = className;
+    this.#app = document.createElement("div");
+    this.#app.className = className;
 
-      document.body.prepend(this.#app);
+    document.body.prepend(this.#app);
 
-      this._getPermission();
+    this._getPermission();
 
-      this.#app.addEventListener("click", (e) =>
-        this._getCurrentDailyWeather(e)
-      );
+    this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
+
+    document.querySelectorAll(".btn-close").forEach((btnClose) => {
+      btnClose.style.color = `${
+        this.#time === "night" ? this.#colors.white : this.#colors.black
+      }`;
     });
   }
 
@@ -287,6 +289,8 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+
+    this.#time = "day";
   }
 
   // Creating objects for current weather forecasts
@@ -423,7 +427,7 @@ class App {
         <i class="fa-solid fa-bars fa-xl"></i>
       </button>
       <div
-        class="offcanvas offcanvas-bottom  col-md-6 px-0 mx-auto border-0 rounded-top shadow ${
+        class="offcanvas offcanvas-bottom col-md-6 col-lg-4 p-2 mx-auto border-0 rounded-top shadow ${
           this.#time === "night" ? "bg-black" : "bg-white shadow"
         }"
         id="offcanvas-nav-menu"
@@ -439,25 +443,22 @@ class App {
           </h4>
           <button
             type="button"
-            class="btn ${
-              this.#time === "night" ? "text-white" : "text-muted"
-            } ms-auto"
+            class="btn btn-close ms-auto"
             data-bs-dismiss="offcanvas"
           >
             <i class="fa fa-times fa-xl"></i>
           </button>
         </div>
         <div class="offcanvas-body">
-          <ul class="list-group">
-            <li class="list-group-item border-0 ps-0">
-              <a
-                href="https://github.com/hsyntes"
-                class="d-flex align-items-center ${
-                  this.#time === "night"
-                    ? "bg-dark text-white"
-                    : "bg-light text-muted"
-                } rounded p-3"
-                target="_blank"
+          <ul class="list-group p-0">
+            <li class="list-group-item ${
+              this.#time === "night" ? "bg-dark" : "bg-light"
+            } border-0 p-0">
+              <a href="#" class="d-flex align-items-center ${
+                this.#time === "night" ? "btn-dark" : "btn-light"
+              } rounded p-3"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-developer"
               >
                 <div id="avatar-developer">
                   <img
@@ -468,23 +469,48 @@ class App {
                 </div>
                 <div class="ms-3">
                   <span>
-                    <span class="fw-bold">Huseyin Ates</span>
-                    <span style="font-size: 12px">
-                      (JS Developer)
-                    </span>
-                  </span>
-                  <br />
-                  <span>
-                    <span>
-                      <i class="fa-brands fa-github"></i>
-                    </span>
-                    <span>GitHub</span>
+                    <p class="fw-bold mb-0 ${
+                      this.#time === "night" ? "" : "text-black"
+                    }">Huseyin Ates</p>
+                    <p class="mb-0" style="font-size: 12px">
+                      (JavaScript Developer)
+                    </p>
                   </span>
                 </div>
                 <span class="ms-auto">
-                  <i class="fa fa-angle-right"></i>
+                  <i class="fa fa-angle-right fa-lg collapse-down-icons" id="btn-developer-info-icon"></i>
                 </span>
               </a>
+              <div class="collapse" id="collapse-developer">
+                <a href="https://www.github.com/hsyntes" class="${
+                  this.#time === "night" ? "text-white" : "text-black"
+                } d-block rounded px-3 py-2"
+                target="_blank">
+                  <i class="fa-brands fa-github"></i>
+                  <span class="ms-2">Github</span>
+                </a>
+                <a href="https://www.linkedin.com/hsyntes" class="${
+                  this.#time === "night" ? "text-white" : "text-black"
+                } d-block rounded px-3 py-2"
+                target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                  <span class="ms-2">LinkedIN</span>
+                </a>
+                <a href="https://www.twitter.com/hsyntes" class="${
+                  this.#time === "night" ? "text-white" : "text-black"
+                } d-block rounded px-3 py-2"
+                target="_blank">
+                  <i class="fa-brands fa-twitter"></i>
+                  <span class="ms-2">Twitter</span>
+                </a>
+                <a href="https://www.instagram.com/hsyntes" class="${
+                  this.#time === "night" ? "text-white" : "text-black"
+                } d-block rounded px-3 py-2 pb-3"
+                target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span class="ms-2">Instagram</span>
+                </a>
+              </div> 
             </li>
           </ul>
         </div>
@@ -671,8 +697,7 @@ class App {
   _setOffcanvases() {
     const offCanvasDefaultHeight = `${
       100 -
-      ((document.querySelector("nav").getBoundingClientRect().height + 20) *
-        100) /
+      (document.querySelector("nav").getBoundingClientRect().height * 100) /
         document.body.getBoundingClientRect().height
     }%`;
 
@@ -692,11 +717,11 @@ class App {
       .forEach(
         (offcanvasTitle) =>
           (offcanvasTitle.className += ` ${
-            this.#time === "night" ? "text-white" : "text-muted"
+            this.#time === "night" ? "text-white" : "text-black"
           }`)
       );
 
-    document.querySelectorAll(".offcanvas-input").forEach((offcanvasInput) => {
+    document.querySelectorAll(".offcanvas-inputs").forEach((offcanvasInput) => {
       offcanvasInput.className += ` ${
         this.#time === "night" ? "input-dark" : "input-light"
       }`;
@@ -709,29 +734,30 @@ class App {
       });
     });
 
-    document
-      .querySelectorAll(".btn-close-offcanvas")
-      .forEach((btnCloseOffcanvas) => {
-        btnCloseOffcanvas.className += ` ${
-          this.#time === "night" ? "text-white" : "text-muted"
-        }`;
+    document.querySelectorAll(".offcanvas .btn-close").forEach((btnClose) => {
+      btnClose.firstElementChild.style.color = `${
+        this.#time === "night" ? this.#colors.white : this.#colors.black
+      }`;
 
-        btnCloseOffcanvas.addEventListener("click", () => {
-          document
-            .querySelector("#offcanvas-search-city")
-            .classList.add("rounded-top");
-          document.querySelector("#offcanvas-search-city").style.height =
-            offCanvasDefaultHeight;
-        });
+      btnClose.addEventListener("click", () => {
+        document
+          .querySelector("#offcanvas-search-city")
+          .classList.add("rounded-top");
+        document.querySelector("#offcanvas-search-city").style.height =
+          offCanvasDefaultHeight;
       });
-
-    document.querySelector("#btn-other-data").addEventListener("click", () => {
-      document
-        .querySelector("#btn-other-data")
-        .classList.toggle(
-          `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
-        );
     });
+
+    document
+      .querySelectorAll(".offcanvas .collapse")
+      .forEach((collapse) => $(collapse).collapse("hide"));
+
+    document
+      .querySelectorAll(".collapse-down-icons")
+      .forEach(
+        (collapseDownIcon) =>
+          (collapseDownIcon.style.transform = "rotateZ(0deg)")
+      );
   }
 
   // Reading the API and getting data from it
@@ -828,30 +854,20 @@ class App {
 
   // Getting the current daily weather's data (clicked)
   _getCurrentDailyWeather(e) {
-    const btnOtherData = document.querySelector("#btn-other-data");
-    btnOtherData.classList.remove("d-none");
-    btnOtherData.classList.remove(
-      `${this.#time === "night" ? "btn-active-dark" : "btn-active-light"}`
-    );
-
-    [btnOtherData.style.color, btnOtherData.style.border] = [
-      `${
-        this.#time === "night"
-          ? `${this.#colors.white}`
-          : `${this.#colors.black}`
-      }`,
-      `${
-        this.#time === "night"
-          ? `1px solid ${this.#colors.white}`
-          : `1px solid ${this.#colors.black}`
-      }`,
-    ];
-
-    $("#collapse-other-data").collapse("hide");
+    this._setOffcanvases();
 
     const clickedCard = e.target.closest(".card");
 
     if (!clickedCard) return;
+
+    const btnCollepseShowData = document.querySelector(
+      "#offcanvas-daily-weather .offcanvas-body .btn"
+    );
+
+    btnCollepseShowData.classList.remove("d-none");
+    btnCollepseShowData.classList.add(
+      `${this.#time === "night" ? "text-white" : "text-black"}`
+    );
 
     this.#currentDailyWeather =
       this.#dailyWeather[clickedCard.getAttribute("daily-weather-data")];
@@ -950,7 +966,7 @@ class App {
             }</p>
       </span>
     `
-          : btnOtherData.classList.add("d-none")
+          : btnCollepseShowData.classList.add("d-none")
       }
       `,
     ];
@@ -1167,11 +1183,11 @@ class App {
                 .then((promise) => promise.json())
                 .then((countries) => {
                   const searchedCities = `
-                <div class="searched-city ${
-                  this.#time === "night"
-                    ? "searched-city-dark"
-                    : "searched-city-light"
-                } rounded p-3 my-1" id="${result.id}">
+                <button type="button" class="btn ${
+                  this.#time === "night" ? "btn-dark" : "btn-light"
+                } searched-city d-block w-100 rounded p-3 my-1" id="${
+                    result.id
+                  }">
                     <div class="row align-items-center">
                       <div class="col-2">
                         <div class="country-img-box">
@@ -1180,7 +1196,7 @@ class App {
                           }" class="rounded-circle" />
                         </div>
                       </div>
-                      <div class="col-10 ${
+                      <div class="col-10 text-start ${
                         this.#time === "night" ? "text-white" : "text-black"
                       }">
                         <span>
@@ -1190,7 +1206,7 @@ class App {
                         </span>
                       </div>
                     </div>
-                </div>
+                </button>
                   `;
 
                   document
@@ -1202,4 +1218,6 @@ class App {
   }
 }
 
-const app = new App("app d-flex flex-column col-md-6 m-0 p-0 mx-auto shadow");
+const app = new App(
+  "app d-flex flex-column col-md-6 col-lg-4 m-0 p-0 mx-auto shadow"
+);

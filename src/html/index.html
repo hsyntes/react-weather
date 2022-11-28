@@ -11,16 +11,12 @@
   </head>
   <body class="row mx-auto">
     <div
-      class="offcanvas offcanvas-bottom col-md-6 px-0 mx-auto border-0 rounded-top shadow"
+      class="offcanvas offcanvas-bottom col-md-6 col-lg-4 p-2 mx-auto border-0 rounded-top shadow"
       id="offcanvas-search-city"
     >
-      <div class="offcanvas-header">
+      <div class="offcanvas-header align-items-center">
         <h5 class="offcanvas-title mb-0">Search city</h5>
-        <button
-          type="button"
-          class="btn btn-close-offcanvas"
-          data-bs-dismiss="offcanvas"
-        >
+        <button type="button" class="btn btn-close" data-bs-dismiss="offcanvas">
           <i class="fa fa-times fa-xl"></i>
         </button>
       </div>
@@ -29,18 +25,18 @@
           type="text"
           name="input-search-city"
           id="input-search-city"
-          class="form-control offcanvas-input py-3"
+          class="form-control offcanvas-inputs py-3"
           placeholder="Search any cities"
         />
         <div class="searched-cities mt-3"></div>
       </div>
     </div>
     <div
-      class="offcanvas offcanvas-bottom offcanvas-fullscreen col-md-6 px-0 mx-auto border-0 shadow"
+      class="offcanvas offcanvas-bottom offcanvas-fullscreen col-md-6 col-lg-4 p-2 mx-auto border-0 shadow"
       id="offcanvas-searched-city"
       style="height: 100%; overflow-x: hidden"
     >
-      <div class="offcanvas-header position-static">
+      <div class="offcanvas-header">
         <div class="col-2"></div>
         <div class="col-8 text-center">
           <span class="offcanvas-title h1 mb-0">
@@ -53,19 +49,22 @@
         <div class="col-2 text-end">
           <button
             type="button"
-            class="btn btn-close-offcanvas"
+            class="btn btn-close"
             data-bs-dismiss="offcanvas"
           >
             <i class="fa fa-times fa-xl"></i>
           </button>
         </div>
       </div>
-      <div class="offcanvas-body text-center">
+      <div
+        class="offcanvas-body d-flex flex-column text-center"
+        style="height: 100vh; overflow-y: scroll"
+      >
         <span class="h2" id="searched-current-time"></span>
         <p class="my-1 mb-0" id="searched-current-weather"></p>
         <img
           src=""
-          class="img-fluid"
+          class="img-fluid text-center mx-auto"
           id="searched-current-weather-icon"
           width="168"
           alt="_searched_current_weather_icon"
@@ -77,14 +76,14 @@
         </div>
         <canvas class="mt-4" id="searched-temperature-chart"></canvas>
         <div
-          class="row flex-nowrap mt-4 py-3 text-center"
+          class="mt-auto p-3 text-center"
           id="offcanvas-searched-daily-weather-footer"
           style="overflow-x: scroll"
         ></div>
       </div>
     </div>
     <div
-      class="offcanvas offcanvas-bottom col-md-6 px-0 mx-auto border-0 rounded-top shadow"
+      class="offcanvas offcanvas-bottom col-md-6 col-lg-4 p-2 mx-auto border-0 rounded-top shadow"
       id="offcanvas-daily-weather"
     >
       <div class="offcanvas-header">
@@ -95,7 +94,7 @@
         <div class="col-2 text-end">
           <button
             type="button"
-            class="btn btn-close-offcanvas"
+            class="btn btn-close"
             data-bs-dismiss="offcanvas"
           >
             <i class="fa fa-times fa-xl"></i>
@@ -106,17 +105,18 @@
         class="offcanvas-body d-flex flex-column align-items-center text-center"
       >
         <h2 class="mb-0" id="current-daily-weather-location"></h2>
-        <img
-          src=""
-          id="current-daily-weather-icon"
-          width="168"
-          alt="_current_daily_weather_icon"
-        />
+        <div class="my-4">
+          <img
+            src=""
+            id="current-daily-weather-icon"
+            width="168"
+            alt="_current_daily_weather_icon"
+          />
+          <br />
+          <span class="h4" id="current-daily-weather-weather"></span>
+        </div>
         <div class="w-100 my-auto">
           <div class="my-4">
-            <div class="mb-2">
-              <span class="h4" id="current-daily-weather-weather"></span>
-            </div>
             <span id="current-daily-weather-temperature-max"> </span>
             <br />
             <span id="current-daily-weather-temperature-min"> </span>
@@ -125,7 +125,6 @@
           </div>
           <button
             type="button"
-            id="btn-other-data"
             class="btn"
             data-bs-toggle="collapse"
             data-bs-target="#collapse-other-data"
