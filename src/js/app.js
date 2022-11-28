@@ -376,6 +376,15 @@ class App {
       .slice(new Date().getHours() + 1, new Date().getHours() + 13)
       .forEach((temperature) => temperatures.push(temperature));
 
+    const weatherForecasts = [];
+    data.hourly.weathercode
+      .slice(1, 13)
+      .forEach((weatherCode) =>
+        weatherForecasts.push(
+          new Weather(weatherCode)._getWeatherForecast().weather
+        )
+      );
+
     return new Chart(ctx, {
       type: "line",
       data: {
@@ -395,8 +404,56 @@ class App {
             backgroundColor: `${
               this.#time === "night" ? this.#colors.white : this.#colors.black
             }`,
+
+            tension: 0.5,
           },
         ],
+      },
+      options: {
+        plugins: {
+          tooltip: {
+            backgroundColor: `${
+              this.#time === "night" ? this.#colors.dark : this.#colors.light
+            }`,
+
+            bodyColor: `${
+              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            }`,
+
+            titleColor: `${
+              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            }`,
+
+            titleAlign: "center",
+            bodyAlign: "center",
+            cornerRadius:
+              Number(
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--bs-border-radius")
+                  .trim()
+                  .at(0)
+              ) * 10,
+
+            padding: 10,
+            boxPadding: 2,
+
+            borderWidth: 0.5,
+            borderColor: `${
+              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            }`,
+
+            intersect: false,
+
+            callbacks: {
+              label: function (context) {
+                let [label, index] = [context.dataset.label, context.dataIndex];
+                label = weatherForecasts[index];
+
+                return label;
+              },
+            },
+          },
+        },
       },
     });
   }
@@ -866,7 +923,7 @@ class App {
 
     btnCollepseShowData.classList.remove("d-none");
     btnCollepseShowData.classList.add(
-      `${this.#time === "night" ? "text-white" : "text-black"}`
+      `${this.#time === "night" ? "btn-dark" : "btn-light"}`
     );
 
     this.#currentDailyWeather =
