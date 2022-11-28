@@ -409,6 +409,9 @@ class App {
       },
       options: {
         plugins: {
+          legend: {
+            display: false,
+          },
           tooltip: {
             backgroundColor: `${
               this.#time === "night" ? this.#colors.dark : this.#colors.light
@@ -625,8 +628,8 @@ class App {
     }
         </span>
       </div>
-      <canvas class="mt-4" id="current-temperature-chart"></canvas>
     </main>
+    <canvas class="my-auto px-3" id="current-temperature-chart"></canvas>
     `;
 
     this.#app.insertAdjacentHTML("afterbegin", currentWeatherHTML);
