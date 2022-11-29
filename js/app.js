@@ -176,6 +176,10 @@ class App {
   #searcedCurrentWeather;
 
   #colors = {
+    primary: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-primary"
+    ),
+
     light: getComputedStyle(document.documentElement).getPropertyValue(
       "--bs-light"
     ),
@@ -190,6 +194,10 @@ class App {
 
     black: getComputedStyle(document.documentElement).getPropertyValue(
       "--bs-black"
+    ),
+
+    muted: getComputedStyle(document.documentElement).getPropertyValue(
+      "--bs-gray-500"
     ),
   };
 
@@ -416,7 +424,7 @@ class App {
           },
           tooltip: {
             backgroundColor: `${
-              this.#time === "night" ? this.#colors.dark : this.#colors.light
+              this.#time === "night" ? this.#colors.black : this.#colors.white
             }`,
 
             bodyColor: `${
@@ -427,8 +435,15 @@ class App {
               this.#time === "night" ? this.#colors.light : this.#colors.dark
             }`,
 
+            borderColor: `${
+              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            }`,
+
+            borderWidth: 0.5,
+
             titleAlign: "center",
             bodyAlign: "center",
+
             cornerRadius:
               Number(
                 getComputedStyle(document.documentElement)
@@ -439,11 +454,6 @@ class App {
 
             padding: 10,
             boxPadding: 2,
-
-            borderWidth: 1,
-            borderColor: `${
-              this.#time === "night" ? this.#colors.light : this.#colors.dark
-            }`,
 
             displayColors: false,
 
