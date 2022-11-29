@@ -550,7 +550,7 @@ class App {
                       this.#time === "night" ? "" : "text-black"
                     }">Huseyin Ates</p>
                     <p class="mb-0" style="font-size: 12px">
-                      (JavaScript Developer)
+                      (se.hsyntes@gmail.com)
                     </p>
                   </span>
                 </div>
@@ -568,17 +568,10 @@ class App {
                 </a>
                 <a href="https://www.linkedin.com/in/hsyntes/" class="${
                   this.#time === "night" ? "btn-dark" : "btn-light"
-                } d-block rounded px-3 py-2"
+                } d-block rounded px-3 py-2 pb-3"
                 target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                   <span class="ms-2">LinkedIn</span>
-                </a>
-                <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMTthhwxmrjsrtwRLTCMWCjqptmMwPCSCgZhCKWWRvSPJKxbvpRfMLzFnKDwTLpVNDNQtld" class="${
-                  this.#time === "night" ? "btn-dark" : "btn-light"
-                } d-block rounded px-3 py-2 pb-3"
-                target="_blank">
-                  <i class="fa-regular fa-envelope"></i>
-                  <span class="ms-2">Gmail</span>
                 </a>
               </div> 
             </li>
