@@ -1,6 +1,6 @@
-# Weather forecast web application with JavaScript OOP
+# Weather forecast web application with JavaScript OOP.
 
-Weather forecast application with JavaScript OOP. Hourly, daily and weekly weather forecast all of the cities in the world and by your current location
+Hourly, daily and weekly weather forecast all of the cities in the world and by your current location
 
 The light and dark theme according to sunset and sunrise.
 

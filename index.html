@@ -57,7 +57,8 @@
         </div>
       </div>
       <div
-        class="offcanvas-body d-flex flex-column text-center"
+        class="offcanvas-body d-flex flex-column text-center rounded-top"
+        id="offcanvas-searched-city-body"
         style="overflow-y: scroll"
       >
         <span class="h2" id="searched-current-time"></span>
@@ -125,7 +126,8 @@
             data-bs-toggle="collapse"
             data-bs-target="#collapse-other-data"
           >
-            Show other data
+            <span>Show other data</span>
+            <i class="fa fa-angle-down"></i>
           </button>
           <div class="collapse" id="collapse-other-data">
             <div class="others-current-weather-data"></div>

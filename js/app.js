@@ -299,6 +299,7 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
+    this.#time = "day";
   }
 
   // Creating objects for current weather forecasts
@@ -427,16 +428,16 @@ class App {
               this.#time === "night" ? this.#colors.black : this.#colors.white
             }`,
 
-            bodyColor: `${
+            borderColor: `${
               this.#time === "night" ? this.#colors.light : this.#colors.dark
             }`,
 
             titleColor: `${
-              this.#time === "night" ? this.#colors.light : this.#colors.dark
+              this.#time === "night" ? this.#colors.white : this.#colors.muted
             }`,
 
-            borderColor: `${
-              this.#time === "night" ? this.#colors.light : this.#colors.dark
+            bodyColor: `${
+              this.#time === "night" ? this.#colors.white : this.#colors.muted
             }`,
 
             borderWidth: 0.5,
@@ -525,9 +526,9 @@ class App {
         <div class="offcanvas-body">
           <ul class="list-group p-0">
             <li class="list-group-item ${
-              this.#time === "night" ? "bg-dark" : "bg-light"
+              this.#time === "night" ? "bg-dark" : "bg-light shadow"
             } border-0 p-0">
-              <a href="#" class="d-flex align-items-center ${
+              <a href="#" class="d-flex align-items-center btn-collapse ${
                 this.#time === "night" ? "btn-dark" : "btn-light"
               } rounded p-3"
                 data-bs-toggle="collapse"
@@ -551,10 +552,10 @@ class App {
                   </span>
                 </div>
                 <span class="ms-auto">
-                  <i class="fa fa-angle-right fa-lg collapse-down-icons" id="btn-developer-info-icon"></i>
+                  <i class="fa fa-angle-down fa-lg collapse-down-icons" id="btn-developer-info-icon"></i>
                 </span>
               </a>
-              <div class="collapse" id="collapse-developer">
+              <div class="collapse fade" id="collapse-developer">
                 <a href="https://www.github.com/hsyntes/" class="${
                   this.#time === "night" ? "text-white" : "text-black"
                 } d-block rounded px-3 py-2"
@@ -824,13 +825,6 @@ class App {
     document
       .querySelectorAll(".offcanvas .collapse")
       .forEach((collapse) => $(collapse).collapse("hide"));
-
-    document
-      .querySelectorAll(".collapse-down-icons")
-      .forEach(
-        (collapseDownIcon) =>
-          (collapseDownIcon.style.transform = "rotateZ(0deg)")
-      );
   }
 
   // Reading the API and getting data from it
