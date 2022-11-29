@@ -657,7 +657,7 @@ class App {
   // Showing daily weather forecast on the display
   _renderDailyWeather() {
     const footer = document.createElement("footer");
-    footer.className = "mt-auto p-3";
+    footer.className = "mt-auto p-3 pb-5";
 
     const dailyWeatherDiv = document.createElement("div");
     dailyWeatherDiv.className = `row flex-nowrap text-center ${
