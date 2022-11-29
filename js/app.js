@@ -873,7 +873,7 @@ class App {
     const modalError = `
     <div class="modal fade" id="modal-error" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-white text-muted rounded shadow border-0">
+        <div class="modal-content col-md-6 col-lg-4 bg-white text-muted rounded shadow border-0">
           <div class="modal-header pb-0 border-0">
             <h6 class="modal-title text-primary mx-auto mb-0">
               <span>
@@ -907,10 +907,7 @@ class App {
   _getPermission = () =>
     navigator.geolocation.getCurrentPosition(
       (position) => this._getWeatherData(position),
-      () =>
-        this._showError(
-          "You have to open your location and allow it to use this app."
-        )
+      () => this._showError("You have to allow your location to use this app.")
     );
 
   // Getting the current daily weather's data (clicked)
