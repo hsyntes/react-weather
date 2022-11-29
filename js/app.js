@@ -1197,7 +1197,7 @@ class App {
     fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${String(
         city
-      ).toLowerCase()}&count=100`
+      ).toLowerCase()}&count=15`
     )
       .then((promise) => promise.json())
       .then((cities) => {
