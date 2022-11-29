@@ -299,7 +299,6 @@ class App {
           ? (this.#time = "night")
           : (this.#time = "day");
     }
-    this.#time = "day";
   }
 
   // Creating objects for current weather forecasts
