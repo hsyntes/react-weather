@@ -524,6 +524,7 @@ class App {
           </button>
         </div>
         <div class="offcanvas-body">
+          <p class="text-muted border-bottom d-inline-block mb-3">Developer Contact</p>
           <ul class="list-group p-0">
             <li class="list-group-item ${
               this.#time === "night" ? "bg-dark" : "bg-light"
@@ -555,7 +556,7 @@ class App {
                   <i class="fa fa-angle-down fa-lg collapse-down-icons" id="btn-developer-info-icon"></i>
                 </span>
               </a>
-              <div class="collapse fade" id="collapse-developer">
+              <div class="collapse" id="collapse-developer">
                 <a href="https://www.github.com/hsyntes/" class="${
                   this.#time === "night" ? "text-white" : "text-black"
                 } d-block rounded px-3 py-2"
