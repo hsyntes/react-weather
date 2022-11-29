@@ -912,7 +912,10 @@ class App {
   _getPermission = () =>
     navigator.geolocation.getCurrentPosition(
       (position) => this._getWeatherData(position),
-      () => this._showError("You have to open location to use this app.")
+      () =>
+        this._showError(
+          "You have to open your location and allow it to use this app."
+        )
     );
 
   // Getting the current daily weather's data (clicked)
