@@ -571,6 +571,13 @@ class App {
                   <i class="fa-brands fa-linkedin"></i>
                   <span class="ms-2">LinkedIn</span>
                 </a>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMTthhwxmrjsrtwRLTCMWCjqptmMwPCSCgZhCKWWRvSPJKxbvpRfMLzFnKDwTLpVNDNQtld" class="${
+                  this.#time === "night" ? "text-white" : "text-black"
+                } d-block rounded px-3 py-2"
+                target="_blank">
+                  <i class="fa-regular fa-envelope"></i>
+                  <span class="ms-2">Gmail</span>
+                </a>
               </div> 
             </li>
           </ul>
