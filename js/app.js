@@ -872,8 +872,8 @@ class App {
   _showError(err) {
     const modalError = `
     <div class="modal fade" id="modal-error" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content col-md-6 col-lg-4 bg-white text-muted rounded shadow border-0">
+      <div class="modal-dialog modal-dialog-centered col-md-6 col-lg-4">
+        <div class="modal-content bg-white text-muted rounded shadow border-0">
           <div class="modal-header pb-0 border-0">
             <h6 class="modal-title text-primary mx-auto mb-0">
               <span>
