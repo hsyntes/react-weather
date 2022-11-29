@@ -524,7 +524,9 @@ class App {
           </button>
         </div>
         <div class="offcanvas-body">
-          <p class="text-muted border-bottom d-inline-block mb-3">Developer Contact</p>
+          <p class="${
+            this.#time === "night" ? "text-white" : "text-muted"
+          } d-inline-block">Developer Contact</p>
           <ul class="list-group p-0">
             <li class="list-group-item ${
               this.#time === "night" ? "bg-dark" : "bg-light"
@@ -558,22 +560,22 @@ class App {
               </a>
               <div class="collapse" id="collapse-developer">
                 <a href="https://www.github.com/hsyntes/" class="${
-                  this.#time === "night" ? "text-white" : "text-black"
+                  this.#time === "night" ? "btn-dark" : "btn-light"
                 } d-block rounded px-3 py-2"
                 target="_blank">
                   <i class="fa-brands fa-github"></i>
                   <span class="ms-2">Github</span>
                 </a>
                 <a href="https://www.linkedin.com/in/hsyntes/" class="${
-                  this.#time === "night" ? "text-white" : "text-black"
+                  this.#time === "night" ? "btn-dark" : "btn-light"
                 } d-block rounded px-3 py-2"
                 target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                   <span class="ms-2">LinkedIn</span>
                 </a>
                 <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMTthhwxmrjsrtwRLTCMWCjqptmMwPCSCgZhCKWWRvSPJKxbvpRfMLzFnKDwTLpVNDNQtld" class="${
-                  this.#time === "night" ? "text-white" : "text-black"
-                } d-block rounded px-3 py-2"
+                  this.#time === "night" ? "btn-dark" : "btn-light"
+                } d-block rounded px-3 py-2 pb-3"
                 target="_blank">
                   <i class="fa-regular fa-envelope"></i>
                   <span class="ms-2">Gmail</span>
