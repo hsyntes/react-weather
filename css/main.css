@@ -162,16 +162,10 @@ body .offcanvas {
 
 body.bg-black ::-webkit-scrollbar-thumb {
   background: #e2fbff;
-  border-radius: 3rem;
-}
-body.bg-black #btn-other-data:hover {
-  background: #e2fbff !important;
-  color: #212121 !important;
 }
 
 body.bg-light ::-webkit-scrollbar-thumb {
   background: #212121;
-  border-radius: 3rem;
 }
 
 .app {
