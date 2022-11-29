@@ -170,7 +170,6 @@ body.bg-light ::-webkit-scrollbar-thumb {
 
 .app {
   width: 100%;
-  height: 100%;
 }
 .app nav .offcanvas .list-group .list-group-item #avatar-developer {
   width: 48px;

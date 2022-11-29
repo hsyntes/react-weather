@@ -525,7 +525,7 @@ class App {
         <div class="offcanvas-body">
           <ul class="list-group p-0">
             <li class="list-group-item ${
-              this.#time === "night" ? "bg-dark" : "bg-light shadow"
+              this.#time === "night" ? "bg-dark" : "bg-light"
             } border-0 p-0">
               <a href="#" class="d-flex align-items-center btn-collapse ${
                 this.#time === "night" ? "btn-dark" : "btn-light"
