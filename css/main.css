@@ -35,7 +35,6 @@ a {
 }
 .btn-dark:active {
   background: #1c1c1c !important;
-  box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }
 
 .btn-light {
@@ -43,7 +42,6 @@ a {
 }
 .btn-light:active {
   background: #d8faff !important;
-  box-shadow: 0 0 20px rgba(33, 33, 33, 0.15) !important;
 }
 
 .btn.text-muted {

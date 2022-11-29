@@ -82,7 +82,6 @@ a {
 
   &:active {
     background: darken($color: $dark, $amount: 2) !important;
-    box-shadow: $box-shadow !important;
   }
 }
 
@@ -91,7 +90,6 @@ a {
 
   &:active {
     background: darken($color: $light, $amount: 2) !important;
-    box-shadow: $box-shadow !important;
   }
 }
 
