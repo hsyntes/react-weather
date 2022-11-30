@@ -234,8 +234,6 @@ class App {
   };
 
   constructor(className) {
-    window.addEventListener("contextmenu", (e) => e.preventDefault());
-
     this._createApp(className);
 
     document
@@ -257,6 +255,8 @@ class App {
     this._getPermission();
 
     this.#app.addEventListener("click", (e) => this._getCurrentDailyWeather(e));
+
+    window.addEventListener("contextmenu", (e) => e.preventDefault());
 
     document.querySelectorAll(".btn-close").forEach((btnClose) => {
       btnClose.style.color = `${
