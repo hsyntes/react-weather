@@ -1,6 +1,6 @@
 "use strict";
 
-import "./weather.js";
+import "./Weather.js";
 import "./DailyWeather.js";
 import "./CurrentWeather.js";
 import "./colors.js";
@@ -619,49 +619,45 @@ class App {
 
   // Reading the API and getting data from it
   _getWeatherData = (position) =>
-    this._callAPI(position)
-      // .then((promise) => promise.json())
-      .then((data) => {
-        const {
-          temperature_2m_max,
-          windspeed_10m_max,
-          precipitation_sum,
-          rain_sum,
-          showers_sum,
-          snowfall_sum,
-        } = data.daily_units;
+    this._callAPI(position).then((data) => {
+      const {
+        temperature_2m_max,
+        windspeed_10m_max,
+        precipitation_sum,
+        rain_sum,
+        showers_sum,
+        snowfall_sum,
+      } = data.daily_units;
 
-        this.#units = {
-          temperatureUnit: temperature_2m_max,
-          windSpeedUnit: windspeed_10m_max,
-          precipitationUnit: precipitation_sum,
-          rainSumUnit: rain_sum,
-          showersSumUnit: showers_sum,
-          snowfallSumUnit: snowfall_sum,
-        };
+      this.#units = {
+        temperatureUnit: temperature_2m_max,
+        windSpeedUnit: windspeed_10m_max,
+        precipitationUnit: precipitation_sum,
+        rainSumUnit: rain_sum,
+        showersSumUnit: showers_sum,
+        snowfallSumUnit: snowfall_sum,
+      };
 
-        this._setTheme(data);
-        this._createCurrentWeather(data);
-        this._createDailyWeather(data);
-        this._renderCurrentWeather();
-        this._renderDailyWeather();
-        this._createCurrentTemperatureChart(data);
-        this._updateTime();
+      this._setTheme(data);
+      this._createCurrentWeather(data);
+      this._createDailyWeather(data);
+      this._renderCurrentWeather();
+      this._renderDailyWeather();
+      this._createCurrentTemperatureChart(data);
+      this._updateTime();
 
-        setInterval(
-          () =>
-            this._callAPI(position)
-              // .then((promise) => promise.json())
-              .then((data) => {
-                this._createCurrentWeather(data);
-                this._updateData();
-                this._createCurrentTemperatureChart(data);
-              }),
-          60000
-        );
+      setInterval(
+        () =>
+          this._callAPI(position).then((data) => {
+            this._createCurrentWeather(data);
+            this._updateData();
+            this._createCurrentTemperatureChart(data);
+          }),
+        60000
+      );
 
-        this._setOffcanvases();
-      });
+      this._setOffcanvases();
+    });
   // .finally();
 
   // Showing error message to user
@@ -1000,19 +996,17 @@ class App {
         const { latitude, longitude } = selectedCity;
         const position = { coords: { latitude, longitude } };
 
-        this._callAPI(position)
-          // .then((promise) => promise.json())
-          .then((data) => {
-            document.querySelector("#input-search-city").value = "";
-            document.querySelector(".searched-cities").innerHTML = "";
+        this._callAPI(position).then((data) => {
+          document.querySelector("#input-search-city").value = "";
+          document.querySelector(".searched-cities").innerHTML = "";
 
-            $("#offcanvas-search-city").offcanvas("hide");
-            $("#offcanvas-searched-city").offcanvas("show");
+          $("#offcanvas-search-city").offcanvas("hide");
+          $("#offcanvas-searched-city").offcanvas("show");
 
-            this._createSearchedCurrentWeather(data);
-            this._createSearchedDailyWeather(data);
-            this._renderSearchedCity(data, city);
-          });
+          this._createSearchedCurrentWeather(data);
+          this._createSearchedDailyWeather(data);
+          this._renderSearchedCity(data, city);
+        });
       });
   }
 
