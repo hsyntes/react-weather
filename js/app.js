@@ -4,6 +4,7 @@ import "./weather.js";
 import "./DailyWeather.js";
 import "./CurrentWeather.js";
 import "./colors.js";
+import "./animation.js";
 
 // App Class
 class App {
@@ -64,10 +65,12 @@ class App {
   }
 
   // Calling the Weather Forecast API
-  _callAPI = (position) =>
-    fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode,temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
-    );
+  _callAPI = async (position) =>
+    await (
+      await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode,temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
+      )
+    ).json();
 
   // Setting the theme by time
   _setTheme(data) {
@@ -617,7 +620,7 @@ class App {
   // Reading the API and getting data from it
   _getWeatherData = (position) =>
     this._callAPI(position)
-      .then((promise) => promise.json())
+      // .then((promise) => promise.json())
       .then((data) => {
         const {
           temperature_2m_max,
@@ -648,7 +651,7 @@ class App {
         setInterval(
           () =>
             this._callAPI(position)
-              .then((promise) => promise.json())
+              // .then((promise) => promise.json())
               .then((data) => {
                 this._createCurrentWeather(data);
                 this._updateData();
@@ -998,7 +1001,7 @@ class App {
         const position = { coords: { latitude, longitude } };
 
         this._callAPI(position)
-          .then((promise) => promise.json())
+          // .then((promise) => promise.json())
           .then((data) => {
             document.querySelector("#input-search-city").value = "";
             document.querySelector(".searched-cities").innerHTML = "";
