@@ -3,6 +3,7 @@
 import "./weather.js";
 import "./DailyWeather.js";
 import "./CurrentWeather.js";
+import "./colors.js";
 
 // App Class
 class App {
@@ -11,32 +12,6 @@ class App {
 
   #currentWeather;
   #searcedCurrentWeather;
-
-  #colors = {
-    primary: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-primary"
-    ),
-
-    light: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-light"
-    ),
-
-    dark: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-dark"
-    ),
-
-    white: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-white"
-    ),
-
-    black: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-black"
-    ),
-
-    muted: getComputedStyle(document.documentElement).getPropertyValue(
-      "--bs-gray-500"
-    ),
-  };
 
   #currentTemperatureChart;
   #searchedTemperatureChart;
@@ -55,19 +30,6 @@ class App {
     hour: "2-digit",
     minute: "2-digit",
   });
-
-  #animateKeyframes = [
-    { transform: "translateY(0%)" },
-    { transform: "translateY(2%)" },
-    { transform: "translateY(-2%)" },
-    { transform: "translateY(0%)" },
-  ];
-
-  #animateOptions = {
-    duration: 3500,
-    iterations: Infinity,
-    easing: "linear",
-  };
 
   constructor(className) {
     this._createApp(className);
@@ -96,7 +58,7 @@ class App {
 
     document.querySelectorAll(".btn-close").forEach((btnClose) => {
       btnClose.style.color = `${
-        this.#time === "night" ? this.#colors.white : this.#colors.black
+        this.#time === "night" ? colors.white : colors.black
       }`;
     });
   }
@@ -240,14 +202,14 @@ class App {
             data: temperatures,
 
             borderColor: `${
-              this.#time === "night" ? this.#colors.white : this.#colors.black
+              this.#time === "night" ? colors.white : colors.black
             }`,
 
             borderJoinStyle: "round",
             borderWidth: 1,
 
             backgroundColor: `${
-              this.#time === "night" ? this.#colors.white : this.#colors.black
+              this.#time === "night" ? colors.white : colors.black
             }`,
 
             tension: 0.5,
@@ -261,19 +223,19 @@ class App {
           },
           tooltip: {
             backgroundColor: `${
-              this.#time === "night" ? this.#colors.black : this.#colors.white
+              this.#time === "night" ? colors.black : colors.white
             }`,
 
             borderColor: `${
-              this.#time === "night" ? this.#colors.light : this.#colors.dark
+              this.#time === "night" ? colors.light : colors.dark
             }`,
 
             titleColor: `${
-              this.#time === "night" ? this.#colors.white : this.#colors.muted
+              this.#time === "night" ? colors.white : colors.muted
             }`,
 
             bodyColor: `${
-              this.#time === "night" ? this.#colors.white : this.#colors.muted
+              this.#time === "night" ? colors.white : colors.muted
             }`,
 
             borderWidth: 0.5,
@@ -477,7 +439,7 @@ class App {
 
     document
       .querySelector("#current-weather-icon")
-      .animate(this.#animateKeyframes, this.#animateOptions);
+      .animate(animation.keyframes, animation.options);
   }
 
   // Showing daily weather forecast on the display
@@ -556,7 +518,7 @@ class App {
     document
       .querySelectorAll(".daily-weather-icon")
       .forEach((dailyWeatherIcon) => {
-        dailyWeatherIcon.animate(this.#animateKeyframes, this.#animateOptions);
+        dailyWeatherIcon.animate(animation.keyframes, animation.options);
       });
   }
 
@@ -635,7 +597,7 @@ class App {
 
     document.querySelectorAll(".offcanvas .btn-close").forEach((btnClose) => {
       btnClose.firstElementChild.style.color = `${
-        this.#time === "night" ? this.#colors.white : this.#colors.black
+        this.#time === "night" ? colors.white : colors.black
       }`;
 
       btnClose.addEventListener("click", () => {
@@ -862,7 +824,7 @@ class App {
 
     document
       .querySelector("#current-daily-weather-icon")
-      .animate(this.#animateKeyframes, this.#animateOptions);
+      .animate(animation.keyframes, animation.options);
   }
 
   // Creating the current weather by searched city
@@ -910,10 +872,7 @@ class App {
       `${this.#time === "night" ? "img-dark" : "img-light"}`
     );
 
-    searchedCurrentWeatherIcon.animate(
-      this.#animateKeyframes,
-      this.#animateOptions
-    );
+    searchedCurrentWeatherIcon.animate(animation.keyframes, animation.options);
 
     [
       searchedCity.textContent,
