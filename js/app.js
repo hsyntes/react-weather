@@ -64,8 +64,8 @@ class App {
     });
   }
 
-  // Calling the Weather Forecast API
-  _callAPI = async (position) =>
+  // Requesting the Weather Forecast API
+  _callWeatherAPI = async (position) =>
     await (
       await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=weathercode,temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,sunrise,sunset&current_weather=true&timezone=auto`
@@ -619,7 +619,7 @@ class App {
 
   // Reading the API and getting data from it
   _getWeatherData = (position) =>
-    this._callAPI(position).then((data) => {
+    this._callWeatherAPI(position).then((data) => {
       const {
         temperature_2m_max,
         windspeed_10m_max,
@@ -648,7 +648,7 @@ class App {
 
       setInterval(
         () =>
-          this._callAPI(position).then((data) => {
+          this._callWeatherAPI(position).then((data) => {
             this._createCurrentWeather(data);
             this._updateData();
             this._createCurrentTemperatureChart(data);
@@ -965,6 +965,16 @@ class App {
     this._createSearchedTemperatureChart(data);
   }
 
+  // Requesting the GeoCoding API
+  _callGeoCodingAPI = async (city) =>
+    await (
+      await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${String(
+          city
+        ).toLowerCase()}&count=10`
+      )
+    ).json();
+
   // Searched city
   _searchedCity(e) {
     let location = e.target.closest(".searched-city");
@@ -980,64 +990,58 @@ class App {
 
     const city = location.at(0);
 
-    fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${String(
-        city
-      ).toLowerCase()}&count=10`
-    )
-      .then((promise) => promise.json())
-      .then((cities) => {
-        let { results } = cities;
+    this._callGeoCodingAPI(city).then((cities) => {
+      let { results } = cities;
 
-        const [selectedCity] = results.filter(
-          (result) => result.id === Number(locationId)
-        );
+      const [selectedCity] = results.filter(
+        (result) => result.id === Number(locationId)
+      );
 
-        const { latitude, longitude } = selectedCity;
-        const position = { coords: { latitude, longitude } };
+      const { latitude, longitude } = selectedCity;
+      const position = { coords: { latitude, longitude } };
 
-        this._callAPI(position).then((data) => {
-          document.querySelector("#input-search-city").value = "";
-          document.querySelector(".searched-cities").innerHTML = "";
+      this._callWeatherAPI(position).then((data) => {
+        document.querySelector("#input-search-city").value = "";
+        document.querySelector(".searched-cities").innerHTML = "";
 
-          $("#offcanvas-search-city").offcanvas("hide");
-          $("#offcanvas-searched-city").offcanvas("show");
+        $("#offcanvas-search-city").offcanvas("hide");
+        $("#offcanvas-searched-city").offcanvas("show");
 
-          this._createSearchedCurrentWeather(data);
-          this._createSearchedDailyWeather(data);
-          this._renderSearchedCity(data, city);
-        });
+        this._createSearchedCurrentWeather(data);
+        this._createSearchedDailyWeather(data);
+        this._renderSearchedCity(data, city);
       });
+    });
   }
+
+  // Requesting Country API
+  _callCountryAPI = async (result) =>
+    await (
+      await fetch(
+        `https://restcountries.com/v3.1/name/${String(result.country)
+          .trim()
+          .toLowerCase()}`
+      )
+    ).json();
 
   // Searching the cities
   _searchCities() {
-    fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${
-        document.querySelector("#input-search-city").value
-      }`
-    )
-      .then((promise) => promise.json())
-      .then((cities) => {
-        const { results } = cities;
+    this._callGeoCodingAPI(
+      document.querySelector("#input-search-city").value
+    ).then((cities) => {
+      const { results } = cities;
 
-        document.querySelector(".searched-cities").innerHTML = "";
-        if (results)
-          results.forEach((result) => {
-            if (result.country)
-              fetch(
-                `https://restcountries.com/v3.1/name/${String(result.country)
-                  .trim()
-                  .toLowerCase()}`
-              )
-                .then((promise) => promise.json())
-                .then((countries) => {
-                  const searchedCities = `
+      document.querySelector(".searched-cities").innerHTML = "";
+      if (results)
+        results.forEach((result) => {
+          if (result.country)
+            this._callCountryAPI(result).then((countries) => {
+              const searchedCities = `
                 <button type="button" class="btn ${
                   this.#time === "night" ? "btn-dark" : "btn-light"
                 } searched-city d-block w-100 rounded p-3 my-1" id="${
-                    result.id
-                  }">
+                result.id
+              }">
                     <div class="row align-items-center">
                       <div class="col-2">
                         <div class="country-img-box">
@@ -1051,20 +1055,20 @@ class App {
                       }">
                         <span>
                           ${result.name.trim()}, ${
-                    result.admin1 ? result.admin1.trim() + "," : ""
-                  } ${result.country.trim()}
+                result.admin1 ? result.admin1.trim() + "," : ""
+              } ${result.country.trim()}
                         </span>
                       </div>
                     </div>
                 </button>
                   `;
 
-                  document
-                    .querySelector(".searched-cities")
-                    .insertAdjacentHTML("beforeend", searchedCities);
-                });
-          });
-      });
+              document
+                .querySelector(".searched-cities")
+                .insertAdjacentHTML("beforeend", searchedCities);
+            });
+        });
+    });
   }
 }
 
