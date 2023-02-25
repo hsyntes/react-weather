@@ -11801,7 +11801,7 @@ textarea.form-control-lg {
 }
 [data-bs-theme=dark] .navbar-brand img,
 [data-bs-theme=dark] .weather-icon {
-  filter: drop-shadow(0 0 0.5rem rgba(254, 212, 1, 0.5));
+  filter: drop-shadow(0 0 0.5rem rgba(254, 212, 1, 0.15));
 }
 [data-bs-theme=dark] aside {
   background-color: #212121;
