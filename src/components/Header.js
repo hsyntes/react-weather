@@ -182,7 +182,7 @@ const Header = ({ searched }) => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  LinkedIN
+                  LinkedIn
                 </a>
               </ListGroup.Item>
             </ListGroup>
