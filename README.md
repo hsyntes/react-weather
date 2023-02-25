@@ -2,7 +2,7 @@
 
 Weather forecast application for web browsers with React JS.
 
-![logo](/public/logo512.png)
+![logo](/public/logo192.png)
 
 ## Appendix
 
