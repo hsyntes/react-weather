@@ -17,6 +17,7 @@
   margin-bottom: 1.5rem;
   position: sticky !important;
   top: 0 !important;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
