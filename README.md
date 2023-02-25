@@ -15,15 +15,17 @@ This project was updated with React JS.
 ## Features
 
 - Light/dark mode by sunset and sunrise
-  ![App Screenshot](./src/screenshots/desktop-view-light.png)
 
+![App Screenshot](./src/screenshots/desktop-view-light.png)
 ![App Screenshot](./src/screenshots/desktop-view-dark.png.png)
 
 - Searcing all cities in the world
-  ![App Screenshot](./src/screenshots/mobile-view-dark-search.png)
+
+![App Screenshot](./src/screenshots/mobile-view-dark-search.png)
 
 - Live weather data for your location
-  ![App Screenshot](./src/screenshots/tablet-view-dark.png)
+
+![App Screenshot](./src/screenshots/tablet-view-dark.png)
 
 ## Run Locally
 
