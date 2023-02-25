@@ -17,24 +17,18 @@
   margin-bottom: 1.5rem;
   position: sticky !important;
   top: 0 !important;
-  z-index: 1;
 }
 
 @media (max-width: 768px) {
   .App {
     flex-direction: column;
     flex-flow: column-reverse;
-    /* overflow: hidden !important; */
   }
 
   .App aside {
     width: 100% !important;
     border: none !important;
     background: none !important;
-    /* margin-top: auto; */
-    /* position: fixed; */
-    /* bottom: 0; */
-    /* z-index: 1; */
   }
 
   .App aside .navbar-brand {
@@ -86,7 +80,6 @@
 @media (min-width: 768px) {
   .App {
     overflow: visible !important;
-    /* overflow-x: hidden !important; */
   }
 
   aside {
@@ -125,8 +118,6 @@
 
   .navbar .navbar-brand {
     margin: 0 !important;
-    /* border: 1px solid red; */
-    /* margin-bottom: 1rem !important; */
   }
 
   .navbar .navbar-brand h1 {
