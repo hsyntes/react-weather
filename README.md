@@ -18,7 +18,7 @@ This project was updated with React JS.
 
 ![App Screenshot](./src/screenshots/desktop-view-light.png)
 
-![App Screenshot](./src/screenshots/desktop-view-dark.png.png)
+![App Screenshot](./src/screenshots/desktop-view-dark.png)
 
 - Searcing all cities in the world
 
