@@ -186,7 +186,6 @@
   }
 
   .nav-link img {
-    /* width: 72px !important; */
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
@@ -212,7 +211,6 @@
 
   .nav-link .card-body {
     text-align: start;
-    /* padding: 1rem 0; */
     padding: 0 !important;
     height: 120px !important;
     overflow: hidden;
