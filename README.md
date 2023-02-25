@@ -24,6 +24,8 @@ This project was updated with React JS.
 
 ![App Screenshot](./src/screenshots/mobile-view-dark-search.png)
 
+![App Screenshot](./src/screenshots/mobile-view-light-search.png)
+
 - Live weather data for your location and searched city
 
 ![App Screenshot](./src/screenshots/tablet-view-dark.png)
@@ -41,7 +43,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd react-weather
 ```
 
 Install dependencies
