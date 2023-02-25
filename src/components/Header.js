@@ -109,6 +109,7 @@ const Header = ({ searched }) => {
               placeholder="Searcy City"
               value={city}
               onChange={handleCityOnChange}
+              autoComplete="off"
             />
           </FloatingLabel>
         </Modal.Header>
