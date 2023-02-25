@@ -3,7 +3,7 @@ $secondary: #fed401;
 // $light: #1ad6fd;
 $light: lighten(
   $color: $primary,
-  $amount: 40,
+  $amount: 45,
 );
 $white: #fff;
 $dark: #212121;
@@ -98,7 +98,7 @@ $paragraph-margin-bottom: 0;
 
   .navbar-brand img,
   .weather-icon {
-    filter: drop-shadow(0 0 0.5rem rgba($color: $secondary, $alpha: 0.5));
+    filter: drop-shadow(0 0 1rem rgba($color: $secondary, $alpha: 0.15));
   }
 
   header {
@@ -152,7 +152,7 @@ $paragraph-margin-bottom: 0;
 
   .navbar-brand img,
   .weather-icon {
-    filter: drop-shadow(0 0 0.5rem rgba($color: $secondary, $alpha: 0.15));
+    filter: drop-shadow(0 0 0.5rem rgba($color: $secondary, $alpha: 0.5));
   }
 
   aside {

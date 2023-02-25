@@ -125,7 +125,7 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
                   y2={1}
                 >
                   <stop offset="0%" stopColor="#F5BC00" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#1f63ee" stopOpacity={0.5} />
+                  <stop offset="100%" stopColor="#1f63ee" stopOpacity={0.35} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="hour" />
@@ -142,7 +142,6 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
                 fillOpacity={1}
                 fill="url(#linear-gradient)"
                 stroke="#1f63ee"
-                // strokeWidth={1}
               />
             </AreaChart>
           </ResponsiveContainer>
