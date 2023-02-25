@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useRouteError } from "react-router-dom";
 
 const geoLocationPermission = () =>
@@ -49,36 +49,41 @@ const ErrorPage = () => {
         textAlign: "center",
       }}
     >
-      <img
-        src="https://img.icons8.com/fluency/192/null/sad-cloud.png"
-        alt="Error Page Icon"
-        loading="lazy"
-      />
-      <div style={{ marginTop: "-12%" }}>
-        <span className="fw-bolder" style={{ fontSize: "128px" }}>
-          OOPS!
-        </span>
-        <p className="text-muted" style={{ fontSize: "20px" }}>
-          {message}
-        </p>
-        <Button
-          type="button"
-          variant="primary"
-          className="d-flex align-items-center shadow mx-auto my-4"
-          onClick={() => {
-            geoLocationPermission().then((permissionStatus) => {
-              if (permissionStatus.state === "granted") navigate("/");
-              else alert("Please be sure that location is allowed.");
-            });
-          }}
-        >
-          <span className="me-2">See the Current Weather</span>
+      <Row>
+        <Col md="8">
           <img
-            src="https://img.icons8.com/color-glass/32/null/partly-cloudy-day--v1.png"
-            alt="Button Icon"
+            src="https://img.icons8.com/fluency/192/null/sad-cloud.png"
+            alt="Error Page Icon"
+            loading="lazy"
           />
-        </Button>
-      </div>
+          <div style={{ marginTop: "-100px" }}>
+            <span className="fw-bolder" style={{ fontSize: "96px" }}>
+              OOPS!
+            </span>
+            <p className="text-muted" style={{ fontSize: "20px" }}>
+              {message}
+            </p>
+            <Button
+              type="button"
+              variant="primary"
+              className="d-flex align-items-center shadow mx-auto my-4"
+              onClick={() => {
+                geoLocationPermission().then((permissionStatus) => {
+                  if (permissionStatus.state === "granted")
+                    window.location.reload();
+                  else alert("Please be sure that location is allowed.");
+                });
+              }}
+            >
+              <span className="me-2">See the Current Weather</span>
+              <img
+                src="https://img.icons8.com/color-glass/32/null/partly-cloudy-day--v1.png"
+                alt="Button Icon"
+              />
+            </Button>
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 };

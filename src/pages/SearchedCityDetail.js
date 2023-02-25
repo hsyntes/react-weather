@@ -44,7 +44,7 @@ const SearchedCityDetailPage = () => {
             <motion.div
               className="App"
               animate={{ opacity: [0, 1], scale: [0.95, 1] }}
-              transition={{ ease: "easeInOut", duration: 0.5 }}
+              transition={{ ease: "easeInOut", duration: 0.35 }}
             >
               <Panel>
                 <DailyWeatherPage
