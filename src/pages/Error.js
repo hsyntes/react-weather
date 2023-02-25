@@ -50,7 +50,7 @@ const ErrorPage = () => {
       }}
     >
       <Row className="justify-content-center">
-        <Col md="8">
+        <Col md="8" className="text-center">
           <img
             src="https://img.icons8.com/fluency/192/null/sad-cloud.png"
             alt="Error Page Icon"
