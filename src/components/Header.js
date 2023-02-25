@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
+  Button,
   Col,
+  Collapse,
   Container,
   FloatingLabel,
   Form,
@@ -11,8 +13,10 @@ import {
   Offcanvas,
   Row,
 } from "react-bootstrap";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAngleDown,
   faAngleLeft,
   faBars,
   faLocationDot,
@@ -22,12 +26,14 @@ import {
 import useInput from "../hooks/use-input";
 import Brand from "./Brand";
 import SearchedCityPage from "../pages/SearchedCity";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 const Header = ({ searched }) => {
   const [modal, setModal] = useState(false);
   const [offcanvas, setOffcanvas] = useState(false);
-  const locationsState = useSelector((state) => state.location);
+  const [collapse, setCollapse] = useState(false);
 
+  const locationsState = useSelector((state) => state.location);
   const { location } = locationsState;
 
   const {
@@ -37,6 +43,7 @@ const Header = ({ searched }) => {
 
   const handleModal = () => setModal(!modal);
   const handleOffcanvas = () => setOffcanvas(!offcanvas);
+  const handleCollapse = () => setCollapse(!collapse);
 
   return (
     <>
@@ -125,7 +132,61 @@ const Header = ({ searched }) => {
             onClick={handleOffcanvas}
           />
         </Offcanvas.Header>
-        <Offcanvas.Body></Offcanvas.Body>
+        <Offcanvas.Body>
+          <Offcanvas.Title>Developer Contact</Offcanvas.Title>
+          <Button
+            type="button"
+            variant="link"
+            className="d-flex align-items-center w-100 px-0"
+            onClick={handleCollapse}
+          >
+            <img
+              src="https://avatars.githubusercontent.com/u/69708483?s=400&u=7e5e2f43e9d02dec298e7bb375f265db157e20c1&v=4"
+              width={48}
+              alt="Developer Icon"
+              className="rounded-circle"
+            />
+            <div className="text-start ms-3">
+              <span>Huseyin Ates</span>
+              <br />
+              <span className="text-muted">React Developer</span>
+            </div>
+            <div className="ms-auto">
+              <motion.div
+                animate={collapse ? { rotateZ: 180 } : { rotateZ: 0 }}
+                transition={{ ease: "easeOut", duration: 0.5 }}
+              >
+                <FontAwesomeIcon icon={faAngleDown} size="lg" />
+              </motion.div>
+            </div>
+          </Button>
+          <Collapse in={collapse}>
+            <ListGroup>
+              <ListGroup.Item className="px-2">
+                <FontAwesomeIcon icon={faGithub} size="lg" />
+                <a
+                  href="https://www.github.com/hsyntes/"
+                  className="ms-2"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Github
+                </a>
+              </ListGroup.Item>
+              <ListGroup.Item className="px-2">
+                <FontAwesomeIcon icon={faLinkedin} size="lg" />
+                <a
+                  href="https://www.linkedin.com/in/hsyntes/"
+                  className="ms-2"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIN
+                </a>
+              </ListGroup.Item>
+            </ListGroup>
+          </Collapse>
+        </Offcanvas.Body>
       </Offcanvas>
     </>
   );
