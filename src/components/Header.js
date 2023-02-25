@@ -162,22 +162,22 @@ const Header = ({ searched }) => {
           </Button>
           <Collapse in={collapse}>
             <ListGroup>
-              <ListGroup.Item className="px-2">
+              <ListGroup.Item className="d-flex align-items-center px-2">
                 <FontAwesomeIcon icon={faGithub} size="lg" />
                 <a
                   href="https://www.github.com/hsyntes/"
-                  className="ms-2"
+                  className="d-block w-100 ms-3"
                   target="_blank"
                   rel="noreferrer"
                 >
                   Github
                 </a>
               </ListGroup.Item>
-              <ListGroup.Item className="px-2">
+              <ListGroup.Item className="d-flex align-items-center px-2">
                 <FontAwesomeIcon icon={faLinkedin} size="lg" />
                 <a
                   href="https://www.linkedin.com/in/hsyntes/"
-                  className="ms-2"
+                  className="d-block w-100 ms-3"
                   target="_blank"
                   rel="noreferrer"
                 >
