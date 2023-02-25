@@ -22,9 +22,7 @@ This project was updated with React JS.
 
 - Searcing all cities in the world
 
-![App Screenshot](./src/screenshots/mobile-view-dark-search.png)
-
-![App Screenshot](./src/screenshots/mobile-view-light-search.png)
+![App Screenshot](./src/screenshots/mobile-view-dark-search.png) ![App Screenshot](./src/screenshots/mobile-view-light-search.png)
 
 - Live weather data for your location and searched city
 
