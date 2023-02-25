@@ -41,7 +41,7 @@ const ErrorPage = () => {
   return (
     <Container
       style={{
-        width: "100%",
+        // width: "100%",
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -51,7 +51,7 @@ const ErrorPage = () => {
       }}
     >
       <img
-        src="https://img.icons8.com/fluency/256/null/sad-cloud.png"
+        src="https://img.icons8.com/fluency/192/null/sad-cloud.png"
         alt="Error Page Icon"
         loading="lazy"
       />
@@ -68,10 +68,8 @@ const ErrorPage = () => {
           className="d-flex align-items-center shadow mx-auto my-4"
           onClick={() => {
             geoLocationPermission().then((permissionStatus) => {
-              if (permissionStatus.state === "granted") {
-                if (error.code === 2) alert("Please connect to the internet.");
-                else navigate("/");
-              } else alert("Please be sure that location is allowed.");
+              if (permissionStatus.state === "granted") navigate("/");
+              else alert("Please be sure that location is allowed.");
             });
           }}
         >
