@@ -1,0 +1,206 @@
+$primary: #1f63ee;
+$seconday: #fed401;
+// $light: #1ad6fd;
+$light: lighten(
+  $color: $primary,
+  $amount: 40,
+);
+$white: #fff;
+$dark: #212121;
+$black: #191a19;
+
+$transition-base: 0.3s all ease-out;
+
+$enable-shadows: false;
+
+$border-radius: 0.75rem;
+// $border-color: $dark;
+// $border-color-dark: $light;
+
+$btn-focus-box-shadow: none;
+$btn-padding-y: 0.75rem;
+$btn-padding-x: 1rem;
+$btn-border-radius: $border-radius;
+$btn-transition: $transition-base;
+
+$nav-link-transition: $transition-base;
+
+$input-focus-box-shadow: none;
+$input-transition: $transition-base;
+$input-border-radius: $border-radius;
+$input-transition: $transition-base;
+
+$link-color: $dark;
+$link-color-dark: $white;
+$link-decoration: none;
+
+$modal-fade-transform: scale(0.95);
+$modal-backdrop-opacity: 1;
+
+$list-group-border-width: 0;
+$list-group-item-padding-x: 0;
+$list-group-bg: inherit;
+
+$headings-margin-bottom: 0;
+$paragraph-margin-bottom: 0;
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+[data-bs-theme="light"] {
+  --bs-body-bg: var(--bs-light);
+  --bs-body-color: var(--bs-dark);
+  --bs-link-color: var(--bs-dark);
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--bs-dark);
+  }
+
+  .card {
+    --bs-card-bg: var(--bs-white);
+  }
+
+  .modal {
+    --bs-modal-bg: var(--bs-white);
+  }
+
+  .modal-backdrop {
+    --bs-backdrop-bg: var(--bs-light);
+  }
+
+  .offcanvas {
+    --bs-offcanvas-bg: var(--bs-white);
+  }
+
+  .popover {
+    --bs-popover-bg: var(--bs-white);
+  }
+
+  aside {
+    background-color: $white;
+  }
+
+  .nav-link {
+    box-shadow: $box-shadow;
+    &:hover {
+      border: 1px solid $dark !important;
+      background-color: $light;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .nav-link.active {
+    border: 1px solid $dark;
+    background-color: $light;
+  }
+
+  .navbar-brand img,
+  .weather-icon {
+    filter: drop-shadow(0 0 0.5rem rgba($color: $seconday, $alpha: 0.5));
+  }
+
+  header {
+    background-color: var(--bs-white);
+  }
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--bs-black);
+  --bs-body-color: var(--bs-white);
+  --bs-link-color: var(--bs-white);
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--bs-white);
+  }
+
+  .card {
+    --bs-card-bg: var(--bs-dark);
+  }
+
+  .modal {
+    --bs-modal-bg: var(--bs-black);
+  }
+
+  .modal-backdrop {
+    --bs-backdrop-bg: var(--bs-dark);
+  }
+
+  input {
+    background-color: $dark;
+  }
+
+  .popover {
+    --bs-popover-bg: var(--bs-black);
+  }
+
+  .nav-link {
+    &:hover {
+      border: 1px solid $white !important;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .nav-link.active {
+    border: 1px solid $white;
+    background-color: $black;
+  }
+
+  .navbar-brand img,
+  .weather-icon {
+    filter: drop-shadow(0 0 0.5rem rgba($color: $seconday, $alpha: 0.15));
+  }
+
+  aside {
+    background-color: $dark;
+  }
+
+  header {
+    background-color: var(--bs-dark);
+  }
+}
+
+.card,
+.modal-content {
+  overflow: hidden;
+  border-radius: $border-radius;
+
+  .card-header,
+  .card-footer,
+  .modal-header,
+  .modal-footer {
+    background-color: inherit !important;
+    border: none !important;
+  }
+}
+
+.modal-content {
+  padding: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary;
+  border-radius: $border-radius;
+}
+
+#spinner {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: $zindex-modal;
+}
