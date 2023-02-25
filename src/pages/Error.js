@@ -49,7 +49,7 @@ const ErrorPage = () => {
         textAlign: "center",
       }}
     >
-      <Row>
+      <Row className="justify-content-center">
         <Col md="8">
           <img
             src="https://img.icons8.com/fluency/192/null/sad-cloud.png"
