@@ -49,8 +49,8 @@ const RootLayout = () => {
           dispatch(
             setTheme(
               new Date(),
-              new Date(sunsets.at(0)),
-              new Date(sunrises.at(0))
+              new Date(sunrises.at(0)),
+              new Date(sunsets.at(0))
             )
           );
 

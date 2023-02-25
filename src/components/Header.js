@@ -66,7 +66,7 @@ const Header = ({ searched }) => {
               )}
             </Col>
             <Col xs="8">
-              <span className="h2">
+              <span className="h3">
                 <FontAwesomeIcon icon={faLocationDot} />
                 <span className="ms-2">{location}</span>
               </span>

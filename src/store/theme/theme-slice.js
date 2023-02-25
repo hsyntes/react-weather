@@ -23,9 +23,10 @@ const themeSlice = createSlice({
 
 // Redux thunk
 export const setTheme = (currentDate, sunrise, sunset) => (dispatch) => {
-  if (currentDate > sunrise && currentDate < sunset)
+  if (currentDate < sunset && currentDate > sunrise)
     dispatch(themeSliceActions.switchTheme("light"));
-  else dispatch(themeSliceActions.switchTheme("dark"));
+  if (currentDate > sunset && currentDate < sunrise)
+    dispatch(themeSliceActions.switchTheme("dark"));
 };
 
 export const themeSliceActions = themeSlice.actions;

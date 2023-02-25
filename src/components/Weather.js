@@ -112,10 +112,10 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
           <span className="fs-4">{windspeed_unit}</span>
         </Col>
       </Row>
-      <Row className="justify-content-center my-3" style={{ height: "250px" }}>
+      <Row className="justify-content-center my-3" style={{ height: "200px" }}>
         <Col md="10" className="text-center">
-          <ResponsiveContainer width="100%" height={250}>
-            <AreaChart width="100%" height={250} data={data}>
+          <ResponsiveContainer width="100%" height={200}>
+            <AreaChart width="100%" height={200} data={data}>
               <defs>
                 <linearGradient
                   id="linear-gradient"
@@ -124,7 +124,7 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
                   x2={0}
                   y2={1}
                 >
-                  <stop offset="0%" stopColor="#fed401" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#F5BC00" stopOpacity={1} />
                   <stop offset="100%" stopColor="#1f63ee" stopOpacity={0.5} />
                 </linearGradient>
               </defs>
