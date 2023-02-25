@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import logo from "../logo.svg";
 
-const Splash = ({ children }) => {
+const Splash = () => {
   const animationState = useSelector((state) => state.animation);
   const { splash, flicker } = animationState;
 
