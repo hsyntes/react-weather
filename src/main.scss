@@ -81,6 +81,7 @@ $paragraph-margin-bottom: 0;
 
   header {
     background-color: $white;
+    box-shadow: var(--bs-box-shadow);
   }
 
   .nav-link {
