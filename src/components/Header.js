@@ -52,7 +52,7 @@ const Header = ({ searched }) => {
           <Row className="align-items-center">
             <Col xs="2">
               {searched ? (
-                <Link to=".." className="d-md-none">
+                <Link to="..">
                   <FontAwesomeIcon icon={faAngleLeft} size="xl" />
                 </Link>
               ) : (
