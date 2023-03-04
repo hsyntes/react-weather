@@ -45,9 +45,9 @@ const DailyWeatherPage = ({ daily, units }) => {
           }
         >
           <NavLink
-            to={`daily-weather/location=${location.split("/").at(1)}&day=${
-              times[index]
-            }&index=${index + 1}`}
+            to={`daily-weather/location=${location}&day=${times[index]}&index=${
+              index + 1
+            }`}
             className={({ isActive }) =>
               isActive ? "nav-link active p-0" : "nav-link border  p-0"
             }
