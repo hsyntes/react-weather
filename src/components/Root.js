@@ -1,9 +1,10 @@
 import { Outlet, useNavigation } from "react-router-dom";
-import { Container, Spinner } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import Panel from "./Panel";
 import DailyWeatherPage from "../pages/DailyWeather";
 import Header from "./Header";
+import Spinner from "./Spinner";
 
 const Root = ({ daily, units, current_weather, hourly }) => {
   const navigation = useNavigation();
@@ -18,10 +19,12 @@ const Root = ({ daily, units, current_weather, hourly }) => {
       transition={{ ease: "easeInOut", duration: 0.35 }}
     >
       <Panel>
-        <DailyWeatherPage
-          daily={daily}
-          units={{ temperature_unit, windspeed_unit }}
-        />
+        {navigation.state !== "loading" && (
+          <DailyWeatherPage
+            daily={daily}
+            units={{ temperature_unit, windspeed_unit }}
+          />
+        )}
       </Panel>
       <section
         id="content-section"
