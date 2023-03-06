@@ -9,7 +9,7 @@ import {
   faTemperatureHalf,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
-import getWeatherData from "../functions/getWeatherData";
+import getWeatherData from "../util/getWeatherData";
 
 const CustomTooltip = ({ active, payload, unit }) => {
   if (active && payload && payload.length) {

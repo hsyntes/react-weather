@@ -1,7 +1,7 @@
 import { useOutletContext, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Weather from "../components/Weather";
-import getDate from "../functions/getDate";
+import getDate from "../util/getDate";
 
 const DailyWeatherDetailPage = () => {
   const params = useParams();

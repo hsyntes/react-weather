@@ -13,7 +13,7 @@ import { locationSliceActions } from "../store/location/location-slice";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header";
 import Panel from "../components/Panel";
-import fetchData from "../functions/fetchData";
+import fetchData from "../util/fetchData";
 import DailyWeatherPage from "./DailyWeather";
 
 const SearchedCityDetailPage = () => {

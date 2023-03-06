@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
-import getWeatherData from "../functions/getWeatherData";
-import getDate from "../functions/getDate";
+import getWeatherData from "../util/getWeatherData";
+import getDate from "../util/getDate";
 
 const DailyWeatherPage = ({ daily, units }) => {
   const locationState = useSelector((state) => state.location);

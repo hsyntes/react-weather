@@ -16,9 +16,9 @@ import Spinner from "../components/Spinner";
 import Header from "../components/Header";
 import Panel from "../components/Panel";
 import DailyWeatherPage from "./DailyWeather";
-import getPosition from "../functions/getPosition";
-import fetchData from "../functions/fetchData";
-import setLocation from "../functions/setLocation";
+import getPosition from "../util/getPosition";
+import fetchData from "../util/fetchData";
+import setLocation from "../util/setLocation";
 
 const RootLayout = () => {
   const { weather } = useLoaderData();
