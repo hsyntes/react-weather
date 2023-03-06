@@ -107,7 +107,7 @@ const getWeatherData = (weathercode) => {
     case 77:
       return {
         icon: {
-          day: "https://img.icons8.com/color-glass/48/null/snowy-sunny-day.png",
+          day: "https://img.icons8.com/color-glass/512/null/snowy-sunny-day.png",
           night:
             "https://img.icons8.com/color-glass/512/null/light-snow--v1.png",
         },

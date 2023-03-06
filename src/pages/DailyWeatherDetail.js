@@ -8,7 +8,7 @@ const DailyWeatherDetailPage = () => {
   const { units, hourly, daily } = useOutletContext();
 
   const dayIndex = Number(
-    params.dailyWeatherDetail.split("&").at(2).split("=").at(1)
+    params.dailyWeatherDetail.split("&").at(1).split("=").at(1)
   );
 
   const { hourlyWeatherCodes, hourlyTimes, hourlyTemperatures } = hourly;

@@ -5,12 +5,24 @@ import Panel from "./Panel";
 import DailyWeatherPage from "../pages/DailyWeather";
 import Header from "./Header";
 import Spinner from "./Spinner";
+import { useDispatch } from "react-redux";
+import { setTheme } from "../store/theme/theme-slice";
 
-const Root = ({ daily, units, current_weather, hourly }) => {
+const Root = ({ daily, units, current_weather, hourly, searched }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const { temperature_unit, windspeed_unit } = units;
   const { hourlyWeatherCodes, hourlyTimes, hourlyTemperatures } = hourly;
+
+  const { sunset: sunsets, sunrise: sunrises } = daily;
+
+  console.log(sunsets, sunrises);
+
+  // Updating theme with Redux Thunk
+  dispatch(
+    setTheme(new Date(), new Date(sunrises.at(0)), new Date(sunsets.at(0)))
+  );
 
   return (
     <motion.div
@@ -31,7 +43,7 @@ const Root = ({ daily, units, current_weather, hourly }) => {
         className="text-center"
         style={{ width: "100%" }}
       >
-        <Header />
+        <Header searched={searched} />
         <main className="App-main">
           {navigation.state === "loading" ? (
             <Spinner />

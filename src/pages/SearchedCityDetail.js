@@ -16,7 +16,6 @@ const SearchedCityDetailPage = () => {
         {(weather) => {
           const { daily, daily_units, hourly, current_weather } = weather.data;
           const { city } = weather;
-          dispatch(locationSliceActions.locate(city));
 
           const {
             weathercode: hourlyWeatherCodes,
@@ -29,6 +28,8 @@ const SearchedCityDetailPage = () => {
             windspeed_10m_max: windspeed_unit,
           } = daily_units;
 
+          dispatch(locationSliceActions.locate(city));
+
           return (
             <Root
               daily={daily}
@@ -39,6 +40,7 @@ const SearchedCityDetailPage = () => {
                 hourlyTimes,
                 hourlyTemperatures,
               }}
+              searched={true}
             />
           );
         }}

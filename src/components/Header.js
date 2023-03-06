@@ -23,10 +23,10 @@ import {
   faSearch,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import useInput from "../hooks/use-input";
 import Brand from "./Brand";
 import SearchedCityPage from "../pages/SearchedCity";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 const Header = ({ searched }) => {
   const [modal, setModal] = useState(false);

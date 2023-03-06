@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { Await, defer, useLoaderData } from "react-router-dom";
 import { locationSliceActions } from "../store/location/location-slice";
-import { setTheme } from "../store/theme/theme-slice";
 import Splash from "../components/Splash";
 import Root from "../components/Root";
 import getPosition from "../util/getPosition";
@@ -18,7 +17,6 @@ const RootLayout = () => {
       <Await resolve={weather}>
         {(weather) => {
           const { daily, daily_units, hourly, current_weather } = weather.data;
-          const { sunset: sunsets, sunrise: sunrises } = daily;
           const { address } = weather.location;
           const location = setLocation(address);
 
@@ -32,15 +30,6 @@ const RootLayout = () => {
             temperature_2m_max: temperature_unit,
             windspeed_10m_max: windspeed_unit,
           } = daily_units;
-
-          // Updating theme with Redux Thunk
-          dispatch(
-            setTheme(
-              new Date(),
-              new Date(sunrises.at(0)),
-              new Date(sunsets.at(0))
-            )
-          );
 
           dispatch(locationSliceActions.locate(location));
 
