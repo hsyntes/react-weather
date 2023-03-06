@@ -1,24 +1,13 @@
 import { Suspense } from "react";
 import { useDispatch } from "react-redux";
-import {
-  Await,
-  defer,
-  Outlet,
-  useLoaderData,
-  useNavigation,
-} from "react-router-dom";
-import { Container } from "react-bootstrap";
-import { motion } from "framer-motion";
+import { Await, defer, useLoaderData } from "react-router-dom";
 import { locationSliceActions } from "../store/location/location-slice";
 import Spinner from "../components/Spinner";
-import Header from "../components/Header";
-import Panel from "../components/Panel";
+import Root from "../components/Root";
 import fetchData from "../util/fetchData";
-import DailyWeatherPage from "./DailyWeather";
 
 const SearchedCityDetailPage = () => {
   const { weather } = useLoaderData();
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   return (
@@ -41,45 +30,16 @@ const SearchedCityDetailPage = () => {
           } = daily_units;
 
           return (
-            <motion.div
-              className="App"
-              animate={{ opacity: [0, 1], scale: [0.95, 1] }}
-              transition={{ ease: "easeInOut", duration: 0.35 }}
-            >
-              <Panel>
-                <DailyWeatherPage
-                  daily={daily}
-                  units={{ temperature_unit, windspeed_unit }}
-                />
-              </Panel>
-              <section
-                id="content-section"
-                className="text-center"
-                style={{ width: "100%" }}
-              >
-                <Header searched={true} />
-                <main className="App-main">
-                  {navigation.state === "loading" ? (
-                    <Spinner />
-                  ) : (
-                    <Container>
-                      <Outlet
-                        context={{
-                          current_weather: current_weather,
-                          daily: daily,
-                          units: { temperature_unit, windspeed_unit },
-                          hourly: {
-                            hourlyWeatherCodes,
-                            hourlyTimes,
-                            hourlyTemperatures,
-                          },
-                        }}
-                      />
-                    </Container>
-                  )}
-                </main>
-              </section>
-            </motion.div>
+            <Root
+              daily={daily}
+              units={{ temperature_unit, windspeed_unit }}
+              current_weather={current_weather}
+              hourly={{
+                hourlyWeatherCodes,
+                hourlyTimes,
+                hourlyTemperatures,
+              }}
+            />
           );
         }}
       </Await>
