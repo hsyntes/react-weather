@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
-import { Card, Nav, OverlayTrigger, Popover } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { Card, Nav, OverlayTrigger, Popover } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
@@ -8,10 +7,6 @@ import getWeatherData from "../util/getWeatherData";
 import getDate from "../util/getDate";
 
 const DailyWeatherPage = ({ daily, units }) => {
-  const locationState = useSelector((state) => state.location);
-
-  const { location } = locationState;
-
   const {
     time,
     weathercode,
