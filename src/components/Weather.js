@@ -125,8 +125,7 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
                   y2={1}
                 >
                   <stop offset="0%" stopColor="#F5BC00" stopOpacity={1} />
-                  <stop offset="75%" stopColor="#1f63ee" stopOpacity={0.35} />
-                  <stop offset="100%" stopColor="#fff" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="#1f63ee" stopOpacity={0.35} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="hour" />
