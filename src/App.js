@@ -7,8 +7,8 @@ import HomePage from "./pages/Home";
 import { loader as weatherLoader } from "./pages/Root";
 import Spinner from "./components/Spinner";
 
-const SearchedCityDetailPage = lazy(() => import("./pages/SearchedCityDetail"));
 const DailyWeatherDetailPage = lazy(() => import("./pages/DailyWeatherDetail"));
+const SearchedCityDetailPage = lazy(() => import("./pages/SearchedCityDetail"));
 
 const router = createBrowserRouter([
   {
