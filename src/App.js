@@ -4,11 +4,10 @@ import "./App.css";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/Error";
 import HomePage from "./pages/Home";
-import SearchedCityDetailPage from "./pages/SearchedCityDetail";
 import { loader as weatherLoader } from "./pages/Root";
-import { loader as searchedCityLoader } from "./pages/SearchedCityDetail";
 import Spinner from "./components/Spinner";
 
+const SearchedCityDetailPage = lazy(() => import("./pages/SearchedCityDetail"));
 const DailyWeatherDetailPage = lazy(() => import("./pages/DailyWeatherDetail"));
 
 const router = createBrowserRouter([
@@ -31,8 +30,15 @@ const router = createBrowserRouter([
   },
   {
     path: "search/:searchedCityDetail",
-    element: <SearchedCityDetailPage />,
-    loader: searchedCityLoader,
+    element: (
+      <Suspense fallback={<Spinner />}>
+        <SearchedCityDetailPage />
+      </Suspense>
+    ),
+    loader: ({ params }) =>
+      import("./pages/SearchedCityDetail").then((module) =>
+        module.loader({ params })
+      ),
     children: [
       { index: true, element: <HomePage /> },
       {
