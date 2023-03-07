@@ -33,7 +33,6 @@ $link-color-dark: $white;
 $link-decoration: none;
 
 $modal-fade-transform: scale(0.95);
-// $modal-backdrop-opacity: 1;
 
 $offcanvas-border-width: 0;
 
@@ -204,4 +203,10 @@ $paragraph-margin-bottom: 0;
   align-items: center;
   justify-content: center;
   z-index: $zindex-modal;
+}
+
+@media (max-width: 768px) {
+  .modal-backdrop {
+    --bs-backdrop-opacity: 1 !important;
+  }
 }

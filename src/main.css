@@ -11853,4 +11853,10 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: center;
   z-index: 1055;
+}
+
+@media (max-width: 768px) {
+  .modal-backdrop {
+    --bs-backdrop-opacity: 1 !important;
+  }
 }/*# sourceMappingURL=main.css.map */
