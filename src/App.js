@@ -1,12 +1,15 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/Error";
 import HomePage from "./pages/Home";
-import DailyWeatherDetailPage from "./pages/DailyWeatherDetail";
 import SearchedCityDetailPage from "./pages/SearchedCityDetail";
 import { loader as weatherLoader } from "./pages/Root";
-import { loader as searchedWeatherLoader } from "./pages/SearchedCityDetail";
+import { loader as searchedCityLoader } from "./pages/SearchedCityDetail";
+import Spinner from "./components/Spinner";
+
+const DailyWeatherDetailPage = lazy(() => import("./pages/DailyWeatherDetail"));
 
 const router = createBrowserRouter([
   {
@@ -18,19 +21,27 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       {
         path: "daily-weather/:dailyWeatherDetail",
-        element: <DailyWeatherDetailPage />,
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <DailyWeatherDetailPage />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "search/:searchedCityDetail",
     element: <SearchedCityDetailPage />,
-    loader: searchedWeatherLoader,
+    loader: searchedCityLoader,
     children: [
       { index: true, element: <HomePage /> },
       {
         path: "daily-weather/:dailyWeatherDetail",
-        element: <DailyWeatherDetailPage />,
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <DailyWeatherDetailPage />
+          </Suspense>
+        ),
       },
     ],
   },
