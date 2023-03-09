@@ -51,7 +51,7 @@ const RootLayout = () => {
   );
 };
 
-export const weatherLoader = async () => {
+const weatherLoader = async () => {
   const position = await getPosition();
   const { latitude, longitude } = position.coords;
 

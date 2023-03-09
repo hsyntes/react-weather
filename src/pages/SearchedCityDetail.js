@@ -51,7 +51,7 @@ const SearchedCityDetailPage = () => {
 
 export default SearchedCityDetailPage;
 
-export const searchedCityLoader = async (params) => {
+const searchedCityLoader = async (params) => {
   const { searchedCityDetail } = params;
 
   const [latitude, longitude, city] = [
