@@ -66,10 +66,12 @@ const Header = ({ searched }) => {
               )}
             </Col>
             <Col xs="8">
-              <span className="h4">
-                <FontAwesomeIcon icon={faLocationDot} />
-                <span className="ms-2">{location}</span>
-              </span>
+              {location !== null && (
+                <span className="h4">
+                  <FontAwesomeIcon icon={faLocationDot} />
+                  <span className="ms-2">{location}</span>
+                </span>
+              )}
             </Col>
             <Col xs="2">
               {!searched && (
