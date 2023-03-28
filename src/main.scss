@@ -45,6 +45,10 @@ $paragraph-margin-bottom: 0;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+header {
+  background-color: var(--bs-body-bg);
+}
+
 [data-bs-theme="light"] {
   --bs-body-bg: var(--bs-light);
   --bs-body-color: var(--bs-dark);
@@ -76,11 +80,6 @@ $paragraph-margin-bottom: 0;
 
   aside {
     background-color: $white;
-  }
-
-  header {
-    background-color: $white;
-    box-shadow: var(--bs-box-shadow);
   }
 
   .nav-link {
@@ -132,10 +131,6 @@ $paragraph-margin-bottom: 0;
   }
 
   aside {
-    background-color: $dark;
-  }
-
-  header {
     background-color: $dark;
   }
 

@@ -11718,6 +11718,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+header {
+  background-color: var(--bs-body-bg);
+}
+
 [data-bs-theme=light] {
   --bs-body-bg: var(--bs-light);
   --bs-body-color: var(--bs-dark);
@@ -11743,10 +11747,6 @@ textarea.form-control-lg {
 }
 [data-bs-theme=light] aside {
   background-color: #fff;
-}
-[data-bs-theme=light] header {
-  background-color: #fff;
-  box-shadow: var(--bs-box-shadow);
 }
 [data-bs-theme=light] .nav-link {
   box-shadow: 0 0.5rem 1rem rgba(var(--bs-body-color-rgb), 0.15);
@@ -11788,9 +11788,6 @@ textarea.form-control-lg {
   --bs-popover-bg: var(--bs-black);
 }
 [data-bs-theme=dark] aside {
-  background-color: #212121;
-}
-[data-bs-theme=dark] header {
   background-color: #212121;
 }
 [data-bs-theme=dark] input {
