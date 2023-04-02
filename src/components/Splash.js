@@ -45,7 +45,7 @@ const Splash = () => {
             <h4 className="ms-2">React-Weather</h4>
           </Toast.Header>
           <Toast.Body>
-            Please make sure that you have your location turned on.
+            Please make sure that your location turned on.
           </Toast.Body>
         </Toast>
       </ToastContainer>
