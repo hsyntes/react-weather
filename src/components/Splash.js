@@ -14,7 +14,7 @@ const Splash = () => {
   useEffect(() => {
     const identifier = setTimeout(() => {
       setToast(true);
-    }, 5000);
+    }, 7500);
 
     return () => clearTimeout(identifier);
   }, [toast]);
