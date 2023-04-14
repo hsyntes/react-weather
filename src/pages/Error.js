@@ -41,7 +41,9 @@ const ErrorPage = () => {
 
   return (
     <>
-      <Header />
+      <Container className="px-3">
+        <Header />
+      </Container>
       <Container
         style={{
           height: "100vh",
