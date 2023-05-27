@@ -86,41 +86,73 @@ const Header = ({ searched }) => {
           </Row>
         </Container>
       </header>
-      <Modal
-        show={modal}
-        onHide={handleModal}
-        fullscreen="md-down"
-        centered
-        scrollable
-      >
-        <Modal.Header className="d-block">
-          <div className="d-flex align-items-start mb-3">
-            <span className="h4">Search City</span>
-            <FontAwesomeIcon
-              icon={faTimes}
-              size="xl"
-              className="ms-auto"
-              style={{ cursor: "pointer" }}
-              onClick={handleModal}
-            />
-          </div>
-          <FloatingLabel label="Search City">
-            <Form.Control
-              type="text"
-              name="city"
-              placeholder="Searcy City"
-              value={city}
-              onChange={handleCityOnChange}
-              autoComplete="off"
-            />
-          </FloatingLabel>
-        </Modal.Header>
-        <Modal.Body style={city === "" ? undefined : { height: "300px" }}>
-          <ListGroup>
-            <SearchedCityPage city={city} />
-          </ListGroup>
-        </Modal.Body>
-      </Modal>
+      {window.matchMedia("(max-width: 768px").matches ? (
+        <Offcanvas show={modal} onHide={handleModal} placement="bottom">
+          <Offcanvas.Header className="d-block p-4">
+            <div className="d-flex align-items-start mb-3">
+              <span className="h4">Search City</span>
+              <FontAwesomeIcon
+                icon={faTimes}
+                size="xl"
+                className="ms-auto"
+                style={{ cursor: "pointer" }}
+                onClick={handleModal}
+              />
+            </div>
+            <FloatingLabel label="Search City">
+              <Form.Control
+                type="text"
+                name="city"
+                placeholder="Searcy City"
+                value={city}
+                onChange={handleCityOnChange}
+                autoComplete="off"
+              />
+            </FloatingLabel>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <ListGroup>
+              <SearchedCityPage city={city} />
+            </ListGroup>
+          </Offcanvas.Body>
+        </Offcanvas>
+      ) : (
+        <Modal
+          show={modal}
+          onHide={handleModal}
+          fullscreen="md-down"
+          centered
+          scrollable
+        >
+          <Modal.Header className="d-block">
+            <div className="d-flex align-items-start mb-3">
+              <span className="h4">Search City</span>
+              <FontAwesomeIcon
+                icon={faTimes}
+                size="xl"
+                className="ms-auto"
+                style={{ cursor: "pointer" }}
+                onClick={handleModal}
+              />
+            </div>
+            <FloatingLabel label="Search City">
+              <Form.Control
+                type="text"
+                name="city"
+                placeholder="Searcy City"
+                value={city}
+                onChange={handleCityOnChange}
+                autoComplete="off"
+              />
+            </FloatingLabel>
+          </Modal.Header>
+          <Modal.Body style={city === "" ? undefined : { height: "300px" }}>
+            <ListGroup>
+              <SearchedCityPage city={city} />
+            </ListGroup>
+          </Modal.Body>
+        </Modal>
+      )}
       <Offcanvas show={offcanvas} onHide={handleOffcanvas} placement="start">
         <Offcanvas.Header>
           <Brand
