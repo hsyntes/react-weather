@@ -66,23 +66,23 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
           {temperature.hasOwnProperty("max") ? (
             <>
               <FontAwesomeIcon icon={faSun} />
-              <span className="fs-3 ms-1">{Math.round(temperature.max)}</span>
-              <sup className="fs-5">{temperature_unit}</sup>
+              <span className="fs-4 ms-1">{Math.round(temperature.max)}</span>
+              <sup className="fs-6">{temperature_unit}</sup>
               <br />
               <FontAwesomeIcon icon={faMoon} />
-              <span className="fs-3 ms-1">{Math.round(temperature.min)}</span>
-              <sup className="fs-5">{temperature_unit}</sup>
+              <span className="fs-4 ms-1">{Math.round(temperature.min)}</span>
+              <sup className="fs-6">{temperature_unit}</sup>
             </>
           ) : (
             <>
               <FontAwesomeIcon
                 icon={faTemperatureHalf}
-                size="xl"
+                size="lg"
                 className="me-1"
               />
-              <span className="fs-1">{Math.round(temperature)}</span>
+              <span className="fs-4">{Math.round(temperature)}</span>
               <br />
-              <span className="fs-2">{temperature_unit}</span>
+              <span className="fs-6">{temperature_unit}</span>
             </>
           )}
         </Col>
@@ -98,7 +98,7 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
           />
         </Col>
         <Col xs="3" className="text-start">
-          <FontAwesomeIcon icon={faWind} className="me-1" size="xl" />
+          <FontAwesomeIcon icon={faWind} className="me-1" size="lg" />
           {windspeed.hasOwnProperty("max") ? (
             <span className="fs-3">
               {Math.round(
@@ -106,10 +106,10 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
               )}
             </span>
           ) : (
-            <span className="fs-1">{Math.round(windspeed)}</span>
+            <span className="fs-4">{Math.round(windspeed)}</span>
           )}
           <br />
-          <span className="fs-4">{windspeed_unit}</span>
+          <span className="fs-6">{windspeed_unit}</span>
         </Col>
       </Row>
       <Row className="justify-content-center my-3" style={{ height: "200px" }}>
