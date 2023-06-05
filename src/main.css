@@ -10575,7 +10575,7 @@ header {
 }
 [data-bs-theme=light] .navbar-brand img,
 [data-bs-theme=light] .weather-icon {
-  filter: drop-shadow(0 0 0.5rem rgba(254, 212, 1, 0.15));
+  filter: drop-shadow(0 0 0.5rem rgba(254, 212, 1, 0.1));
 }
 
 [data-bs-theme=dark] {
@@ -10616,7 +10616,7 @@ header {
 }
 [data-bs-theme=dark] .navbar-brand img,
 [data-bs-theme=dark] .weather-icon {
-  filter: drop-shadow(0 0 0.5rem rgba(254, 212, 1, 0.15));
+  filter: drop-shadow(0 0 0.5rem rgba(254, 212, 1, 0.1));
 }
 
 .card,
