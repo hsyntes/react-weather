@@ -100,7 +100,7 @@ const Weather = ({ weather, units, date, hourlyWeathers }) => {
         <Col xs="3" className="text-start">
           <FontAwesomeIcon icon={faWind} className="me-1" size="lg" />
           {windspeed.hasOwnProperty("max") ? (
-            <span className="fs-3">
+            <span className="fs-4">
               {Math.round(
                 (Math.round(windspeed.max) - Math.round(windspeed.min)) / 2
               )}
