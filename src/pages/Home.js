@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import Weather from "../components/Weather";
-import getDate from "../util/getDate";
+import getDate from "../utils/getDate";
 
 const HomePage = () => {
   const { units, hourly, current_weather } = useOutletContext();

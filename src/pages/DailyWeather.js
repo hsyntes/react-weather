@@ -3,8 +3,8 @@ import { Card, Nav, OverlayTrigger, Popover } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
-import getWeatherData from "../util/getWeatherData";
-import getDate from "../util/getDate";
+import getWeatherData from "../utils/getWeatherData";
+import getDate from "../utils/getDate";
 
 const DailyWeatherPage = ({ daily, units }) => {
   const {

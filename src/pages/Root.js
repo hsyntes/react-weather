@@ -4,9 +4,9 @@ import { Await, defer, useLoaderData } from "react-router-dom";
 import { locationSliceActions } from "../store/location/location-slice";
 import Splash from "../components/Splash";
 import Root from "../components/Root";
-import getPosition from "../util/getPosition";
-import fetchData from "../util/fetchData";
-import setLocation from "../util/setLocation";
+import getPosition from "../utils/getPosition";
+import fetchData from "../utils/fetchData";
+import setLocation from "../utils/setLocation";
 
 const RootLayout = () => {
   const { weather } = useLoaderData();

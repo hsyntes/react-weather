@@ -4,7 +4,7 @@ import { Await, defer, useLoaderData } from "react-router-dom";
 import { locationSliceActions } from "../store/location/location-slice";
 import Spinner from "../components/Spinner";
 import Root from "../components/Root";
-import fetchData from "../util/fetchData";
+import fetchData from "../utils/fetchData";
 
 const SearchedCityDetailPage = () => {
   const { weather } = useLoaderData();
