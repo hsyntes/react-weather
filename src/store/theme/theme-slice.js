@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Initial state for theme
+// * Initial state for theme
 const initialState = {
   theme: null,
 };
 
-// Theme slice
+// * Theme slice
 const themeSlice = createSlice({
   name: "theme",
   initialState,
@@ -21,7 +21,7 @@ const themeSlice = createSlice({
   },
 });
 
-// Redux thunk
+// * Redux thunk to update the state
 export const setTheme = (currentDate, sunrise, sunset) => (dispatch) => {
   if (currentDate < sunset || currentDate > sunrise)
     dispatch(themeSliceActions.switchTheme("light"));

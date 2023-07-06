@@ -7,9 +7,11 @@ import HomePage from "./pages/Home";
 import { loader as weatherLoader } from "./pages/Root";
 import Spinner from "./components/Spinner";
 
+// * Lazy loading
 const DailyWeatherDetailPage = lazy(() => import("./pages/DailyWeatherDetail"));
 const SearchedCityDetailPage = lazy(() => import("./pages/SearchedCityDetail"));
 
+// * App routes
 const router = createBrowserRouter([
   {
     path: "/",

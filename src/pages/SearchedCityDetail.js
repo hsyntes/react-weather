@@ -51,6 +51,7 @@ const SearchedCityDetailPage = () => {
 
 export default SearchedCityDetailPage;
 
+// * React-Router loader function
 const searchedCityLoader = async (params) => {
   const { searchedCityDetail } = params;
 
@@ -67,5 +68,6 @@ const searchedCityLoader = async (params) => {
   return { data, city };
 };
 
+// * Deferring the loader function for asynchronous rendering
 export const loader = ({ params }) =>
   defer({ weather: searchedCityLoader(params) });

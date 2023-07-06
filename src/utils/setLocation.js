@@ -1,6 +1,7 @@
 const setLocation = (address) => {
   let location;
 
+  // * Filtering user's location
   if (address.province || address.city)
     location = address.province || address.city;
   else location = address.country;

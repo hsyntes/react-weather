@@ -10,6 +10,7 @@ const SearchedCityPage = ({ city }) => {
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // * Fetching data
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError(false);

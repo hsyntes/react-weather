@@ -1,5 +1,6 @@
 import { json } from "react-router-dom";
 
+// * Refactoring the fetching data
 const fetchData = async (api) => {
   const response = await fetch(api);
 

@@ -11,6 +11,7 @@ const geoLocationPermission = () =>
       .catch((permissionStatus) => rej(permissionStatus))
   );
 
+// * Customizing the error messages so that user's can understand
 const ErrorPage = () => {
   const [isGeoLocationAllowed, setIsGeoLocationAllowed] = useState(false);
 

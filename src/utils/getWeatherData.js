@@ -1,3 +1,5 @@
+// * Setting up the weather data according to
+// * WMO Weather interpretation codes (WW)
 const getWeatherData = (weathercode) => {
   switch (weathercode) {
     case 0:

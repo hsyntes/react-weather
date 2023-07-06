@@ -51,6 +51,7 @@ const RootLayout = () => {
   );
 };
 
+// * React-Router loader function to fetch data frim APIs
 const weatherLoader = async () => {
   const position = await getPosition();
   const { latitude, longitude } = position.coords;
@@ -68,6 +69,7 @@ const weatherLoader = async () => {
   return { data, location };
 };
 
+// * Deferring the loader function for asynchronous rendering
 export const loader = () => defer({ weather: weatherLoader() });
 
 export default RootLayout;

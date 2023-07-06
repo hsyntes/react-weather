@@ -17,7 +17,7 @@ const Root = ({ daily, units, current_weather, hourly, searched }) => {
 
   const { sunset: sunsets, sunrise: sunrises } = daily;
 
-  // Updating theme with Redux Thunk
+  // * Updating theme with Redux Thunk
   dispatch(
     setTheme(new Date(), new Date(sunrises.at(0)), new Date(sunsets.at(0)))
   );

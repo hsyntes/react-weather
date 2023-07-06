@@ -38,6 +38,7 @@ const Splash = () => {
           <FontAwesomeIcon icon={faSearch} className="ms-2" />
         </motion.p>
       </div>
+      {/* If user's location not allowed show the warning message */}
       <ToastContainer position="bottom-center" style={{ marginBottom: "10vh" }}>
         <Toast show={toast} animation={true}>
           <Toast.Header closeButton={false}>
