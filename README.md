@@ -1,32 +1,23 @@
 # React-Weather
 
-Weather forecast application for web browsers with React JS.
+Weather application with React.
+Hourly, daily and weekly weather forecast both all of the cities in the world and by your current location.
 
 [React-Weather](https://react-weatherjs.netlify.app)
 
 ![logo](/public/logo192.png)
 
-## Appendix
-
-This project was updated with React JS.
-
-## Authors
-
-- [@hsyntes](https://www.github.com/hsyntes)
-
 ## Features
 
-- Light/dark mode by sunset and sunrise
-
-![App Screenshot](./src/img/desktop-view-light.png)
+- Seach all **cities** in the world
+- **Dark/Light** theme according to your time
+- Responsive: Desktop, Tablet and Mobile view
+- Current, hourly and daily weather
+  ![App Screenshot](./src/img/desktop-view-light.png)
 
 ![App Screenshot](./src/img/desktop-view-dark.png)
 
-- Searcing all cities in the world
-
 ![App Screenshot](./src/img/mobile-view-dark-search.png) ![App Screenshot](./src/img/mobile-view-light-search.png)
-
-- Live weather data for your location and searched city
 
 ![App Screenshot](./src/img/tablet-view-dark.png)
 
@@ -58,11 +49,6 @@ Start the server
   npm start
 ```
 
-## Feedback
-
-If you have any feedback, please reach out to me at below links.
-
 ## 🔗 Links
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hsyntes)
-[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/hsyntes)
