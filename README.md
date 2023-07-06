@@ -2,7 +2,7 @@
 
 Weather forecast application for web browsers with React JS.
 
-[React-Weather](https://weatherfor.netlify.app)
+[React-Weather](https://react-weatherjs.netlify.app)
 
 ![logo](/public/logo192.png)
 
