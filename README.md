@@ -9,7 +9,7 @@ Hourly, daily and weekly weather forecast both all of the cities in the world an
 
 ## Features
 
-- Seach all **cities** in the world
+- Search all **cities** in the world
 - **Dark/Light** theme according to your time
 - Responsive: Desktop, Tablet and Mobile view
 - Current, hourly and daily weather
