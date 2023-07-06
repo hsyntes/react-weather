@@ -13,7 +13,8 @@ Hourly, daily and weekly weather forecast both all of the cities in the world an
 - **Dark/Light** theme according to your time
 - Responsive: Desktop, Tablet and Mobile view
 - Current, hourly and daily weather
-  ![App Screenshot](./src/img/desktop-view-light.png)
+
+![App Screenshot](./src/img/desktop-view-light.png)
 
 ![App Screenshot](./src/img/desktop-view-dark.png)
 
