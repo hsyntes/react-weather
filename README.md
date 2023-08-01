@@ -12,9 +12,9 @@ React-Weather is a user-friendly weather application built using React, React-Ro
 - Responsive Design: Enjoy a seamless experience on both desktop and mobile devices.
 - State Management: Leverage Redux for state management, ensuring a smooth and synchronized user experience.
 
-![App Screenshot](./src/img/desktop-view-light.png)
+![App Screenshot](/src/img/desktop-view-light.png)
 
-![App Screenshot](./src/img/desktop-view-dark.png)
+![App Screenshot](/src/img/desktop-view-dark.png)
 
 <br />
 
@@ -27,11 +27,11 @@ React-Weather is a user-friendly weather application built using React, React-Ro
 - RESTCountries API: Retrieve country information and details.
 - React-Bootstrap: Styling with CSS for a visually appealing and responsive design.
 
-![App Screenshot](./src/img/mobile-view-dark-search.png)&emsp;![App Screenshot](./src/img/mobile-view-light-search.png)
+![App Screenshot](src/img/mobile-view-dark-search.png)&emsp;![App Screenshot](src/img/mobile-view-light-search.png)
 
-![App Screenshot](./src/img/tablet-view-dark.png)
+![App Screenshot](src/img/tablet-view-dark.png)
 
-![App Screenshot](./src/img/tablet-view-light.png)
+![App Screenshot](src/img/tablet-view-light.png)
 
 <br />
 
