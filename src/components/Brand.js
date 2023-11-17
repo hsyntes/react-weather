@@ -9,7 +9,7 @@ const Brand = ({ onClick }) => {
       onClick={onClick}
     >
       <img src={logo} width={32} alt="App logo" />
-      <h1 className="fs-2 ms-2">React-Weather</h1>
+      <h1 className="fs-2 fw-bold ms-2">React-Weather</h1>
     </Link>
   );
 };
