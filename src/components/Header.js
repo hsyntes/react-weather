@@ -184,7 +184,7 @@ const Header = ({ searched }) => {
             <div className="text-start ms-3">
               <span>Huseyin Ates</span>
               <br />
-              <span className="text-muted">React Developer</span>
+              <span className="text-muted">MERN Developer</span>
             </div>
             <div className="ms-auto">
               <motion.div
